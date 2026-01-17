@@ -1,0 +1,24 @@
+{
+  "id": "2",
+  "slug": "premium-hoodie",
+  "name": "Premium Hoodie",
+  "description": "Heavyweight hoodie designed for maximum comfort. Perfect blend of cotton and polyester for durability and warmth.",
+  "price": 100000,
+  "category": "hoodies",
+  "tags": ["hoodie", "winter", "comfort"],
+  "sizes": ["S", "M", "L", "XL", "XXL"],
+  "colors": ["Black", "Grey", "Olive"],
+  "images": [
+    "/products/premium-hoodie/1.jpg",
+    "/products/premium-hoodie/2.jpg"
+  ],
+  "featured": true,
+  "inStock": true,
+  "details": {
+    "fabric": "80% Cotton, 20% Polyester",
+    "care": "Machine wash warm, do not bleach."
+  },
+  "fit": "Regular Fit",
+  "createdAt": "2026-01-17T00:00:00.000Z",
+  "updatedAt": "2026-01-17T00:00:00.000Z"
+}

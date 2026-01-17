@@ -1,0 +1,24 @@
+{
+  "id": "4",
+  "slug": "premium-denim-jeans",
+  "name": "Premium Denim Jeans",
+  "description": "High-quality denim jeans with a modern slim fit. Comfortable stretch fabric for all-day wear.",
+  "price": 100000,
+  "category": "jeans",
+  "tags": ["denim", "jeans", "casual"],
+  "sizes": ["28", "30", "32", "34", "36", "38"],
+  "colors": ["Dark Blue", "Light Blue", "Black"],
+  "images": [
+    "/products/premium-denim-jeans/1.jpg",
+    "/products/premium-denim-jeans/2.jpg"
+  ],
+  "featured": true,
+  "inStock": true,
+  "details": {
+    "fabric": "98% Cotton, 2% Elastane",
+    "care": "Wash inside out, with like colors."
+  },
+  "fit": "Slim Fit",
+  "createdAt": "2026-01-17T00:00:00.000Z",
+  "updatedAt": "2026-01-17T00:00:00.000Z"
+}

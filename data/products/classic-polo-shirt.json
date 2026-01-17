@@ -1,0 +1,24 @@
+{
+  "id": "3",
+  "slug": "classic-polo-shirt",
+  "name": "Classic Polo Shirt",
+  "description": "Timeless polo shirt made from 100% pique cotton. Perfect for smart casual occasions.",
+  "price": 50000,
+  "category": "polo",
+  "tags": ["polo", "smart casual", "cotton"],
+  "sizes": ["S", "M", "L", "XL", "XXL"],
+  "colors": ["Black", "White", "Navy", "Red"],
+  "images": [
+    "/products/classic-polo-shirt/1.jpg",
+    "/products/classic-polo-shirt/2.jpg"
+  ],
+  "featured": true,
+  "inStock": true,
+  "details": {
+    "fabric": "100% Pique Cotton",
+    "care": "Machine wash cold, hang dry."
+  },
+  "fit": "Regular Fit",
+  "createdAt": "2026-01-17T00:00:00.000Z",
+  "updatedAt": "2026-01-17T00:00:00.000Z"
+}

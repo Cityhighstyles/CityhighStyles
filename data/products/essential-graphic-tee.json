@@ -1,0 +1,24 @@
+{
+  "id": "1",
+  "slug": "essential-graphic-tee",
+  "name": "Essential Graphic Tee",
+  "description": "Premium cotton graphic tee with modern designs. Perfect for everyday wear with superior comfort and style.",
+  "price": 60000,
+  "category": "tees",
+  "tags": ["casual", "graphic", "cotton"],
+  "sizes": ["S", "M", "L", "XL", "XXL"],
+  "colors": ["Black", "White", "Grey"],
+  "images": [
+    "https://m.media-amazon.com/images/I/61x7r7LXMLL._AC_UY1000_.jpg",
+    "https://m.media-amazon.com/images/I/61ETIupdWLL._AC_UY1000_.jpg"
+  ],
+  "featured": true,
+  "inStock": true,
+  "details": {
+    "fabric": "100% Premium Cotton",
+    "care": "Machine wash cold, tumble dry low."
+  },
+  "fit": "Oversized Fit",
+  "createdAt": "2026-01-17T00:00:00.000Z",
+  "updatedAt": "2026-01-17T00:00:00.000Z"
+}
