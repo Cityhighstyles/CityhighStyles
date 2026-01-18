@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import { getFeaturedProducts } from '@/lib/products';
 import ProductGrid from '@/components/ProductGrid';

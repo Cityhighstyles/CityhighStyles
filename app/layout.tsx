@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_NG',
-    url: 'https://cityhighstyles.github.io',
+    url: 'https://cityhighstyles.vercel.app',
     siteName: 'City High Styles',
     title: 'City High Styles - Premium Men\'s Fashion',
     description: 'Discover premium clothing for men. Quality fashion at affordable prices.',

@@ -1,6 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@source "./app/**/*.{js,ts,jsx,tsx,mdx}";
+@source "./components/**/*.{js,ts,jsx,tsx,mdx}";
+@source "./contexts/**/*.{ts,tsx}";
+@source "./lib/**/*.{ts,tsx}";
+@source "./data/**/*.{json}";
 
 :root {
   --foreground-rgb: 0, 0, 0;
