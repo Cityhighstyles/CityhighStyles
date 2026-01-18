@@ -55,6 +55,27 @@ export async function createOrUpdateFile(
   try {
     const contentEncoded = Buffer.from(content).toString('base64');
     
+    // If SHA is not provided, try to get it by checking if file exists
+    let fileSha = sha;
+    if (!fileSha) {
+      try {
+        const { data } = await octokit.repos.getContent({
+          owner,
+          repo,
+          path,
+          ref: branch,
+        });
+        if ('sha' in data) {
+          fileSha = data.sha;
+        }
+      } catch (error: any) {
+        // File doesn't exist, that's fine - we'll create it
+        if (error.status !== 404) {
+          throw error;
+        }
+      }
+    }
+    
     const response = await octokit.repos.createOrUpdateFileContents({
       owner,
       repo,
@@ -62,7 +83,7 @@ export async function createOrUpdateFile(
       message,
       content: contentEncoded,
       branch,
-      ...(sha && { sha }),
+      ...(fileSha && { sha: fileSha }),
     });
 
     return response.data;
