@@ -1,12 +1,11 @@
-"use server";
 import { Octokit } from '@octokit/rest';
 
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
 });
 
-const owner = "Cityhighstyles";
-const repo = "CityhighStyles"
+const owner = process.env.GITHUB_OWNER!;
+const repo = process.env.GITHUB_REPO!;
 const branch = process.env.GITHUB_BRANCH || 'main';
 
 export async function getFileContent(path: string): Promise<string | null> {

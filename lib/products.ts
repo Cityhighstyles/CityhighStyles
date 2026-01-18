@@ -1,4 +1,3 @@
-"use server";
 import { Product } from '@/types';
 import { getFileContent, listFiles, createOrUpdateFile, deleteFile } from './github';
 
@@ -62,15 +61,4 @@ export async function deleteProduct(slug: string): Promise<void> {
   const message = `Delete product: ${slug}`;
 
   await deleteFile(path, message);
-}
-
-export function generateSlug(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
-
-export function formatPrice(price: number): string {
-  return '₦' + price.toLocaleString('en-NG');
 }

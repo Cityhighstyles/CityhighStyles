@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { getAllProducts } from '@/lib/products';
 import { Product } from '@/types';
 import ProductForm from './ProductForm';
 import ProductList from './ProductList';
@@ -19,8 +18,19 @@ export default function AdminDashboard() {
 
   const loadProducts = async () => {
     setLoading(true);
-    const allProducts = await getAllProducts();
-    setProducts(allProducts);
+    try {
+      const response = await fetch('/api/products');
+      if (response.ok) {
+        const allProducts = await response.json();
+        setProducts(allProducts);
+      } else {
+        console.error('Failed to fetch products');
+        setProducts([]);
+      }
+    } catch (error) {
+      console.error('Error loading products:', error);
+      setProducts([]);
+    }
     setLoading(false);
   };
 
