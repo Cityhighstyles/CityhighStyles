@@ -1,3 +1,4 @@
+"use server";
 import { Product } from '@/types';
 import { getFileContent, listFiles, createOrUpdateFile, deleteFile } from './github';
 
