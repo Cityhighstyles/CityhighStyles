@@ -3,10 +3,10 @@ import { getProductBySlug } from '@/lib/products';
 
 export async function GET(
   request: Request,
-  { params }: { params: { slug: string } }
+  context: { params: { slug: string } }
 ) {
   try {
-    const product = await getProductBySlug(params.slug);
+    const product = await getProductBySlug(context.params.slug);
     
     if (!product) {
       return NextResponse.json(
