@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Product } from '@/types';
-import { formatPrice } from '@/lib/products';
+import { formatPrice } from '@/lib/utils';
 
 interface ProductCardProps {
   product: Product;

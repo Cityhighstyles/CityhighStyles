@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Product } from '@/types';
-import { formatPrice } from '@/lib/products';
+import { formatPrice } from '@/lib/utils';
 import { useCart } from '@/contexts/CartContext';
 
 interface ProductDetailsProps {

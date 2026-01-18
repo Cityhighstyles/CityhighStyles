@@ -1,7 +1,8 @@
 'use server';
 
 import { Product } from '@/types';
-import { saveProduct, deleteProduct as deleteProductFile, generateSlug } from '@/lib/products';
+import { saveProduct, deleteProduct as deleteProductFile } from '@/lib/products';
+import { generateSlug } from '@/lib/utils';
 import { uploadImage } from '@/lib/github';
 import { revalidatePath } from 'next/cache';
 

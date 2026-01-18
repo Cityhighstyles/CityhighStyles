@@ -3,7 +3,7 @@
 import { useCart } from '@/contexts/CartContext';
 import Image from 'next/image';
 import Link from 'next/link';
-import { formatPrice } from '@/lib/products';
+import { formatPrice } from '@/lib/utils';
 import { generateWhatsAppUrl } from '@/lib/whatsapp';
 
 export default function CartPage() {
