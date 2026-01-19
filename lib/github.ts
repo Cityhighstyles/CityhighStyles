@@ -122,14 +122,47 @@ export async function deleteFile(path: string, message: string) {
 export async function uploadImage(
   productSlug: string,
   fileName: string,
-  content: string
+  base64Content: string
 ): Promise<string> {
-  const path = `public/products/${productSlug}/${fileName}`;
-  const message = `Add image ${fileName} for ${productSlug}`;
-  
-  await createOrUpdateFile(path, content, message);
-  
-  return `/products/${productSlug}/${fileName}`;
+  try {
+    const path = `public/products/${productSlug}/${fileName}`;
+    const message = `Add image ${fileName} for ${productSlug}`;
+    
+    // Get SHA if file exists
+    let fileSha: string | undefined;
+    try {
+      const { data } = await octokit.repos.getContent({
+        owner,
+        repo,
+        path,
+        ref: branch,
+      });
+      if ('sha' in data) {
+        fileSha = data.sha;
+      }
+    } catch (error: any) {
+      // File doesn't exist, that's fine
+      if (error.status !== 404) {
+        throw error;
+      }
+    }
+    
+    // Upload directly with base64 content (don't double-encode)
+    await octokit.repos.createOrUpdateFileContents({
+      owner,
+      repo,
+      path,
+      message,
+      content: base64Content,
+      branch,
+      ...(fileSha && { sha: fileSha }),
+    });
+    
+    return `/products/${productSlug}/${fileName}`;
+  } catch (error) {
+    console.error(`Error uploading image ${fileName}:`, error);
+    throw error;
+  }
 }
 
 export { octokit };
