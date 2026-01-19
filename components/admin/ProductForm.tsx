@@ -46,7 +46,22 @@ export default function ProductForm({ product, onClose }: ProductFormProps) {
     setLoading(true);
     setError('');
 
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData();
+
+    // Add all text fields from the form
+    const form = e.currentTarget;
+    formData.append('name', (form.elements.namedItem('name') as HTMLInputElement).value);
+    formData.append('price', (form.elements.namedItem('price') as HTMLInputElement).value);
+    formData.append('description', (form.elements.namedItem('description') as HTMLTextAreaElement).value);
+    formData.append('category', (form.elements.namedItem('category') as HTMLSelectElement).value);
+    formData.append('fit', (form.elements.namedItem('fit') as HTMLInputElement).value);
+    formData.append('sizes', (form.elements.namedItem('sizes') as HTMLInputElement).value);
+    formData.append('colors', (form.elements.namedItem('colors') as HTMLInputElement).value);
+    formData.append('tags', (form.elements.namedItem('tags') as HTMLInputElement).value);
+    formData.append('fabric', (form.elements.namedItem('fabric') as HTMLInputElement).value);
+    formData.append('care', (form.elements.namedItem('care') as HTMLInputElement).value);
+    formData.append('featured', (form.elements.namedItem('featured') as HTMLInputElement).checked ? 'true' : 'false');
+    formData.append('inStock', (form.elements.namedItem('inStock') as HTMLInputElement).checked ? 'true' : 'false');
 
     try {
       let result;
@@ -56,14 +71,25 @@ export default function ProductForm({ product, onClose }: ProductFormProps) {
         formData.append('createdAt', product.createdAt);
         formData.append('existingImages', JSON.stringify(existingImages));
         
-        // Add new images
+        // Add new images from state (not from file input)
         newImageFiles.forEach((file) => {
           formData.append('newImages', file);
         });
         
         result = await updateProduct(product.slug, formData);
       } else {
-        // Create new product
+        // Create new product - validate images
+        if (newImageFiles.length === 0) {
+          setError('At least one image is required');
+          setLoading(false);
+          return;
+        }
+        
+        // Add images from state (not from file input)
+        newImageFiles.forEach((file) => {
+          formData.append('images', file);
+        });
+        
         result = await createProduct(formData);
       }
 
@@ -316,18 +342,21 @@ export default function ProductForm({ product, onClose }: ProductFormProps) {
           <div>
             <input
               type="file"
-              name={product ? 'newImages' : 'images'}
               accept="image/*"
               multiple
               onChange={handleNewImageSelect}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900"
-              required={!product && existingImages.length === 0 && newImageFiles.length === 0}
             />
             <p className="text-sm text-gray-600 mt-1">
               {product 
                 ? 'Add more images to this product. First image will be the main image.' 
                 : 'Select multiple images. First image will be the main image.'}
             </p>
+            {!product && newImageFiles.length === 0 && (
+              <p className="text-sm text-red-600 mt-1">
+                At least one image is required
+              </p>
+            )}
           </div>
         </div>
 
