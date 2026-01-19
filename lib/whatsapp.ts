@@ -1,12 +1,12 @@
 import { Cart, CartItem } from '@/types';
 
 export function generateWhatsAppMessage(cart: Cart): string {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://cityhighstyles.vercel.app';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://cityhighstyles.github.io';
   const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'City High Styles';
 
-  let message = `${encodeURIComponent('🛍️')} *New Order from ${siteName}*\n\n`;
-  message += `${encodeURIComponent('📦')} *Order Details:*\n`;
-  message += `${encodeURIComponent('━━━━━━━━━━━━━━━━')}\n\n`;
+  let message = `🛍️ *New Order from ${siteName}*\n\n`;
+  message += `📦 *Order Details:*\n`;
+  message += `━━━━━━━━━━━━━━━━\n\n`;
 
   cart.items.forEach((item, index) => {
     message += `${index + 1}. *${item.name}*\n`;
@@ -18,9 +18,9 @@ export function generateWhatsAppMessage(cart: Cart): string {
     message += `   🔗 Link: ${siteUrl}/product/${item.slug}\n\n`;
   });
 
-  message += `${encodeURIComponent('━━━━━━━━━━━━━━━━')}\n`;
-  message += `${encodeURIComponent('💰')} *Total Amount: ₦${cart.total.toLocaleString('en-NG')}*\n`;
-  message += `${encodeURIComponent('📊')} Total Items: ${cart.itemCount}\n\n`;
+  message += `━━━━━━━━━━━━━━━━\n`;
+  message += `💰 *Total Amount: ₦${cart.total.toLocaleString('en-NG')}*\n`;
+  message += `📊 Total Items: ${cart.itemCount}\n\n`;
   message += `🔗 Website: ${siteUrl}\n\n`;
   message += `I would like to proceed with this order. Please confirm availability and provide payment details. Thank you! 🙏`;
 
