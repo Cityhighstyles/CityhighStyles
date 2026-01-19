@@ -1,6 +1,5 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { getProductBySlug, getAllProducts } from '@/lib/products';
 import ProductDetails from '@/components/ProductDetails';
 
 interface ProductPageProps {
@@ -9,21 +8,16 @@ interface ProductPageProps {
   };
 }
 
-export async function generateStaticParams() {
-  const products = await getAllProducts();
-  return products.map((product) => ({
-    slug: product.slug,
-  }));
-}
-
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
-  const product = await getProductBySlug(params.slug);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/${params.slug}`);
 
-  if (!product) {
+  if (!response.ok) {
     return {
       title: 'Product Not Found',
     };
   }
+
+  const product = await response.json();
 
   return {
     title: `${product.name} - City High Styles`,
@@ -37,11 +31,13 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
-  const product = await getProductBySlug(params.slug);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/${params.slug}`);
 
-  if (!product) {
+  if (!response.ok) {
     notFound();
   }
+
+  const product = await response.json();
 
   return <ProductDetails product={product} />;
 }
