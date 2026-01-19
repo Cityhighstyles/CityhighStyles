@@ -9,8 +9,6 @@
   "sizes": ["28", "30", "32", "34", "36", "38"],
   "colors": ["Dark Blue", "Light Blue", "Black"],
   "images": [
-    "/products/premium-denim-jeans/1.jpg",
-    "/products/premium-denim-jeans/2.jpg"
   ],
   "featured": true,
   "inStock": true,
