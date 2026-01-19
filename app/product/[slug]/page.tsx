@@ -9,7 +9,7 @@ interface ProductPageProps {
 }
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/${params.slug}`);
+  const response = await fetch(`/api/products/${params.slug}`);
 
   if (!response.ok) {
     return {
@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/${params.slug}`);
+  const response = await fetch(`api/products/${params.slug}`);
 
   if (!response.ok) {
     notFound();
@@ -39,5 +39,4 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   const product = await response.json();
 
-  return <ProductDetails product={product} />;
 }
