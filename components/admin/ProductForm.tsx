@@ -23,7 +23,18 @@ export default function ProductForm({ product, onClose }: ProductFormProps) {
 
   const handleNewImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
-    setNewImageFiles(prev => [...prev, ...files]);
+    const totalSize = files.reduce((acc, file) => acc + file.size, 0) / (1024 * 1024); // Convert to MB
+
+    if (totalSize > 3) {
+      alert('Total image size exceeds 3MB. Please select smaller files.');
+      return;
+    }
+
+    setNewImageFiles((prev) => {
+      const existingFileNames = new Set(prev.map((file) => file.name));
+      const newUniqueFiles = files.filter((file) => !existingFileNames.has(file.name));
+      return [...prev, ...newUniqueFiles];
+    });
   };
 
   const handleRemoveNewImage = (index: number) => {
