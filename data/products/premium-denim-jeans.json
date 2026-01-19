@@ -5,10 +5,35 @@
   "description": "High-quality denim jeans with a modern slim fit. Comfortable stretch fabric for all-day wear.",
   "price": 100000,
   "category": "jeans",
-  "tags": ["denim", "jeans", "casual"],
-  "sizes": ["28", "30", "32", "34", "36", "38"],
-  "colors": ["Dark Blue", "Light Blue", "Black"],
+  "tags": [
+    "denim",
+    "jeans",
+    "casual"
+  ],
+  "sizes": [
+    "28",
+    "30",
+    "32",
+    "34",
+    "36",
+    "38"
+  ],
+  "colors": [
+    "Dark Blue",
+    "Light Blue",
+    "Black"
+  ],
   "images": [
+    "/products/premium-denim-jeans/image-1768848669034-1.jpg",
+    "/products/premium-denim-jeans/image-1768848669706-2.jpg",
+    "/products/premium-denim-jeans/image-1768848670371-3.jpg",
+    "/products/premium-denim-jeans/image-1768848671019-4.jpg",
+    "/products/premium-denim-jeans/image-1768848671541-5.jpg",
+    "/products/premium-denim-jeans/image-1768848672148-6.jpg",
+    "/products/premium-denim-jeans/image-1768848672634-7.jpg",
+    "/products/premium-denim-jeans/image-1768848673175-8.jpg",
+    "/products/premium-denim-jeans/image-1768848673712-9.jpg",
+    "/products/premium-denim-jeans/image-1768848674276-10.jpg"
   ],
   "featured": true,
   "inStock": true,
@@ -18,5 +43,5 @@
   },
   "fit": "Slim Fit",
   "createdAt": "2026-01-17T00:00:00.000Z",
-  "updatedAt": "2026-01-17T00:00:00.000Z"
+  "updatedAt": "2026-01-19T18:51:14.775Z"
 }
