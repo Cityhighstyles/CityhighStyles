@@ -1,5 +1,5 @@
 {
-  "id": "1768773394115",
+  "id": "1768821743670",
   "slug": "classic-polo-shirt",
   "name": "Classic Polo Shirt",
   "description": "Timeless polo shirt made from 100% pique cotton. Perfect for smart casual occasions.",
@@ -24,14 +24,7 @@
     "Red"
   ],
   "images": [
-    "/products/classic-polo-shirt/image-1.jpg",
-    "/products/classic-polo-shirt/image-2.jpg",
-    "/products/classic-polo-shirt/image-3.jpg",
-    "/products/classic-polo-shirt/image-4.jpg",
-    "/products/classic-polo-shirt/image-5.jpg",
-    "/products/classic-polo-shirt/image-6.jpg",
-    "/products/classic-polo-shirt/image-7.jpg",
-    "/products/classic-polo-shirt/image-8.jpg"
+    "/products/classic-polo-shirt/image-1.jpg"
   ],
   "featured": true,
   "inStock": true,
@@ -40,6 +33,6 @@
     "care": "Machine wash cold, hang dry."
   },
   "fit": "Regular Fit",
-  "createdAt": "2026-01-18T21:56:34.116Z",
-  "updatedAt": "2026-01-18T21:56:34.116Z"
+  "createdAt": "2026-01-19T11:22:23.670Z",
+  "updatedAt": "2026-01-19T11:22:23.671Z"
 }
