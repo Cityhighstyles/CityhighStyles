@@ -31,7 +31,8 @@
     "/products/classic-polo-shirt/image-5.jpg",
     "/products/classic-polo-shirt/image-6.jpg",
     "/products/classic-polo-shirt/image-7.jpg",
-    "/products/classic-polo-shirt/image-8.jpg"
+    "/products/classic-polo-shirt/image-8.jpg",
+    "/products/classic-polo-shirt/image-1768823322838-1.jpg"
   ],
   "featured": true,
   "inStock": true,
@@ -41,5 +42,5 @@
   },
   "fit": "Regular Fit",
   "createdAt": "2026-01-19T11:31:09.362Z",
-  "updatedAt": "2026-01-19T11:31:09.362Z"
+  "updatedAt": "2026-01-19T11:50:43.024Z"
 }
