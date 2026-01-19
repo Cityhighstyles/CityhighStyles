@@ -5,9 +5,9 @@ import { getCategoryBySlug, categories } from '@/lib/categories';
 import ProductGrid from '@/components/ProductGrid';
 
 interface CategoryPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export async function generateStaticParams() {
@@ -17,7 +17,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
-  const category = getCategoryBySlug(params.slug);
+  const { slug } = await params;
+  const category = getCategoryBySlug(slug);
 
   if (!category) {
     return {
@@ -32,13 +33,14 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
-  const category = getCategoryBySlug(params.slug);
+  const { slug } = await params;
+  const category = getCategoryBySlug(slug);
 
   if (!category) {
     notFound();
   }
 
-  const products = await getProductsByCategory(params.slug);
+  const products = await getProductsByCategory(slug);
 
   return (
     <div className="container mx-auto px-4 py-8">
