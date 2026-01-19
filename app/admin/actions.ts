@@ -85,6 +85,24 @@ export async function updateProduct(slug: string, formData: FormData) {
     const inStock = formData.get('inStock') === 'true';
     const existingImages = JSON.parse(formData.get('existingImages') as string || '[]');
 
+    // Handle new image uploads
+    const newImageFiles = formData.getAll('newImages') as File[];
+    const uploadedNewImages: string[] = [];
+
+    for (let i = 0; i < newImageFiles.length; i++) {
+      const file = newImageFiles[i];
+      if (file.size > 0) {
+        const buffer = await file.arrayBuffer();
+        const base64 = Buffer.from(buffer).toString('base64');
+        const fileName = `image-${Date.now()}-${i + 1}.jpg`;
+        const imagePath = await uploadImage(slug, fileName, base64);
+        uploadedNewImages.push(imagePath);
+      }
+    }
+
+    // Combine existing and new images
+    const allImages = [...existingImages, ...uploadedNewImages];
+
     const product: Product = {
       id: formData.get('id') as string,
       slug,
@@ -95,7 +113,7 @@ export async function updateProduct(slug: string, formData: FormData) {
       tags,
       sizes,
       colors,
-      images: existingImages,
+      images: allImages,
       featured,
       inStock,
       details: { fabric, care },

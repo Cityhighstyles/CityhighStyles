@@ -8,10 +8,11 @@ import Image from 'next/image';
 interface ProductListProps {
   products: Product[];
   onEdit: (product: Product) => void;
+  onView: (product: Product) => void;
   onRefresh: () => void;
 }
 
-export default function ProductList({ products, onEdit, onRefresh }: ProductListProps) {
+export default function ProductList({ products, onEdit, onView, onRefresh }: ProductListProps) {
   const handleDelete = async (product: Product) => {
     if (!confirm(`Are you sure you want to delete "${product.name}"?`)) {
       return;
@@ -108,6 +109,12 @@ export default function ProductList({ products, onEdit, onRefresh }: ProductList
                 </td>
                 <td className="px-6 py-4 text-sm">
                   <div className="flex gap-2">
+                    <button
+                      onClick={() => onView(product)}
+                      className="text-green-600 hover:text-green-800 font-medium"
+                    >
+                      View
+                    </button>
                     <button
                       onClick={() => onEdit(product)}
                       className="text-blue-600 hover:text-blue-800 font-medium"

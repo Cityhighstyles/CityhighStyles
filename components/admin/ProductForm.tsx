@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Product } from '@/types';
 import { createProduct, updateProduct } from '@/app/admin/actions';
 import { categories } from '@/lib/categories';
+import Image from 'next/image';
 
 interface ProductFormProps {
   product: Product | null;
@@ -13,6 +14,21 @@ interface ProductFormProps {
 export default function ProductForm({ product, onClose }: ProductFormProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [existingImages, setExistingImages] = useState<string[]>(product?.images || []);
+  const [newImageFiles, setNewImageFiles] = useState<File[]>([]);
+
+  const handleRemoveExistingImage = (index: number) => {
+    setExistingImages(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const handleNewImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    setNewImageFiles(prev => [...prev, ...files]);
+  };
+
+  const handleRemoveNewImage = (index: number) => {
+    setNewImageFiles(prev => prev.filter((_, i) => i !== index));
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,7 +43,13 @@ export default function ProductForm({ product, onClose }: ProductFormProps) {
         // Update existing product
         formData.append('id', product.id);
         formData.append('createdAt', product.createdAt);
-        formData.append('existingImages', JSON.stringify(product.images));
+        formData.append('existingImages', JSON.stringify(existingImages));
+        
+        // Add new images
+        newImageFiles.forEach((file) => {
+          formData.append('newImages', file);
+        });
+        
         result = await updateProduct(product.slug, formData);
       } else {
         // Create new product
@@ -207,23 +229,96 @@ export default function ProductForm({ product, onClose }: ProductFormProps) {
           </div>
         </div>
 
-        {/* Images */}
-        {!product && (
+        {/* Images Section */}
+        <div className="space-y-4">
+          <label className="block text-sm font-medium">Product Images {!product && '*'}</label>
+          
+          {/* Existing Images (for edit mode) */}
+          {product && existingImages.length > 0 && (
+            <div>
+              <p className="text-sm text-gray-600 mb-3">Current Images ({existingImages.length})</p>
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                {existingImages.map((image, index) => (
+                  <div key={index} className="relative group">
+                    <div className="relative aspect-square bg-gray-100 rounded-lg overflow-hidden border-2 border-gray-200">
+                      <Image
+                        src={image}
+                        alt={`Product ${index + 1}`}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 50vw, (max-width: 1024px) 25vw, 16vw"
+                      />
+                      {index === 0 && (
+                        <div className="absolute bottom-2 left-2 bg-blue-600 text-white text-xs px-2 py-1 rounded">
+                          Main
+                        </div>
+                      )}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveExistingImage(index)}
+                      className="absolute -top-2 -right-2 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-700 shadow-lg"
+                      title="Remove image"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* New Images Preview */}
+          {newImageFiles.length > 0 && (
+            <div>
+              <p className="text-sm text-gray-600 mb-3">New Images to Upload ({newImageFiles.length})</p>
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                {newImageFiles.map((file, index) => (
+                  <div key={index} className="relative group">
+                    <div className="relative aspect-square bg-gray-100 rounded-lg overflow-hidden border-2 border-green-300">
+                      <Image
+                        src={URL.createObjectURL(file)}
+                        alt={`New ${index + 1}`}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 50vw, (max-width: 1024px) 25vw, 16vw"
+                      />
+                      <div className="absolute top-2 left-2 bg-green-600 text-white text-xs px-2 py-1 rounded">
+                        New
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveNewImage(index)}
+                      className="absolute -top-2 -right-2 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-700 shadow-lg"
+                      title="Remove image"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Add Images Input */}
           <div>
-            <label className="block text-sm font-medium mb-2">Product Images *</label>
             <input
               type="file"
-              name="images"
+              name={product ? 'newImages' : 'images'}
               accept="image/*"
               multiple
+              onChange={handleNewImageSelect}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900"
-              required
+              required={!product && existingImages.length === 0 && newImageFiles.length === 0}
             />
             <p className="text-sm text-gray-600 mt-1">
-              Select multiple images. First image will be the main image.
+              {product 
+                ? 'Add more images to this product. First image will be the main image.' 
+                : 'Select multiple images. First image will be the main image.'}
             </p>
           </div>
-        )}
+        </div>
 
         {/* Checkboxes */}
         <div className="flex gap-6">

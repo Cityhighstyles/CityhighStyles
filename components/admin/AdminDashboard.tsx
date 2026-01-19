@@ -4,12 +4,14 @@ import { useState, useEffect } from 'react';
 import { Product } from '@/types';
 import ProductForm from './ProductForm';
 import ProductList from './ProductList';
+import ProductView from './ProductView';
 import { logout } from '@/lib/auth';
 
 export default function AdminDashboard() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
+  const [viewingProduct, setViewingProduct] = useState<Product | null>(null);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 
   useEffect(() => {
@@ -39,8 +41,14 @@ export default function AdminDashboard() {
     setShowForm(true);
   };
 
+  const handleView = (product: Product) => {
+    setViewingProduct(product);
+    setShowForm(false);
+  };
+
   const handleEdit = (product: Product) => {
     setEditingProduct(product);
+    setViewingProduct(null);
     setShowForm(true);
   };
 
@@ -48,6 +56,10 @@ export default function AdminDashboard() {
     setShowForm(false);
     setEditingProduct(null);
     loadProducts();
+  };
+
+  const handleViewClose = () => {
+    setViewingProduct(null);
   };
 
   const handleLogout = async () => {
@@ -77,7 +89,9 @@ export default function AdminDashboard() {
       </div>
 
       <div className="container mx-auto px-4 py-8">
-        {showForm ? (
+        {viewingProduct ? (
+          <ProductView product={viewingProduct} onClose={handleViewClose} onEdit={handleEdit} />
+        ) : showForm ? (
           <ProductForm
             product={editingProduct}
             onClose={handleFormClose}
@@ -92,6 +106,7 @@ export default function AdminDashboard() {
               <ProductList
                 products={products}
                 onEdit={handleEdit}
+                onView={handleView}
                 onRefresh={loadProducts}
               />
             )}
