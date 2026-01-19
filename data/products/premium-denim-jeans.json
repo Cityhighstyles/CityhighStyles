@@ -28,7 +28,11 @@
     "/products/premium-denim-jeans/image-1768848669706-2.jpg",
     "/products/premium-denim-jeans/image-1768848670371-3.jpg",
     "/products/premium-denim-jeans/image-1768848671019-4.jpg",
-    "/products/premium-denim-jeans/image-1768848671541-5.jpg"
+    "/products/premium-denim-jeans/image-1768848671541-5.jpg",
+    "/products/premium-denim-jeans/image-1768849072403-1.jpg",
+    "/products/premium-denim-jeans/image-1768849073007-2.jpg",
+    "/products/premium-denim-jeans/image-1768849073543-3.jpg",
+    "/products/premium-denim-jeans/image-1768849074062-4.jpg"
   ],
   "featured": true,
   "inStock": true,
@@ -38,5 +42,5 @@
   },
   "fit": "Slim Fit",
   "createdAt": "2026-01-17T00:00:00.000Z",
-  "updatedAt": "2026-01-19T18:57:11.597Z"
+  "updatedAt": "2026-01-19T18:57:54.581Z"
 }
