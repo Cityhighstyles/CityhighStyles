@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Category } from '@/types';
+import { updateCategory } from '@/app/admin/categoryActions';
 import Image from 'next/image';
 
 interface CategoryFormProps {
@@ -13,7 +14,6 @@ interface CategoryFormProps {
 export default function CategoryForm({ category, onClose, onSave }: CategoryFormProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-
   const [imagePreview, setImagePreview] = useState(category?.image || '');
   const [imageFile, setImageFile] = useState<File | null>(null);
 
@@ -22,37 +22,28 @@ export default function CategoryForm({ category, onClose, onSave }: CategoryForm
     setLoading(true);
     setError('');
 
-    const form = e.currentTarget;
-    const slug = (form.elements.namedItem('slug') as HTMLInputElement).value;
-    const title = (form.elements.namedItem('title') as HTMLInputElement).value;
-    const description = (form.elements.namedItem('description') as HTMLTextAreaElement).value;
-    let image = (form.elements.namedItem('image') as HTMLInputElement).value;
-
-    // If a file is selected, upload it via API
+    const formData = new FormData(e.currentTarget);
+    
+    // Add the image file if one was selected
     if (imageFile) {
-      const formData = new FormData();
-      formData.append('file', imageFile);
-      formData.append('slug', slug);
-      const res = await fetch('/api/categories/upload', {
-        method: 'POST',
-        body: formData,
-      });
-      const data = await res.json();
-      if (data.url) {
-        image = data.url;
-      }
+      formData.append('imageFile', imageFile);
     }
 
-    const updatedCategory: Category = {
-      slug,
-      title,
-      description,
-      image,
-    };
-
     try {
-      onSave(updatedCategory);
-      onClose();
+      const result = await updateCategory(formData);
+      
+      if (result.success) {
+        const slug = formData.get('slug') as string;
+        const title = formData.get('title') as string;
+        const description = formData.get('description') as string;
+        const image = formData.get('image') as string;
+        
+        onSave({ slug, title, description, image });
+        alert('Category updated successfully!');
+        onClose();
+      } else {
+        setError(result.error || 'Failed to save category');
+      }
     } catch (err) {
       setError('Failed to save category');
     } finally {

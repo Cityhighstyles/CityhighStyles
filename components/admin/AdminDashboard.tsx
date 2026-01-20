@@ -81,22 +81,11 @@ export default function AdminDashboard() {
   };
 
   const handleSaveCategory = async (category: Category) => {
-    try {
-      const response = await fetch('/api/categories', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(category),
-      });
-
-      if (response.ok) {
-        const updatedCategories = categories.map((cat) =>
-          cat.slug === category.slug ? category : cat
-        );
-        setCategories(updatedCategories);
-      }
-    } catch (error) {
-      console.error('Error saving category:', error);
-    }
+    // Update local state - the actual save is handled by the CategoryForm
+    const updatedCategories = categories.map((cat) =>
+      cat.slug === category.slug ? category : cat
+    );
+    setCategories(updatedCategories);
   };
 
   const handleLogout = async () => {
