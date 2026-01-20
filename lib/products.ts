@@ -50,7 +50,18 @@ export async function getFeaturedProducts(limit = 8): Promise<Product[]> {
 
 export async function saveProduct(product: Product): Promise<void> {
   const path = `${PRODUCTS_DIR}/${product.slug}.json`;
-  const content = JSON.stringify(product, null, 2);
+  // Ensure all image URLs have the correct prefix
+  const GITHUB_PAGES_PREFIX = 'https://cityhighstyles.github.io/public';
+  const normalizeImage = (img: string) =>
+    img.startsWith('http') ? img : `${GITHUB_PAGES_PREFIX}${img.startsWith('/') ? '' : '/'}${img}`;
+
+  const normalizedProduct = {
+    ...product,
+    images: Array.isArray(product.images)
+      ? product.images.map(normalizeImage)
+      : product.images,
+  };
+  const content = JSON.stringify(normalizedProduct, null, 2);
   const message = `Update product: ${product.name}`;
 
   await createOrUpdateFile(path, content, message);
