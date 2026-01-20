@@ -1,15 +1,22 @@
 'use server';
 
+
 import { Category } from '@/types';
 import { createOrUpdateFile, getFileContent } from '@/lib/github';
 import { uploadImage } from '@/lib/github';
 import { revalidatePath } from 'next/cache';
+import { generateSlug } from '@/lib/utils';
 
 export async function updateCategory(formData: FormData) {
   try {
-    const slug = formData.get('slug') as string;
+    let slug = formData.get('slug') as string | null;
     const title = formData.get('title') as string;
     const description = formData.get('description') as string;
+
+    // If slug is missing or empty, generate from title
+    if (!slug || slug.trim() === '') {
+      slug = generateSlug(title);
+    }
 
     // Always require an image file
     const imageFile = formData.get('imageFile') as File | null;
