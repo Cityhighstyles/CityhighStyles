@@ -24,6 +24,7 @@ export interface Category {
   slug: string;
   title: string;
   description: string;
+  image: string;
 }
 
 export interface CartItem {

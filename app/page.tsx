@@ -38,8 +38,16 @@ export default async function HomePage() {
               <Link
                 key={category.slug}
                 href={`/category/${category.slug}`}
-                className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition text-center"
+                className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition text-center flex flex-col items-center"
               >
+                {category.image && (
+                  <img
+                    src={category.image}
+                    alt={category.title}
+                    className="w-20 h-20 object-cover rounded-full mb-4 border border-gray-200"
+                    loading="lazy"
+                  />
+                )}
                 <h3 className="font-semibold text-lg mb-2">{category.title}</h3>
                 <p className="text-sm text-gray-600">{category.description}</p>
               </Link>
