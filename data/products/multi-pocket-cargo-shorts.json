@@ -1,8 +1,11 @@
 {
-  "id": 10,
+  "id": "10",
+  "slug": "multi-pocket-cargo-shorts",
   "name": "Multi-Pocket Cargo Shorts",
+  "description": "Cargo shorts with multiple pockets, made from cotton twill. Relaxed fit for comfort and utility.",
   "price": 70000,
   "category": "cargo",
+  "tags": ["cargo", "shorts", "cotton"],
   "sizes": ["S", "M", "L", "XL"],
   "colors": ["Khaki", "White", "Black"],
   "images": [
@@ -16,9 +19,13 @@
     "/products/cargo-shorts/8.jpg"
   ],
   "video": "/products/cargo-shorts/vid.mp4",
+  "featured": false,
+  "inStock": true,
   "details": {
     "fabric": "100% Cotton Twill",
     "care": "Machine wash warm, tumble dry."
   },
-  "fit": "Relaxed Fit"
+  "fit": "Relaxed Fit",
+  "createdAt": "2026-01-17T00:00:00.000Z",
+  "updatedAt": "2026-01-20T00:00:00.000Z"
 }

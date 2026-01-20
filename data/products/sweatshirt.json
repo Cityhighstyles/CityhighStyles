@@ -1,8 +1,11 @@
 {
-  "id": 15,
+  "id": "15",
+  "slug": "sweatshirt",
   "name": "Sweatshirt",
+  "description": "Premium cotton sweatshirt for warmth and style. Slim fit and available in multiple colors.",
   "price": 120000,
   "category": "hoodies",
+  "tags": ["sweatshirt", "hoodie", "cotton"],
   "sizes": ["S", "M", "L", "XL", "XXL"],
   "colors": ["Black", "Grey", "Olive"],
   "images": [
@@ -16,9 +19,13 @@
     "/products/sweatshirt/8.jpg"
   ],
   "video": "/products/sweatshirt/vid.mp4",
+  "featured": false,
+  "inStock": true,
   "details": {
     "fabric": "100% Cotton",
     "care": "Machine wash cold, do not iron."
   },
-  "fit": "Slim Fit"
+  "fit": "Slim Fit",
+  "createdAt": "2026-01-17T00:00:00.000Z",
+  "updatedAt": "2026-01-20T00:00:00.000Z"
 }

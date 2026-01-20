@@ -1,8 +1,11 @@
 {
-  "id": 9,
+  "id": "9",
+  "slug": "up-and-down-short",
   "name": "Up and Down Short",
+  "description": "Two-piece short set made from a cotton-polyester blend. Slim fit and easy to style for any occasion.",
   "price": 80000,
   "category": "wears",
+  "tags": ["two-piece", "short", "cotton"],
   "sizes": ["S", "M", "L", "XL", "XXL"],
   "colors": ["Black", "Grey", "Navy"],
   "images": [
@@ -16,9 +19,13 @@
     "/products/up-and-down/9.jpg"
   ],
   "video": "/products/up-and-down/vid.mp4",
+  "featured": false,
+  "inStock": true,
   "details": {
     "fabric": "66% Cotton, 34% Polyester",
     "care": "Machine wash cold, do not iron."
   },
-  "fit": "Slim Fit"
+  "fit": "Slim Fit",
+  "createdAt": "2026-01-17T00:00:00.000Z",
+  "updatedAt": "2026-01-20T00:00:00.000Z"
 }

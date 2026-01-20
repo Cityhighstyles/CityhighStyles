@@ -1,8 +1,11 @@
 {
-  "id": 7,
+  "id": "7",
+  "slug": "corporate-shirt",
   "name": "Corporate Shirt",
+  "description": "Classic corporate shirt made from Oxford cotton. Sharp, clean look for formal and office settings.",
   "price": 50000,
   "category": "english",
+  "tags": ["corporate", "shirt", "oxford"],
   "sizes": ["S", "M", "L", "XL", "XXL"],
   "colors": ["White", "Light Blue", "Pink"],
   "images": [
@@ -15,9 +18,13 @@
     "/products/english/7.jpg"
   ],
   "video": "/products/english/vid.mp4",
+  "featured": false,
+  "inStock": true,
   "details": {
     "fabric": "100% Oxford Cotton",
     "care": "Dry clean recommended."
   },
-  "fit": "Slim Fit"
+  "fit": "Slim Fit",
+  "createdAt": "2026-01-17T00:00:00.000Z",
+  "updatedAt": "2026-01-20T00:00:00.000Z"
 }

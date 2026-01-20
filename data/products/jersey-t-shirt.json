@@ -1,8 +1,11 @@
 {
-  "id": 8,
+  "id": "8",
+  "slug": "jersey-t-shirt",
   "name": "Jersey T-Shirt",
+  "description": "Soft jersey t-shirt made from washed cotton. Comfortable and stylish for everyday wear.",
   "price": 50000,
   "category": "tees",
+  "tags": ["jersey", "cotton", "t-shirt"],
   "sizes": ["S", "M", "L", "XL"],
   "colors": ["Black", "Cream", "Brown"],
   "images": [
@@ -16,9 +19,13 @@
     "/products/jersey/8.jpg"
   ],
   "video": "/products/jersey/vid.mp4",
+  "featured": false,
+  "inStock": true,
   "details": {
     "fabric": "100% Washed Cotton",
     "care": "Machine wash cold, inside out."
   },
-  "fit": "Regular Fit"
+  "fit": "Regular Fit",
+  "createdAt": "2026-01-17T00:00:00.000Z",
+  "updatedAt": "2026-01-20T00:00:00.000Z"
 }

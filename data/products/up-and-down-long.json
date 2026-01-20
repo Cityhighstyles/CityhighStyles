@@ -1,8 +1,11 @@
 {
-  "id": 14,
+  "id": "14",
+  "slug": "up-and-down-long",
   "name": "Up and Down long",
+  "description": "Long two-piece set made from a cotton-polyester blend. Slim fit and versatile for different occasions.",
   "price": 100000,
   "category": "wears",
+  "tags": ["two-piece", "long", "cotton"],
   "sizes": ["S", "M", "L", "XL", "XXL"],
   "colors": ["Black", "Grey", "Navy"],
   "images": [
@@ -15,9 +18,13 @@
     "/products/up-and-down-long/8.jpg"
   ],
   "video": "/products/up-and-down-long/vid.mp4",
+  "featured": false,
+  "inStock": true,
   "details": {
     "fabric": "66% Cotton, 34% Polyester",
     "care": "Machine wash cold, do not iron."
   },
-  "fit": "Slim Fit"
+  "fit": "Slim Fit",
+  "createdAt": "2026-01-17T00:00:00.000Z",
+  "updatedAt": "2026-01-20T00:00:00.000Z"
 }

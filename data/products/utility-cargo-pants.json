@@ -1,8 +1,11 @@
 {
-  "id": 5,
+  "id": "5",
+  "slug": "utility-cargo-pants",
   "name": "Utility Cargo Pants",
+  "description": "Functional cargo pants made from durable ripstop cotton. Multiple utility pockets and a relaxed fit for everyday comfort.",
   "price": 90000,
   "category": "cargo",
+  "tags": ["cargo", "utility", "cotton"],
   "sizes": ["S", "M", "L", "XL", "XXL"],
   "colors": ["Khaki", "Black", "Olive"],
   "images": [
@@ -16,9 +19,13 @@
     "/products/cargo-pants/8.jpg"
   ],
   "video": "/products/cargo-pants/vid.mp4",
+  "featured": false,
+  "inStock": true,
   "details": {
     "fabric": "100% Ripstop Cotton",
     "care": "Machine wash cold, gentle cycle."
   },
-  "fit": "Relaxed Fit"
+  "fit": "Relaxed Fit",
+  "createdAt": "2026-01-17T00:00:00.000Z",
+  "updatedAt": "2026-01-20T00:00:00.000Z"
 }

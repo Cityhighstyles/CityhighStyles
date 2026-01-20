@@ -1,8 +1,11 @@
 {
-  "id": 6,
+  "id": "6",
+  "slug": "premium-singlet-tank",
   "name": "Premium Singlet Tank",
+  "description": "Lightweight and breathable singlet tank made from combed cotton. Perfect for layering or wearing solo.",
   "price": 50000,
   "category": "singlets",
+  "tags": ["singlet", "cotton", "tank"],
   "sizes": ["S", "M", "L", "XL", "XXL"],
   "colors": ["Black", "White", "Grey"],
   "images": [
@@ -14,9 +17,13 @@
     "/products/singlet/6.jpg"
   ],
   "video": "/products/singlet/vid.mp4",
+  "featured": false,
+  "inStock": true,
   "details": {
     "fabric": "100% Combed Cotton",
     "care": "Machine wash cold, lay flat to dry."
   },
-  "fit": "Regular Fit"
+  "fit": "Regular Fit",
+  "createdAt": "2026-01-17T00:00:00.000Z",
+  "updatedAt": "2026-01-20T00:00:00.000Z"
 }

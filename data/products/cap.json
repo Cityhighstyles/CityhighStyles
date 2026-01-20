@@ -1,8 +1,11 @@
 {
-  "id": 13,
+  "id": "13",
+  "slug": "cap",
   "name": "Cap",
+  "description": "Classic cotton cap to complete your fit. Adjustable and available in multiple colors.",
   "price": 80,
   "category": "more",
+  "tags": ["cap", "accessory", "cotton"],
   "sizes": ["S", "M", "L", "XL"],
   "colors": ["Black", "White", "Navy"],
   "images": [
@@ -16,9 +19,13 @@
     "/products/caps/8.jpg"
   ],
   "video": "/products/caps/vid.mp4",
+  "featured": false,
+  "inStock": true,
   "details": {
     "fabric": "100% Cotton",
     "care": "Machine wash cold, tumble dry low."
   },
-  "fit": "Regular Fit"
+  "fit": "Regular Fit",
+  "createdAt": "2026-01-17T00:00:00.000Z",
+  "updatedAt": "2026-01-20T00:00:00.000Z"
 }
