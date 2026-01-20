@@ -10,17 +10,19 @@ export async function updateCategory(formData: FormData) {
     const slug = formData.get('slug') as string;
     const title = formData.get('title') as string;
     const description = formData.get('description') as string;
-    let image = formData.get('image') as string;
 
-    // Handle image upload if a file is provided
+    // Always require an image file
     const imageFile = formData.get('imageFile') as File | null;
-    if (imageFile && imageFile.size > 0) {
-      const buffer = await imageFile.arrayBuffer();
-      const base64 = Buffer.from(buffer).toString('base64');
-      const fileName = `category-${Date.now()}.jpg`;
-      const imagePath = await uploadImage('category', fileName, base64);
-      image = imagePath;
+    if (!imageFile || imageFile.size === 0) {
+      return { success: false, error: 'Image file is required.' };
     }
+    const buffer = await imageFile.arrayBuffer();
+    const base64 = Buffer.from(buffer).toString('base64');
+    const fileName = `category-${slug}-${Date.now()}.jpg`;
+    // Save to public/categories/ in GitHub
+    const imagePath = await uploadImage('category', fileName, base64);
+    // The returned path is like /categories/filename.jpg
+    const image = `https://cityhighstyles.github.io/public${imagePath}`;
 
     const category: Category = {
       slug,

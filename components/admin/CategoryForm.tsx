@@ -124,21 +124,15 @@ export default function CategoryForm({ category, onClose, onSave }: CategoryForm
           />
         </div>
 
-        {/* Image URL or Upload */}
+        {/* Image Upload Only */}
         <div>
           <label className="block text-sm font-medium mb-2">Image *</label>
-          <input
-            type="url"
-            name="image"
-            defaultValue={category?.image}
-            placeholder="https://cityhighstyles.github.io/public/category/..."
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 mb-2"
-          />
           <input
             type="file"
             accept="image/*"
             onChange={handleImageChange}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900"
+            required={!category}
           />
           {imagePreview && (
             <div className="mt-4">
