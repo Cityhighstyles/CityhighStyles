@@ -9,13 +9,13 @@
   "sizes": ["28", "30", "32", "34", "36"],
   "colors": ["Beige", "Navy", "Olive"],
   "images": [
-    "/products/chinos/1.jpg",
-    "/products/chinos/2.jpg",
-    "/products/chinos/3.jpg",
-    "/products/chinos/4.jpg",
-    "/products/chinos/5.jpg",
-    "/products/chinos/6.jpg",
-    "/products/chinos/7.jpg"
+    "https://cityhighstyles.github.io/public/products/chinos/1.jpg",
+    "https://cityhighstyles.github.io/public/products/chinos/2.jpg",
+    "https://cityhighstyles.github.io/public/products/chinos/3.jpg",
+    "https://cityhighstyles.github.io/public/products/chinos/4.jpg",
+    "https://cityhighstyles.github.io/public/products/chinos/5.jpg",
+    "https://cityhighstyles.github.io/public/products/chinos/6.jpg",
+    "https://cityhighstyles.github.io/public/products/chinos/7.jpg"
   ],
   "video": "/products/chinos/vid.mp4",
   "featured": false,

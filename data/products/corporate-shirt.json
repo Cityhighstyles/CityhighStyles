@@ -9,13 +9,13 @@
   "sizes": ["S", "M", "L", "XL", "XXL"],
   "colors": ["White", "Light Blue", "Pink"],
   "images": [
-    "/products/english/1.jpg",
-    "/products/english/2.jpg",
-    "/products/english/3.jpg",
-    "/products/english/4.jpg",
-    "/products/english/5.jpg",
-    "/products/english/6.jpg",
-    "/products/english/7.jpg"
+    "https://cityhighstyles.github.io/public/products/english/1.jpg",
+    "https://cityhighstyles.github.io/public/products/english/2.jpg",
+    "https://cityhighstyles.github.io/public/products/english/3.jpg",
+    "https://cityhighstyles.github.io/public/products/english/4.jpg",
+    "https://cityhighstyles.github.io/public/products/english/5.jpg",
+    "https://cityhighstyles.github.io/public/products/english/6.jpg",
+    "https://cityhighstyles.github.io/public/products/english/7.jpg"
   ],
   "video": "/products/english/vid.mp4",
   "featured": false,

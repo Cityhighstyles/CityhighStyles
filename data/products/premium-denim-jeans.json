@@ -24,13 +24,13 @@
     "Black"
   ],
   "images": [
-    "/products/premium-denim-jeans/image-1768848669034-1.jpg",
-    "/products/premium-denim-jeans/image-1768848669706-2.jpg",
-    "/products/premium-denim-jeans/image-1768848670371-3.jpg",
-    "/products/premium-denim-jeans/image-1768848671019-4.jpg",
-    "/products/premium-denim-jeans/image-1768848671541-5.jpg",
-    "/products/premium-denim-jeans/image-1768849072403-1.jpg",
-    "/products/premium-denim-jeans/image-1768849073007-2.jpg"
+     "https://cityhighstyles.github.io/public/products/premium-denim-jeans/image-1768848669034-1.jpg",
+     "https://cityhighstyles.github.io/public/products/premium-denim-jeans/image-1768848669706-2.jpg",
+     "https://cityhighstyles.github.io/public/products/premium-denim-jeans/image-1768848670371-3.jpg",
+     "https://cityhighstyles.github.io/public/products/premium-denim-jeans/image-1768848671019-4.jpg",
+     "https://cityhighstyles.github.io/public/products/premium-denim-jeans/image-1768848671541-5.jpg",
+     "https://cityhighstyles.github.io/public/products/premium-denim-jeans/image-1768849072403-1.jpg",
+     "https://cityhighstyles.github.io/public/products/premium-denim-jeans/image-1768849073007-2.jpg"
   ],
   "featured": true,
   "inStock": true,

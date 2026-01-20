@@ -24,15 +24,15 @@
     "Red"
   ],
   "images": [
-    "/products/classic-polo-shirt/image-1.jpg",
-    "/products/classic-polo-shirt/image-2.jpg",
-    "/products/classic-polo-shirt/image-3.jpg",
-    "/products/classic-polo-shirt/image-4.jpg",
-    "/products/classic-polo-shirt/image-5.jpg",
-    "/products/classic-polo-shirt/image-6.jpg",
-    "/products/classic-polo-shirt/image-7.jpg",
-    "/products/classic-polo-shirt/image-8.jpg",
-    "/products/classic-polo-shirt/image-1768823322838-1.jpg"
+    "https://cityhighstyles.github.io/public/products/classic-polo-shirt/image-1.jpg",
+    "https://cityhighstyles.github.io/public/products/classic-polo-shirt/image-2.jpg",
+    "https://cityhighstyles.github.io/public/products/classic-polo-shirt/image-3.jpg",
+    "https://cityhighstyles.github.io/public/products/classic-polo-shirt/image-4.jpg",
+    "https://cityhighstyles.github.io/public/products/classic-polo-shirt/image-5.jpg",
+    "https://cityhighstyles.github.io/public/products/classic-polo-shirt/image-6.jpg",
+    "https://cityhighstyles.github.io/public/products/classic-polo-shirt/image-7.jpg",
+    "https://cityhighstyles.github.io/public/products/classic-polo-shirt/image-8.jpg",
+    "https://cityhighstyles.github.io/public/products/classic-polo-shirt/image-1768823322838-1.jpg"
   ],
   "featured": true,
   "inStock": true,

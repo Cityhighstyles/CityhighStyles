@@ -9,14 +9,14 @@
   "sizes": ["S", "M", "L", "XL"],
   "colors": ["Khaki", "White", "Black"],
   "images": [
-    "/products/cargo-shorts/1.jpg",
-    "/products/cargo-shorts/2.jpg",
-    "/products/cargo-shorts/3.jpg",
-    "/products/cargo-shorts/4.jpg",
-    "/products/cargo-shorts/5.jpg",
-    "/products/cargo-shorts/6.jpg",
-    "/products/cargo-shorts/7.jpg",
-    "/products/cargo-shorts/8.jpg"
+    "https://cityhighstyles.github.io/public/products/cargo-shorts/1.jpg",
+    "https://cityhighstyles.github.io/public/products/cargo-shorts/2.jpg",
+    "https://cityhighstyles.github.io/public/products/cargo-shorts/3.jpg",
+    "https://cityhighstyles.github.io/public/products/cargo-shorts/4.jpg",
+    "https://cityhighstyles.github.io/public/products/cargo-shorts/5.jpg",
+    "https://cityhighstyles.github.io/public/products/cargo-shorts/6.jpg",
+    "https://cityhighstyles.github.io/public/products/cargo-shorts/7.jpg",
+    "https://cityhighstyles.github.io/public/products/cargo-shorts/8.jpg"
   ],
   "video": "/products/cargo-shorts/vid.mp4",
   "featured": false,

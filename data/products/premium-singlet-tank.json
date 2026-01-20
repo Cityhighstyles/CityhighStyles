@@ -9,12 +9,12 @@
   "sizes": ["S", "M", "L", "XL", "XXL"],
   "colors": ["Black", "White", "Grey"],
   "images": [
-    "/products/singlet/1.jpg",
-    "/products/singlet/2.jpg",
-    "/products/singlet/3.jpg",
-    "/products/singlet/4.jpg",
-    "/products/singlet/5.jpg",
-    "/products/singlet/6.jpg"
+    "https://cityhighstyles.github.io/public/products/singlet/1.jpg",
+    "https://cityhighstyles.github.io/public/products/singlet/2.jpg",
+    "https://cityhighstyles.github.io/public/products/singlet/3.jpg",
+    "https://cityhighstyles.github.io/public/products/singlet/4.jpg",
+    "https://cityhighstyles.github.io/public/products/singlet/5.jpg",
+    "https://cityhighstyles.github.io/public/products/singlet/6.jpg"
   ],
   "video": "/products/singlet/vid.mp4",
   "featured": false,

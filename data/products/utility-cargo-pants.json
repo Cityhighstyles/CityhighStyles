@@ -9,14 +9,14 @@
   "sizes": ["S", "M", "L", "XL", "XXL"],
   "colors": ["Khaki", "Black", "Olive"],
   "images": [
-    "/products/cargo-pants/1.jpg",
-    "/products/cargo-pants/2.jpg",
-    "/products/cargo-pants/3.jpg",
-    "/products/cargo-pants/4.jpg",
-    "/products/cargo-pants/5.jpg",
-    "/products/cargo-pants/6.jpg",
-    "/products/cargo-pants/7.jpg",
-    "/products/cargo-pants/8.jpg"
+    "https://cityhighstyles.github.io/public/products/cargo-pants/1.jpg",
+    "https://cityhighstyles.github.io/public/products/cargo-pants/2.jpg",
+    "https://cityhighstyles.github.io/public/products/cargo-pants/3.jpg",
+    "https://cityhighstyles.github.io/public/products/cargo-pants/4.jpg",
+    "https://cityhighstyles.github.io/public/products/cargo-pants/5.jpg",
+    "https://cityhighstyles.github.io/public/products/cargo-pants/6.jpg",
+    "https://cityhighstyles.github.io/public/products/cargo-pants/7.jpg",
+    "https://cityhighstyles.github.io/public/products/cargo-pants/8.jpg"
   ],
   "video": "/products/cargo-pants/vid.mp4",
   "featured": false,

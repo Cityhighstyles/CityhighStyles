@@ -9,14 +9,14 @@
   "sizes": ["S", "M", "L", "XL", "XXL"],
   "colors": ["Black", "White", "Grey"],
   "images": [
-    "/products/boxers/1.jpg",
-    "/products/boxers/2.jpg",
-    "/products/boxers/3.jpg",
-    "/products/boxers/4.jpg",
-    "/products/boxers/5.jpg",
-    "/products/boxers/6.jpg",
-    "/products/boxers/7.jpg",
-    "/products/boxers/8.jpg"
+    "https://cityhighstyles.github.io/public/products/boxers/1.jpg",
+    "https://cityhighstyles.github.io/public/products/boxers/2.jpg",
+    "https://cityhighstyles.github.io/public/products/boxers/3.jpg",
+    "https://cityhighstyles.github.io/public/products/boxers/4.jpg",
+    "https://cityhighstyles.github.io/public/products/boxers/5.jpg",
+    "https://cityhighstyles.github.io/public/products/boxers/6.jpg",
+    "https://cityhighstyles.github.io/public/products/boxers/7.jpg",
+    "https://cityhighstyles.github.io/public/products/boxers/8.jpg"
   ],
   "video": "/products/boxers/vid.mp4",
   "featured": false,

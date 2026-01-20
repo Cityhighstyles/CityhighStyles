@@ -24,15 +24,15 @@
     "Olive"
   ],
   "images": [
-    "/products/premium-hoodie/image-1768902281483-1.jpg",
-    "/products/premium-hoodie/image-1768902282025-2.jpg",
-    "/products/premium-hoodie/image-1768902282567-3.jpg",
-    "/products/premium-hoodie/image-1768902283078-4.jpg",
-    "/products/premium-hoodie/image-1768902283560-5.jpg",
-    "/products/premium-hoodie/image-1768902284014-6.jpg",
-    "/products/premium-hoodie/image-1768902284495-7.jpg",
-    "/products/premium-hoodie/image-1768902284966-8.jpg",
-    "/products/premium-hoodie/image-1768902285443-9.jpg"
+    "https://cityhighstyles.github.io/public/products/premium-hoodie/image-1768902281483-1.jpg",
+    "https://cityhighstyles.github.io/public/products/premium-hoodie/image-1768902282025-2.jpg",
+    "https://cityhighstyles.github.io/public/products/premium-hoodie/image-1768902282567-3.jpg",
+    "https://cityhighstyles.github.io/public/products/premium-hoodie/image-1768902283078-4.jpg",
+    "https://cityhighstyles.github.io/public/products/premium-hoodie/image-1768902283560-5.jpg",
+    "https://cityhighstyles.github.io/public/products/premium-hoodie/image-1768902284014-6.jpg",
+    "https://cityhighstyles.github.io/public/products/premium-hoodie/image-1768902284495-7.jpg",
+    "https://cityhighstyles.github.io/public/products/premium-hoodie/image-1768902284966-8.jpg",
+    "https://cityhighstyles.github.io/public/products/premium-hoodie/image-1768902285443-9.jpg"
   ],
   "featured": true,
   "inStock": true,

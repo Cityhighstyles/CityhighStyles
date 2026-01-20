@@ -9,13 +9,13 @@
   "sizes": ["S", "M", "L", "XL", "XXL"],
   "colors": ["Black", "Grey", "Navy"],
   "images": [
-    "/products/up-and-down-long/1.jpg",
-    "/products/up-and-down-long/2.jpg",
-    "/products/up-and-down-long/3.jpg",
-    "/products/up-and-down-long/5.jpg",
-    "/products/up-and-down-long/6.jpg",
-    "/products/up-and-down-long/7.jpg",
-    "/products/up-and-down-long/8.jpg"
+    "https://cityhighstyles.github.io/public/products/up-and-down-long/1.jpg",
+    "https://cityhighstyles.github.io/public/products/up-and-down-long/2.jpg",
+    "https://cityhighstyles.github.io/public/products/up-and-down-long/3.jpg",
+    "https://cityhighstyles.github.io/public/products/up-and-down-long/5.jpg",
+    "https://cityhighstyles.github.io/public/products/up-and-down-long/6.jpg",
+    "https://cityhighstyles.github.io/public/products/up-and-down-long/7.jpg",
+    "https://cityhighstyles.github.io/public/products/up-and-down-long/8.jpg"
   ],
   "video": "/products/up-and-down-long/vid.mp4",
   "featured": false,

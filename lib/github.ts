@@ -255,7 +255,7 @@ export async function batchUploadImages(
     
     await batchUploadFiles(files, commitMessage);
 
-    return images.map(({ fileName }) => `/products/${productSlug}/${fileName}`);
+    return images.map(({ fileName }) => `https://cityhighstyles.github.io/public/products/${productSlug}/${fileName}`);
   } catch (error) {
     console.error(`Error uploading images for ${productSlug}:`, error);
     throw error;

@@ -9,14 +9,14 @@
   "sizes": ["S", "M", "L", "XL"],
   "colors": ["Black", "Cream", "Brown"],
   "images": [
-    "/products/jersey/1.jpg",
-    "/products/jersey/2.jpg",
-    "/products/jersey/3.jpg",
-    "/products/jersey/4.jpg",
-    "/products/jersey/5.jpg",
-    "/products/jersey/6.jpg",
-    "/products/jersey/7.jpg",
-    "/products/jersey/8.jpg"
+    "https://cityhighstyles.github.io/public/products/jersey/1.jpg",
+    "https://cityhighstyles.github.io/public/products/jersey/2.jpg",
+    "https://cityhighstyles.github.io/public/products/jersey/3.jpg",
+    "https://cityhighstyles.github.io/public/products/jersey/4.jpg",
+    "https://cityhighstyles.github.io/public/products/jersey/5.jpg",
+    "https://cityhighstyles.github.io/public/products/jersey/6.jpg",
+    "https://cityhighstyles.github.io/public/products/jersey/7.jpg",
+    "https://cityhighstyles.github.io/public/products/jersey/8.jpg"
   ],
   "video": "/products/jersey/vid.mp4",
   "featured": false,

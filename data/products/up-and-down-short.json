@@ -9,14 +9,14 @@
   "sizes": ["S", "M", "L", "XL", "XXL"],
   "colors": ["Black", "Grey", "Navy"],
   "images": [
-    "/products/up-and-down/1.jpg",
-    "/products/up-and-down/2.jpg",
-    "/products/up-and-down/3.jpg",
-    "/products/up-and-down/5.jpg",
-    "/products/up-and-down/6.jpg",
-    "/products/up-and-down/7.jpg",
-    "/products/up-and-down/8.jpg",
-    "/products/up-and-down/9.jpg"
+    "https://cityhighstyles.github.io/public/products/up-and-down/1.jpg",
+    "https://cityhighstyles.github.io/public/products/up-and-down/2.jpg",
+    "https://cityhighstyles.github.io/public/products/up-and-down/3.jpg",
+    "https://cityhighstyles.github.io/public/products/up-and-down/5.jpg",
+    "https://cityhighstyles.github.io/public/products/up-and-down/6.jpg",
+    "https://cityhighstyles.github.io/public/products/up-and-down/7.jpg",
+    "https://cityhighstyles.github.io/public/products/up-and-down/8.jpg",
+    "https://cityhighstyles.github.io/public/products/up-and-down/9.jpg"
   ],
   "video": "/products/up-and-down/vid.mp4",
   "featured": false,
