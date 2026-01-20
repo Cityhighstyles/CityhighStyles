@@ -23,24 +23,7 @@
     "Olive"
   ],
   "images": [
-    "/products/premium-hoodie/image-1768849498300-1.jpg",
-    "/products/premium-hoodie/image-1768849498835-2.jpg",
-    "/products/premium-hoodie/image-1768849499284-3.jpg",
-    "/products/premium-hoodie/image-1768849499783-4.jpg",
-    "/products/premium-hoodie/image-1768849500243-5.jpg",
-    "/products/premium-hoodie/image-1768849500767-6.jpg",
-    "/products/premium-hoodie/image-1768849501231-7.jpg",
-    "/products/premium-hoodie/image-1768849501745-8.jpg",
-    "/products/premium-hoodie/image-1768849502193-9.jpg",
-    "/products/premium-hoodie/image-1768849502814-10.jpg",
-    "/products/premium-hoodie/image-1768849503395-11.jpg",
-    "/products/premium-hoodie/image-1768849503840-12.jpg",
-    "/products/premium-hoodie/image-1768849504642-13.jpg",
-    "/products/premium-hoodie/image-1768849505228-14.jpg",
-    "/products/premium-hoodie/image-1768849505688-15.jpg",
-    "/products/premium-hoodie/image-1768849506177-16.jpg",
-    "/products/premium-hoodie/image-1768849506647-17.jpg",
-    "/products/premium-hoodie/image-1768849507117-18.jpg"
+    "/products/premium-hoodie/image-1768897575860-1.jpg"
   ],
   "featured": true,
   "inStock": true,
@@ -50,5 +33,5 @@
   },
   "fit": "Regular Fit",
   "createdAt": "2026-01-17T00:00:00.000Z",
-  "updatedAt": "2026-01-19T19:05:07.665Z"
+  "updatedAt": "2026-01-20T08:26:16.516Z"
 }
