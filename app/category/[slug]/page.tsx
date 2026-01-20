@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { getProductsByCategory, getAllProducts } from '@/lib/products';
-import { getCategoryBySlug, categories } from '@/lib/categories';
+import { getCategoryBySlug, getAllCategories } from '@/lib/categories';
 import ProductGrid from '@/components/ProductGrid';
 
 interface CategoryPageProps {
@@ -11,6 +11,7 @@ interface CategoryPageProps {
 }
 
 export async function generateStaticParams() {
+  const categories = await getAllCategories();
   return categories.map((category) => ({
     slug: category.slug,
   }));
@@ -18,7 +19,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const category = getCategoryBySlug(slug);
+  const category = await getCategoryBySlug(slug);
 
   if (!category) {
     return {
@@ -34,7 +35,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { slug } = await params;
-  const category = getCategoryBySlug(slug);
+  const category = await getCategoryBySlug(slug);
 
   if (!category) {
     notFound();

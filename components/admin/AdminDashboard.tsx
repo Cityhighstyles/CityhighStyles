@@ -8,12 +8,13 @@ import ProductView from './ProductView';
 import CategoryForm from './CategoryForm';
 import CategoryList from './CategoryList';
 import { logout } from '@/lib/auth';
-import { categories as initialCategories } from '@/lib/categories';
+import { initializeCategories } from '@/app/admin/initCategories';
 
 export default function AdminDashboard() {
   const [products, setProducts] = useState<Product[]>([]);
-  const [categories, setCategories] = useState<Category[]>(initialCategories);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'products' | 'categories'>('products');
   const [showForm, setShowForm] = useState(false);
   const [viewingProduct, setViewingProduct] = useState<Product | null>(null);
@@ -23,6 +24,7 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     loadProducts();
+    loadCategories();
   }, []);
 
   const loadProducts = async () => {
@@ -41,6 +43,24 @@ export default function AdminDashboard() {
       setProducts([]);
     }
     setLoading(false);
+  };
+
+  const loadCategories = async () => {
+    setCategoriesLoading(true);
+    try {
+      const response = await fetch('/api/categories');
+      if (response.ok) {
+        const allCategories = await response.json();
+        setCategories(allCategories);
+      } else {
+        console.error('Failed to fetch categories');
+        setCategories([]);
+      }
+    } catch (error) {
+      console.error('Error loading categories:', error);
+      setCategories([]);
+    }
+    setCategoriesLoading(false);
   };
 
   const handleCreateNew = () => {
@@ -78,14 +98,24 @@ export default function AdminDashboard() {
   const handleCategoryFormClose = () => {
     setShowCategoryForm(false);
     setEditingCategory(null);
+    loadCategories();
   };
 
   const handleSaveCategory = async (category: Category) => {
-    // Update local state - the actual save is handled by the CategoryForm
-    const updatedCategories = categories.map((cat) =>
-      cat.slug === category.slug ? category : cat
-    );
-    setCategories(updatedCategories);
+    // Reload categories after save
+    await loadCategories();
+  };
+
+  const handleInitializeCategories = async () => {
+    if (confirm('This will create initial category files in GitHub. Continue?')) {
+      const result = await initializeCategories();
+      if (result.success) {
+        alert(result.message);
+        await loadCategories();
+      } else {
+        alert(result.error || 'Failed to initialize categories');
+      }
+    }
   };
 
   const handleLogout = async () => {
@@ -185,10 +215,28 @@ export default function AdminDashboard() {
                 onSave={handleSaveCategory}
               />
             ) : (
-              <CategoryList
-                categories={categories}
-                onEdit={handleEditCategory}
-              />
+              <>
+                {categoriesLoading ? (
+                  <div className="text-center py-12">
+                    <p className="text-gray-600">Loading categories...</p>
+                  </div>
+                ) : categories.length === 0 ? (
+                  <div className="text-center py-12">
+                    <p className="text-gray-600 mb-4">No categories found in GitHub repo.</p>
+                    <button
+                      onClick={handleInitializeCategories}
+                      className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700"
+                    >
+                      Initialize Categories
+                    </button>
+                  </div>
+                ) : (
+                  <CategoryList
+                    categories={categories}
+                    onEdit={handleEditCategory}
+                  />
+                )}
+              </>
             )}
           </>
         )}

@@ -1,9 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import { Product } from '@/types';
+import { useState, useEffect } from 'react';
+import { Product, Category } from '@/types';
 import { createProduct, updateProduct } from '@/app/admin/actions';
-import { categories } from '@/lib/categories';
 import Image from 'next/image';
 
 interface ProductFormProps {
@@ -14,8 +13,24 @@ interface ProductFormProps {
 export default function ProductForm({ product, onClose }: ProductFormProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [categories, setCategories] = useState<Category[]>([]);
   const [existingImages, setExistingImages] = useState<string[]>(product?.images || []);
   const [newImageFiles, setNewImageFiles] = useState<File[]>([]);
+
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        const response = await fetch('/api/categories');
+        if (response.ok) {
+          const data = await response.json();
+          setCategories(data);
+        }
+      } catch (error) {
+        console.error('Error loading categories:', error);
+      }
+    };
+    loadCategories();
+  }, []);
 
   const handleRemoveExistingImage = (index: number) => {
     setExistingImages(prev => prev.filter((_, i) => i !== index));

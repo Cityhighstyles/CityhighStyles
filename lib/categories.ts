@@ -1,50 +1,47 @@
 import { Category } from '@/types';
+import { getFileContent, listFiles, createOrUpdateFile } from './github';
 
-export const categories: Category[] = [
-  {
-    slug: 'tees',
-    title: 'Tees & Shirts',
-    description: 'Everyday essentials. Clean fits, bold graphics, premium cotton.',
-    image: 'https://cityhighstyles.github.io/public/category/tees.jpg'
-  },
-  {
-    slug: 'hoodies',
-    title: 'Hoodies & Sweatshirts',
-    description: 'Premium heavyweight hoodies built for comfort and style.',
-    image: 'https://cityhighstyles.github.io/public/category/hoodies.jpg'
-  },
-  {
-    slug: 'jeans',
-    title: 'Jeans & Trousers',
-    description: 'Durable, stylish jeans and trousers with a perfect modern fit.',
-    image: 'https://cityhighstyles.github.io/public/category/jeans.jpg'
-  },
-  {
-    slug: 'shorts',
-    title: 'Shorts',
-    description: 'Casual and utility shorts for everyday comfort.',
-    image: 'https://cityhighstyles.github.io/public/category/shorts.jpg'
-  },
-  {
-    slug: 'wears',
-    title: 'Two-Piece Sets',
-    description: 'Matching sets designed for effortless drip.',
-    image: 'https://cityhighstyles.github.io/public/category/sets.jpg'
-  },
-  {
-    slug: 'underwear',
-    title: 'Underwear',
-    description: 'Comfort-first essentials for everyday wear.',
-    image: 'https://cityhighstyles.github.io/public/category/underwear.jpg'
-  },
-  {
-    slug: 'accessories',
-    title: 'Accessories',
-    description: 'Caps and extra essentials to complete your fit.',
-    image: 'https://cityhighstyles.github.io/public/category/accessories.jpg'
-  },
-];
+const CATEGORIES_DIR = 'data/categories';
 
-export function getCategoryBySlug(slug: string): Category | undefined {
-  return categories.find((c) => c.slug === slug);
+export async function getAllCategories(): Promise<Category[]> {
+  try {
+    const files = await listFiles(CATEGORIES_DIR);
+    const jsonFiles = files.filter((f) => f.endsWith('.json'));
+
+    const categories = await Promise.all(
+      jsonFiles.map(async (file) => {
+        const content = await getFileContent(`${CATEGORIES_DIR}/${file}`);
+        if (content) {
+          return JSON.parse(content) as Category;
+        }
+        return null;
+      })
+    );
+
+    return categories.filter((c): c is Category => c !== null);
+  } catch (error) {
+    console.error('Error loading categories:', error);
+    return [];
+  }
+}
+
+export async function getCategoryBySlug(slug: string): Promise<Category | null> {
+  try {
+    const content = await getFileContent(`${CATEGORIES_DIR}/${slug}.json`);
+    if (content) {
+      return JSON.parse(content) as Category;
+    }
+    return null;
+  } catch (error) {
+    console.error(`Error loading category ${slug}:`, error);
+    return null;
+  }
+}
+
+export async function saveCategory(category: Category): Promise<void> {
+  const path = `${CATEGORIES_DIR}/${category.slug}.json`;
+  const content = JSON.stringify(category, null, 2);
+  const message = `Update category: ${category.title}`;
+
+  await createOrUpdateFile(path, content, message);
 }

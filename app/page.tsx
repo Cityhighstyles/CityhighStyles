@@ -2,10 +2,11 @@
 import Link from 'next/link';
 import { getFeaturedProducts } from '@/lib/products';
 import ProductGrid from '@/components/ProductGrid';
-import { categories } from '@/lib/categories';
+import { getAllCategories } from '@/lib/categories';
 
 export default async function HomePage() {
   const featuredProducts = await getFeaturedProducts(8);
+  const categories = await getAllCategories();
 
   return (
     <div className="min-h-screen">
