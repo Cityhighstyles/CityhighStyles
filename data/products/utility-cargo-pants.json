@@ -1,0 +1,24 @@
+{
+  "id": 5,
+  "name": "Utility Cargo Pants",
+  "price": 90000,
+  "category": "cargo",
+  "sizes": ["S", "M", "L", "XL", "XXL"],
+  "colors": ["Khaki", "Black", "Olive"],
+  "images": [
+    "/products/cargo-pants/1.jpg",
+    "/products/cargo-pants/2.jpg",
+    "/products/cargo-pants/3.jpg",
+    "/products/cargo-pants/4.jpg",
+    "/products/cargo-pants/5.jpg",
+    "/products/cargo-pants/6.jpg",
+    "/products/cargo-pants/7.jpg",
+    "/products/cargo-pants/8.jpg"
+  ],
+  "video": "/products/cargo-pants/vid.mp4",
+  "details": {
+    "fabric": "100% Ripstop Cotton",
+    "care": "Machine wash cold, gentle cycle."
+  },
+  "fit": "Relaxed Fit"
+}

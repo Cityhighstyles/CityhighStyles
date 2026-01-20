@@ -1,0 +1,23 @@
+{
+  "id": 14,
+  "name": "Up and Down long",
+  "price": 100000,
+  "category": "wears",
+  "sizes": ["S", "M", "L", "XL", "XXL"],
+  "colors": ["Black", "Grey", "Navy"],
+  "images": [
+    "/products/up-and-down-long/1.jpg",
+    "/products/up-and-down-long/2.jpg",
+    "/products/up-and-down-long/3.jpg",
+    "/products/up-and-down-long/5.jpg",
+    "/products/up-and-down-long/6.jpg",
+    "/products/up-and-down-long/7.jpg",
+    "/products/up-and-down-long/8.jpg"
+  ],
+  "video": "/products/up-and-down-long/vid.mp4",
+  "details": {
+    "fabric": "66% Cotton, 34% Polyester",
+    "care": "Machine wash cold, do not iron."
+  },
+  "fit": "Slim Fit"
+}

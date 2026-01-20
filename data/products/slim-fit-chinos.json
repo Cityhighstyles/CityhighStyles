@@ -1,0 +1,23 @@
+{
+  "id": 11,
+  "name": "Slim Fit Chinos",
+  "price": 100000,
+  "category": "chinos",
+  "sizes": ["28", "30", "32", "34", "36"],
+  "colors": ["Beige", "Navy", "Olive"],
+  "images": [
+    "/products/chinos/1.jpg",
+    "/products/chinos/2.jpg",
+    "/products/chinos/3.jpg",
+    "/products/chinos/4.jpg",
+    "/products/chinos/5.jpg",
+    "/products/chinos/6.jpg",
+    "/products/chinos/7.jpg"
+  ],
+  "video": "/products/chinos/vid.mp4",
+  "details": {
+    "fabric": "100% Cotton Twill",
+    "care": "Machine wash warm, tumble dry."
+  },
+  "fit": "Slim Fit"
+}

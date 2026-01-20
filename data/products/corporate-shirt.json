@@ -1,0 +1,23 @@
+{
+  "id": 7,
+  "name": "Corporate Shirt",
+  "price": 50000,
+  "category": "english",
+  "sizes": ["S", "M", "L", "XL", "XXL"],
+  "colors": ["White", "Light Blue", "Pink"],
+  "images": [
+    "/products/english/1.jpg",
+    "/products/english/2.jpg",
+    "/products/english/3.jpg",
+    "/products/english/4.jpg",
+    "/products/english/5.jpg",
+    "/products/english/6.jpg",
+    "/products/english/7.jpg"
+  ],
+  "video": "/products/english/vid.mp4",
+  "details": {
+    "fabric": "100% Oxford Cotton",
+    "care": "Dry clean recommended."
+  },
+  "fit": "Slim Fit"
+}

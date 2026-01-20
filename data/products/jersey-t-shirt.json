@@ -1,0 +1,24 @@
+{
+  "id": 8,
+  "name": "Jersey T-Shirt",
+  "price": 50000,
+  "category": "tees",
+  "sizes": ["S", "M", "L", "XL"],
+  "colors": ["Black", "Cream", "Brown"],
+  "images": [
+    "/products/jersey/1.jpg",
+    "/products/jersey/2.jpg",
+    "/products/jersey/3.jpg",
+    "/products/jersey/4.jpg",
+    "/products/jersey/5.jpg",
+    "/products/jersey/6.jpg",
+    "/products/jersey/7.jpg",
+    "/products/jersey/8.jpg"
+  ],
+  "video": "/products/jersey/vid.mp4",
+  "details": {
+    "fabric": "100% Washed Cotton",
+    "care": "Machine wash cold, inside out."
+  },
+  "fit": "Regular Fit"
+}

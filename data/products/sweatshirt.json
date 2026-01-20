@@ -1,0 +1,24 @@
+{
+  "id": 15,
+  "name": "Sweatshirt",
+  "price": 120000,
+  "category": "hoodies",
+  "sizes": ["S", "M", "L", "XL", "XXL"],
+  "colors": ["Black", "Grey", "Olive"],
+  "images": [
+    "/products/sweatshirt/1.jpg",
+    "/products/sweatshirt/2.jpg",
+    "/products/sweatshirt/3.jpg",
+    "/products/sweatshirt/4.jpg",
+    "/products/sweatshirt/5.jpg",
+    "/products/sweatshirt/6.jpg",
+    "/products/sweatshirt/7.jpg",
+    "/products/sweatshirt/8.jpg"
+  ],
+  "video": "/products/sweatshirt/vid.mp4",
+  "details": {
+    "fabric": "100% Cotton",
+    "care": "Machine wash cold, do not iron."
+  },
+  "fit": "Slim Fit"
+}

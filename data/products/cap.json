@@ -1,0 +1,24 @@
+{
+  "id": 13,
+  "name": "Cap",
+  "price": 80,
+  "category": "more",
+  "sizes": ["S", "M", "L", "XL"],
+  "colors": ["Black", "White", "Navy"],
+  "images": [
+    "/products/caps/1.jpg",
+    "/products/caps/2.jpg",
+    "/products/caps/3.jpg",
+    "/products/caps/4.jpg",
+    "/products/caps/5.jpg",
+    "/products/caps/6.jpg",
+    "/products/caps/7.jpg",
+    "/products/caps/8.jpg"
+  ],
+  "video": "/products/caps/vid.mp4",
+  "details": {
+    "fabric": "100% Cotton",
+    "care": "Machine wash cold, tumble dry low."
+  },
+  "fit": "Regular Fit"
+}

@@ -1,0 +1,24 @@
+{
+  "id": 9,
+  "name": "Up and Down Short",
+  "price": 80000,
+  "category": "wears",
+  "sizes": ["S", "M", "L", "XL", "XXL"],
+  "colors": ["Black", "Grey", "Navy"],
+  "images": [
+    "/products/up-and-down/1.jpg",
+    "/products/up-and-down/2.jpg",
+    "/products/up-and-down/3.jpg",
+    "/products/up-and-down/5.jpg",
+    "/products/up-and-down/6.jpg",
+    "/products/up-and-down/7.jpg",
+    "/products/up-and-down/8.jpg",
+    "/products/up-and-down/9.jpg"
+  ],
+  "video": "/products/up-and-down/vid.mp4",
+  "details": {
+    "fabric": "66% Cotton, 34% Polyester",
+    "care": "Machine wash cold, do not iron."
+  },
+  "fit": "Slim Fit"
+}
