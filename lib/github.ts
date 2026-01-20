@@ -120,13 +120,19 @@ export async function deleteFile(path: string, message: string) {
 }
 
 export async function uploadImage(
-  productSlug: string,
+  slug: string,
   fileName: string,
   base64Content: string
 ): Promise<string> {
   try {
-    const path = `public/products/${productSlug}/${fileName}`;
-    const message = `Add image ${fileName} for ${productSlug}`;
+    // Support both product and category images
+    const isCategory = slug === 'category';
+    const path = isCategory
+      ? `public/categories/${fileName}`
+      : `public/products/${slug}/${fileName}`;
+    const message = isCategory
+      ? `Add category image ${fileName}`
+      : `Add image ${fileName} for ${slug}`;
     
     // Get SHA if file exists
     let fileSha: string | undefined;
@@ -158,7 +164,9 @@ export async function uploadImage(
       ...(fileSha && { sha: fileSha }),
     });
     
-    return `/products/${productSlug}/${fileName}`;
+    return isCategory
+      ? `/categories/${fileName}`
+      : `/products/${slug}/${fileName}`;
   } catch (error) {
     console.error(`Error uploading image ${fileName}:`, error);
     throw error;

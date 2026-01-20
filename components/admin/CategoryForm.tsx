@@ -13,7 +13,9 @@ interface CategoryFormProps {
 export default function CategoryForm({ category, onClose, onSave }: CategoryFormProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
   const [imagePreview, setImagePreview] = useState(category?.image || '');
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,7 +26,22 @@ export default function CategoryForm({ category, onClose, onSave }: CategoryForm
     const slug = (form.elements.namedItem('slug') as HTMLInputElement).value;
     const title = (form.elements.namedItem('title') as HTMLInputElement).value;
     const description = (form.elements.namedItem('description') as HTMLTextAreaElement).value;
-    const image = (form.elements.namedItem('image') as HTMLInputElement).value;
+    let image = (form.elements.namedItem('image') as HTMLInputElement).value;
+
+    // If a file is selected, upload it via API
+    if (imageFile) {
+      const formData = new FormData();
+      formData.append('file', imageFile);
+      formData.append('slug', slug);
+      const res = await fetch('/api/categories/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await res.json();
+      if (data.url) {
+        image = data.url;
+      }
+    }
 
     const updatedCategory: Category = {
       slug,
@@ -44,7 +61,13 @@ export default function CategoryForm({ category, onClose, onSave }: CategoryForm
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setImagePreview(e.target.value);
+    if (e.target.files && e.target.files[0]) {
+      setImageFile(e.target.files[0]);
+      setImagePreview(URL.createObjectURL(e.target.files[0]));
+    } else {
+      setImageFile(null);
+      setImagePreview(e.target.value);
+    }
   };
 
   return (
@@ -110,17 +133,21 @@ export default function CategoryForm({ category, onClose, onSave }: CategoryForm
           />
         </div>
 
-        {/* Image URL */}
+        {/* Image URL or Upload */}
         <div>
-          <label className="block text-sm font-medium mb-2">Image URL *</label>
+          <label className="block text-sm font-medium mb-2">Image *</label>
           <input
             type="url"
             name="image"
             defaultValue={category?.image}
-            onChange={handleImageChange}
             placeholder="https://cityhighstyles.github.io/public/category/..."
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 mb-2"
+          />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900"
-            required
           />
           {imagePreview && (
             <div className="mt-4">
