@@ -165,4 +165,101 @@ export async function uploadImage(
   }
 }
 
+interface FileChange {
+  path: string;
+  content: string; // base64 encoded content
+}
+
+export async function batchUploadFiles(
+  files: FileChange[],
+  commitMessage: string
+): Promise<void> {
+  try {
+    // Get the current commit SHA
+    const { data: refData } = await octokit.git.getRef({
+      owner,
+      repo,
+      ref: `heads/${branch}`,
+    });
+    const currentCommitSha = refData.object.sha;
+
+    // Get the current commit to access its tree
+    const { data: currentCommit } = await octokit.git.getCommit({
+      owner,
+      repo,
+      commit_sha: currentCommitSha,
+    });
+    const currentTreeSha = currentCommit.tree.sha;
+
+    // Create blobs for each file
+    const blobs = await Promise.all(
+      files.map(async (file) => {
+        const { data: blob } = await octokit.git.createBlob({
+          owner,
+          repo,
+          content: file.content,
+          encoding: 'base64',
+        });
+        return {
+          path: file.path,
+          mode: '100644' as const,
+          type: 'blob' as const,
+          sha: blob.sha,
+        };
+      })
+    );
+
+    // Create a new tree with all the changes
+    const { data: newTree } = await octokit.git.createTree({
+      owner,
+      repo,
+      base_tree: currentTreeSha,
+      tree: blobs,
+    });
+
+    // Create a new commit
+    const { data: newCommit } = await octokit.git.createCommit({
+      owner,
+      repo,
+      message: commitMessage,
+      tree: newTree.sha,
+      parents: [currentCommitSha],
+    });
+
+    // Update the reference to point to the new commit
+    await octokit.git.updateRef({
+      owner,
+      repo,
+      ref: `heads/${branch}`,
+      sha: newCommit.sha,
+    });
+
+    console.log(`Successfully uploaded ${files.length} files in a single commit`);
+  } catch (error) {
+    console.error('Error in batch upload:', error);
+    throw error;
+  }
+}
+
+export async function batchUploadImages(
+  productSlug: string,
+  images: Array<{ fileName: string; base64Content: string }>
+): Promise<string[]> {
+  try {
+    const files: FileChange[] = images.map(({ fileName, base64Content }) => ({
+      path: `public/products/${productSlug}/${fileName}`,
+      content: base64Content,
+    }));
+
+    const commitMessage = `Add ${images.length} image${images.length > 1 ? 's' : ''} for ${productSlug}`;
+    
+    await batchUploadFiles(files, commitMessage);
+
+    return images.map(({ fileName }) => `/products/${productSlug}/${fileName}`);
+  } catch (error) {
+    console.error(`Error uploading images for ${productSlug}:`, error);
+    throw error;
+  }
+}
+
 export { octokit };
