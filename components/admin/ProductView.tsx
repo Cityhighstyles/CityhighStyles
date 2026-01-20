@@ -38,20 +38,18 @@ export default function ProductView({ product, onClose, onEdit }: ProductViewPro
           <h3 className="text-lg font-semibold mb-4">Product Images ({product.images.length})</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {product.images.map((image, index) => (
-              <div key={index} className="relative aspect-square bg-gray-100 rounded-lg overflow-hidden border-2 border-gray-200">
-                <Image
+                <div key={index} className="relative aspect-square bg-gray-100 rounded-lg overflow-hidden border-2 border-gray-200">
+                <img
                   src={image}
                   alt={`${product.name} - Image ${index + 1}`}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  className="object-cover w-full h-full"
                 />
                 {index === 0 && (
                   <div className="absolute top-2 left-2 bg-blue-600 text-white text-xs px-2 py-1 rounded">
-                    Main
+                  Main
                   </div>
                 )}
-              </div>
+                </div>
             ))}
           </div>
         </div>
