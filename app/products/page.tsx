@@ -1,3 +1,5 @@
+"use client";
+
 import { getAllProducts } from '@/lib/products';
 import { getAllCategories } from '@/lib/categories';
 import { Product, Category } from '@/types';
