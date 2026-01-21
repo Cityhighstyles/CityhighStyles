@@ -42,7 +42,7 @@ export default function FeaturedSection({ products }: FeaturedSectionProps) {
           transition={{ duration: 0.5, delay: 0.4 }}
           className="text-center mt-12"
         >
-          <Link href="/category/tees" className="inline-block group">
+          <Link href="/products" className="inline-block group">
             <motion.div
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
