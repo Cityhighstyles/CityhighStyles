@@ -106,6 +106,22 @@ export default function AdminDashboard() {
     await loadCategories();
   };
 
+  const handleDeleteCategory = async (slug: string) => {
+    try {
+      const { deleteCategory } = await import('@/app/admin/categoryActions');
+      const result = await deleteCategory(slug);
+      
+      if (result.success) {
+        alert('Category deleted successfully!');
+        await loadCategories();
+      } else {
+        alert(result.error || 'Failed to delete category');
+      }
+    } catch (error) {
+      alert('Failed to delete category');
+    }
+  };
+
   const handleInitializeCategories = async () => {
     if (confirm('This will create initial category files in GitHub. Continue?')) {
       const result = await initializeCategories();
@@ -134,6 +150,17 @@ export default function AdminDashboard() {
                 className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
               >
                 + New Product
+              </button>
+            )}
+            {activeTab === 'categories' && (
+              <button
+                onClick={() => {
+                  setEditingCategory(null);
+                  setShowCategoryForm(true);
+                }}
+                className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
+              >
+                + New Category
               </button>
             )}
             <button
@@ -214,29 +241,26 @@ export default function AdminDashboard() {
                 onClose={handleCategoryFormClose}
                 onSave={handleSaveCategory}
               />
+            ) : categoriesLoading ? (
+              <div className="text-center py-12">
+                <p className="text-gray-600">Loading categories...</p>
+              </div>
+            ) : categories.length === 0 ? (
+              <div className="text-center py-12">
+                <p className="text-gray-600 mb-4">No categories found in GitHub repo.</p>
+                <button
+                  onClick={handleInitializeCategories}
+                  className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700"
+                >
+                  Initialize Categories
+                </button>
+              </div>
             ) : (
-              <>
-                {categoriesLoading ? (
-                  <div className="text-center py-12">
-                    <p className="text-gray-600">Loading categories...</p>
-                  </div>
-                ) : categories.length === 0 ? (
-                  <div className="text-center py-12">
-                    <p className="text-gray-600 mb-4">No categories found in GitHub repo.</p>
-                    <button
-                      onClick={handleInitializeCategories}
-                      className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700"
-                    >
-                      Initialize Categories
-                    </button>
-                  </div>
-                ) : (
-                  <CategoryList
-                    categories={categories}
-                    onEdit={handleEditCategory}
-                  />
-                )}
-              </>
+              <CategoryList
+                categories={categories}
+                onEdit={handleEditCategory}
+                onDelete={handleDeleteCategory}
+              />
             )}
           </>
         )}

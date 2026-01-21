@@ -45,3 +45,11 @@ export async function saveCategory(category: Category): Promise<void> {
 
   await createOrUpdateFile(path, content, message);
 }
+
+export async function deleteCategory(slug: string): Promise<void> {
+  const { deleteFile } = await import('./github');
+  const path = `${CATEGORIES_DIR}/${slug}.json`;
+  const message = `Delete category: ${slug}`;
+
+  await deleteFile(path, message);
+}

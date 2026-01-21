@@ -52,3 +52,18 @@ export async function updateCategory(formData: FormData) {
     return { success: false, error: 'Failed to update category' };
   }
 }
+
+export async function deleteCategory(slug: string) {
+  try {
+    const { deleteCategory: deleteCategoryFromGitHub } = await import('@/lib/categories');
+    await deleteCategoryFromGitHub(slug);
+    
+    revalidatePath('/');
+    revalidatePath(`/category/${slug}`);
+    
+    return { success: true };
+  } catch (error) {
+    console.error('Error deleting category:', error);
+    return { success: false, error: 'Failed to delete category' };
+  }
+}

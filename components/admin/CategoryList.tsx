@@ -6,9 +6,10 @@ import Image from 'next/image';
 interface CategoryListProps {
   categories: Category[];
   onEdit: (category: Category) => void;
+  onDelete: (slug: string) => void;
 }
 
-export default function CategoryList({ categories, onEdit }: CategoryListProps) {
+export default function CategoryList({ categories, onEdit, onDelete }: CategoryListProps) {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
       <div className="p-6 border-b">
@@ -64,12 +65,24 @@ export default function CategoryList({ categories, onEdit }: CategoryListProps) 
                   </p>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <button
-                    onClick={() => onEdit(category)}
-                    className="text-blue-600 hover:text-blue-800 font-medium text-sm"
-                  >
-                    Edit
-                  </button>
+                  <div className="flex gap-3">
+                    <button
+                      onClick={() => onEdit(category)}
+                      className="text-blue-600 hover:text-blue-800 font-medium text-sm"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => {
+                        if (confirm(`Are you sure you want to delete the category "${category.title}"?`)) {
+                          onDelete(category.slug);
+                        }
+                      }}
+                      className="text-red-600 hover:text-red-800 font-medium text-sm"
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}
