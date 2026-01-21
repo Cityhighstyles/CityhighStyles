@@ -63,29 +63,48 @@ export default function CategoriesSection({ categories }: CategoriesSectionProps
                 <motion.div
                   whileHover={{ y: -8, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="bg-white p-6 rounded-2xl shadow-md hover:shadow-2xl transition-all border border-gray-100 flex flex-col items-center relative overflow-hidden"
+                  className="relative bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all border border-gray-100 flex flex-col items-center justify-end min-h-[220px] overflow-hidden p-0"
+                  style={{ minHeight: '220px' }}
                 >
-                  {/* Gradient overlay on hover */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-gray-900/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
-                  />
-                  
+                  {/* Background image */}
                   {category.image && (
-                    <motion.div
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      className="relative w-20 h-20 mb-4"
-                    >
-                      <Image
-                        src={category.image}
-                        alt={category.title}
-                        fill
-                        className="object-cover rounded-full border-2 border-gray-200 group-hover:border-gray-900 transition-colors"
-                        sizes="80px"
-                      />
-                    </motion.div>
+                    <Image
+                      src={category.image}
+                      alt={category.title}
+                      fill
+                      className="object-cover w-full h-full absolute inset-0 z-0 transition-transform duration-500 group-hover:scale-110 group-hover:blur-[2px]"
+                      sizes="320px"
+                    />
                   )}
-                  <h3 className="font-semibold text-lg mb-2 text-center relative z-10">{category.title}</h3>
-                  <p className="text-sm text-gray-600 text-center relative z-10">{category.description}</p>
+                  {/* Overlay for darkening */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-gray-900/30 to-transparent z-10 transition-opacity duration-300 group-hover:opacity-80 opacity-60" />
+                  {/* Animated text on hover */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileHover={{ opacity: 1, y: 0 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.1 }}
+                    className="relative z-20 flex flex-col items-center justify-center w-full px-6 py-8"
+                  >
+                    <motion.h3
+                      initial={{ opacity: 0, y: 20 }}
+                      whileHover={{ opacity: 1, y: 0 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: 0.15 }}
+                      className="font-semibold text-lg mb-2 text-center text-white drop-shadow-lg"
+                    >
+                      {category.title}
+                    </motion.h3>
+                    <motion.p
+                      initial={{ opacity: 0, y: 20 }}
+                      whileHover={{ opacity: 1, y: 0 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: 0.2 }}
+                      className="text-sm text-gray-200 text-center"
+                    >
+                      {category.description}
+                    </motion.p>
+                  </motion.div>
                 </motion.div>
               </Link>
             </motion.div>
