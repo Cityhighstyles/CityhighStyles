@@ -6,6 +6,36 @@ import { useCart } from '@/contexts/CartContext';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navbar() {
+    // Search state
+    const [search, setSearch] = useState("");
+    const [searchResults, setSearchResults] = useState([]);
+    const [searchLoading, setSearchLoading] = useState(false);
+    const [showResults, setShowResults] = useState(false);
+
+    // Search handler
+    async function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
+      const value = e.target.value;
+      setSearch(value);
+      if (value.length < 2) {
+        setSearchResults([]);
+        setShowResults(false);
+        return;
+      }
+      setSearchLoading(true);
+      try {
+        const res = await fetch(`/api/products`);
+        const products = await res.json();
+        const filtered = products.filter((p: any) =>
+          p.name.toLowerCase().includes(value.toLowerCase()) ||
+          p.description?.toLowerCase().includes(value.toLowerCase())
+        );
+        setSearchResults(filtered);
+        setShowResults(true);
+      } catch {
+        setSearchResults([]);
+      }
+      setSearchLoading(false);
+    }
   const [isOpen, setIsOpen] = useState(false);
   const { cart } = useCart();
 
@@ -17,6 +47,55 @@ export default function Navbar() {
       className="bg-white/80 backdrop-blur-xl shadow-md sticky top-0 z-50 border-b border-gray-200/50"
     >
       <div className="container mx-auto px-4">
+        {/* Animated Search Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="pt-4 pb-2 flex flex-col items-center"
+        >
+          <motion.input
+            type="text"
+            value={search}
+            onChange={handleSearch}
+            placeholder="Search products..."
+            className="w-full max-w-md px-4 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-700 text-lg shadow"
+            whileFocus={{ scale: 1.03 }}
+            whileHover={{ scale: 1.01 }}
+          />
+          <AnimatePresence>
+            {showResults && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="absolute top-16 left-1/2 transform -translate-x-1/2 w-full max-w-md bg-white rounded-xl shadow-lg z-50 border border-gray-200 mt-2"
+              >
+                {searchLoading ? (
+                  <div className="p-4 text-center text-gray-500">Searching...</div>
+                ) : searchResults.length > 0 ? (
+                  <ul>
+                    {searchResults.map((product: any) => (
+                      <li key={product.id}>
+                        <Link href={`/product/${product.slug}`} className="block px-4 py-3 hover:bg-gray-100 transition-all" onClick={() => setShowResults(false)}>
+                          <div className="flex items-center gap-3">
+                            <img src={product.images?.[0] || '/placeholder.png'} alt={product.name} className="w-10 h-10 object-cover rounded" />
+                            <div>
+                              <span className="font-semibold text-gray-800">{product.name}</span>
+                              <span className="block text-sm text-gray-500">${product.price}</span>
+                            </div>
+                          </div>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div className="p-4 text-center text-gray-500">No products found.</div>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="group">
@@ -31,29 +110,91 @@ export default function Navbar() {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
-            {['Home', 'Tees', 'Hoodies', 'Jeans', 'Cargo'].map((item, index) => (
-              <motion.div
-                key={item}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Link 
-                  href={item === 'Home' ? '/' : `/category/${item.toLowerCase()}`} 
-                  className="relative group"
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0 }}
+            >
+              <Link href="/" className="relative group">
+                <motion.span
+                  whileHover={{ y: -2 }}
+                  className="text-gray-700 hover:text-gray-900 font-medium"
                 >
-                  <motion.span
-                    whileHover={{ y: -2 }}
-                    className="text-gray-700 hover:text-gray-900 font-medium"
-                  >
-                    {item}
-                  </motion.span>
-                  <motion.span
-                    className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-900 group-hover:w-full transition-all duration-300"
-                  />
-                </Link>
-              </motion.div>
-            ))}
+                  Home
+                </motion.span>
+                <motion.span
+                  className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-900 group-hover:w-full transition-all duration-300"
+                />
+              </Link>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+            >
+              <Link href="/category/tees-shirts" className="relative group">
+                <motion.span
+                  whileHover={{ y: -2 }}
+                  className="text-gray-700 hover:text-gray-900 font-medium"
+                >
+                  Tees & Shirts
+                </motion.span>
+                <motion.span
+                  className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-900 group-hover:w-full transition-all duration-300"
+                />
+              </Link>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <Link href="/category/hoodies-sweatshirts" className="relative group">
+                <motion.span
+                  whileHover={{ y: -2 }}
+                  className="text-gray-700 hover:text-gray-900 font-medium"
+                >
+                  Hoodies & Sweatshirts
+                </motion.span>
+                <motion.span
+                  className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-900 group-hover:w-full transition-all duration-300"
+                />
+              </Link>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <Link href="/category/jeans-trousers" className="relative group">
+                <motion.span
+                  whileHover={{ y: -2 }}
+                  className="text-gray-700 hover:text-gray-900 font-medium"
+                >
+                  Jeans & Trousers
+                </motion.span>
+                <motion.span
+                  className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-900 group-hover:w-full transition-all duration-300"
+                />
+              </Link>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+            >
+              <Link href="/category/cargo" className="relative group">
+                <motion.span
+                  whileHover={{ y: -2 }}
+                  className="text-gray-700 hover:text-gray-900 font-medium"
+                >
+                  Cargo
+                </motion.span>
+                <motion.span
+                  className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-900 group-hover:w-full transition-all duration-300"
+                />
+              </Link>
+            </motion.div>
             <motion.div
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}

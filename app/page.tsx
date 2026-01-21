@@ -1,6 +1,4 @@
-import Link from 'next/link';
 import { getFeaturedProducts } from '@/lib/products';
-import ProductGrid from '@/components/ProductGrid';
 import { getAllCategories } from '@/lib/categories';
 import HeroSection from '../components/HeroSection';
 import CategoriesSection from '../components/CategoriesSection';
