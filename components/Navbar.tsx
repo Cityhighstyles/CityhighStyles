@@ -178,7 +178,7 @@ export default function Navbar() {
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: -300, opacity: 0 }}
               transition={{ type: "spring", stiffness: 200, damping: 30 }}
-              className="fixed top-0 left-0 w-64 h-full bg-white shadow-lg z-50 p-6 md:hidden"
+              className="fixed top-0 left-0 w-64 h-full bg-white !bg-white shadow-lg z-50 p-6 md:hidden"
             >
               <button
                 aria-label="Close menu"
