@@ -8,17 +8,15 @@ import { saveCategory, getCategoryBySlug } from '@/lib/categories';
 
 export async function updateCategory(formData: FormData) {
   try {
-    let slug = formData.get('slug') as string | null;
+    const slug = formData.get('slug') as string | null;
     const title = formData.get('title') as string;
     const description = formData.get('description') as string;
 
-    // If slug is missing or empty, generate from title
-    if (!slug || slug.trim() === '') {
-      slug = generateSlug(title);
-    }
-
-    // Get existing category to preserve image if no new file uploaded
-    const existingCategory = await getCategoryBySlug(slug);
+    // Get existing category first
+    const existingCategory = slug ? await getCategoryBySlug(slug) : null;
+    
+    // Only generate a new slug if this is a new category (no slug provided or doesn't exist)
+    const finalSlug = existingCategory ? slug : (slug && slug.trim() !== '' ? slug : generateSlug(title));
     let image = existingCategory?.image || '';
 
     // Handle image upload if a file is provided
@@ -36,7 +34,7 @@ export async function updateCategory(formData: FormData) {
     }
 
     const category: Category = {
-      slug,
+      slug: finalSlug!,
       title,
       description,
       image,
@@ -46,7 +44,7 @@ export async function updateCategory(formData: FormData) {
     await saveCategory(category);
 
     revalidatePath('/');
-    revalidatePath(`/category/${slug}`);
+    revalidatePath(`/category/${finalSlug}`);
 
     return { success: true };
   } catch (error) {
