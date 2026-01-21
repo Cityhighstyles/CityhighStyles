@@ -49,57 +49,37 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center h-20 w-full">
-          {/* Logo left */}
-          <div className="flex-1 flex items-center">
-            <Link href="/" className="group">
+          {/* Hamburger (mobile only) */}
+          <div className="flex-1 flex items-center md:hidden">
+            <button
+              aria-label="Open menu"
+              className="p-2 mr-2"
+              onClick={() => setIsOpen((v) => !v)}
+            >
+              {/* Hamburger icon */}
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="4" y1="6" x2="20" y2="6" />
+                <line x1="4" y1="12" x2="20" y2="12" />
+                <line x1="4" y1="18" x2="20" y2="18" />
+              </svg>
+            </button>
+          </div>
+          {/* Logo center (always centered) */}
+          <div className="flex-1 flex justify-center items-center absolute left-0 right-0 mx-auto pointer-events-none select-none">
+            <Link href="/" className="group pointer-events-auto select-auto">
               <motion.span
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent"
+                className="text-xl md:text-2xl font-bold text-black"
               >
                 City High Styles
               </motion.span>
             </Link>
           </div>
-          {/* Menu center */}
-          <div className="flex-1 flex justify-center items-center">
-            <div className="hidden md:flex items-center space-x-8">
-              <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0 }}>
-                <Link href="/" className="relative group">
-                  <motion.span whileHover={{ y: -2 }} className="text-gray-700 hover:text-gray-900 font-medium">Home</motion.span>
-                  <motion.span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-900 group-hover:w-full transition-all duration-300" />
-                </Link>
-              </motion.div>
-              <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-                <Link href="/category/tees-shirts" className="relative group">
-                  <motion.span whileHover={{ y: -2 }} className="text-gray-700 hover:text-gray-900 font-medium">Tees & Shirts</motion.span>
-                  <motion.span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-900 group-hover:w-full transition-all duration-300" />
-                </Link>
-              </motion.div>
-              <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-                <Link href="/category/hoodies-sweatshirts" className="relative group">
-                  <motion.span whileHover={{ y: -2 }} className="text-gray-700 hover:text-gray-900 font-medium">Hoodies & Sweatshirts</motion.span>
-                  <motion.span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-900 group-hover:w-full transition-all duration-300" />
-                </Link>
-              </motion.div>
-              <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-                <Link href="/category/jeans-trousers" className="relative group">
-                  <motion.span whileHover={{ y: -2 }} className="text-gray-700 hover:text-gray-900 font-medium">Jeans & Trousers</motion.span>
-                  <motion.span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-900 group-hover:w-full transition-all duration-300" />
-                </Link>
-              </motion.div>
-              <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
-                <Link href="/category/cargo" className="relative group">
-                  <motion.span whileHover={{ y: -2 }} className="text-gray-700 hover:text-gray-900 font-medium">Cargo</motion.span>
-                  <motion.span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gray-900 group-hover:w-full transition-all duration-300" />
-                </Link>
-              </motion.div>
-            </div>
-          </div>
-          {/* Search and Cart right */}
+          {/* Cart right (mobile and desktop) */}
           <div className="flex-1 flex justify-end items-center gap-4 relative">
-            {/* Search Icon and Modal */}
-            <div className="relative">
+            {/* Hide search icon on mobile */}
+            <div className="relative hidden md:block">
               <button
                 aria-label="Open search"
                 className="p-2 rounded-full hover:bg-gray-200 transition-colors"
@@ -174,31 +154,60 @@ export default function Navbar() {
                 )}
               </AnimatePresence>
             </div>
-            {/* Cart */}
-            <div>
+            {/* Cart icon (bag) */}
+            <div className="relative">
               <Link href="/cart">
-                <motion.div
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="relative bg-gradient-to-r from-gray-900 to-gray-800 text-white px-4 py-2 rounded-xl hover:shadow-lg hover:shadow-gray-900/50 transition-shadow"
-                >
-                  Cart
-                  <AnimatePresence>
-                    {cart.itemCount > 0 && (
-                      <motion.span
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        exit={{ scale: 0 }}
-                        whileHover={{ scale: 1.2 }}
-                        className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-6 h-6 rounded-full flex items-center justify-center font-bold shadow-lg"
-                      >
-                        {cart.itemCount}
-                      </motion.span>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
+                <span className="inline-block">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path d="M6 7V6a6 6 0 1 1 12 0v1" />
+                    <rect x="3" y="7" width="18" height="13" rx="2" />
+                  </svg>
+                  <span className="absolute -top-2 -right-2 bg-cyan-400 text-white text-xs w-6 h-6 rounded-full flex items-center justify-center font-bold shadow-lg border-2 border-white">
+                    {cart.itemCount}
+                  </span>
+                </span>
               </Link>
             </div>
+          </div>
+        </div>
+        {/* Mobile Menu Drawer */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ x: -300, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: -300, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 200, damping: 30 }}
+              className="fixed top-0 left-0 w-64 h-full bg-white shadow-lg z-50 p-6 md:hidden"
+            >
+              <button
+                aria-label="Close menu"
+                className="mb-8 p-2 rounded hover:bg-gray-100"
+                onClick={() => setIsOpen(false)}
+              >
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+              <nav className="flex flex-col gap-6">
+                <Link href="/" className="text-lg font-medium text-gray-900" onClick={() => setIsOpen(false)}>Home</Link>
+                <Link href="/category/tees-shirts" className="text-lg font-medium text-gray-900" onClick={() => setIsOpen(false)}>Tees & Shirts</Link>
+                <Link href="/category/hoodies-sweatshirts" className="text-lg font-medium text-gray-900" onClick={() => setIsOpen(false)}>Hoodies & Sweatshirts</Link>
+                <Link href="/category/jeans-trousers" className="text-lg font-medium text-gray-900" onClick={() => setIsOpen(false)}>Jeans & Trousers</Link>
+                <Link href="/category/cargo" className="text-lg font-medium text-gray-900" onClick={() => setIsOpen(false)}>Cargo</Link>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        {/* Desktop Menu (center) */}
+        <div className="hidden md:flex justify-center items-center mt-4">
+          <div className="flex items-center space-x-8">
+            <Link href="/" className="text-gray-700 hover:text-gray-900 font-medium">Home</Link>
+            <Link href="/category/tees-shirts" className="text-gray-700 hover:text-gray-900 font-medium">Tees & Shirts</Link>
+            <Link href="/category/hoodies-sweatshirts" className="text-gray-700 hover:text-gray-900 font-medium">Hoodies & Sweatshirts</Link>
+            <Link href="/category/jeans-trousers" className="text-gray-700 hover:text-gray-900 font-medium">Jeans & Trousers</Link>
+            <Link href="/category/cargo" className="text-gray-700 hover:text-gray-900 font-medium">Cargo</Link>
           </div>
         </div>
       </div>
