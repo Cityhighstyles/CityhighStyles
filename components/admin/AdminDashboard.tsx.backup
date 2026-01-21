@@ -80,6 +80,7 @@ export default function AdminDashboard() {
     setShowForm(true);
   };
 
+
   const handleFormClose = () => {
     setShowForm(false);
     setEditingProduct(null);
@@ -102,6 +103,7 @@ export default function AdminDashboard() {
   };
 
   const handleSaveCategory = async (category: Category) => {
+    // Reload categories after save
     await loadCategories();
   };
 
@@ -197,7 +199,6 @@ export default function AdminDashboard() {
             </motion.button>
           </div>
         </div>
-        
         {/* Tabs */}
         <div className="container mx-auto px-4">
           <div className="flex border-b border-gray-200/50 relative">
@@ -233,22 +234,6 @@ export default function AdminDashboard() {
                 activeTab === 'categories'
                   ? 'text-gray-900'
                   : 'text-gray-500 hover:text-gray-700'
-              }`}
-              whileHover={{ y: -2 }}
-            >
-              Categories
-              {activeTab === 'categories' && (
-                <motion.div
-                  layoutId="activeTab"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900"
-                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                />
-              )}
-            </motion.button>
-          </div>
-        </div>
-      </motion.div>
-
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -394,7 +379,23 @@ export default function AdminDashboard() {
             </motion.div>
           )}
         </AnimatePresence>
-      </motion.div>
+      </motion.div>    <button
+                  onClick={handleInitializeCategories}
+                  className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700"
+                >
+                  Initialize Categories
+                </button>
+              </div>
+            ) : (
+              <CategoryList
+                categories={categories}
+                onEdit={handleEditCategory}
+                onDelete={handleDeleteCategory}
+              />
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 }
