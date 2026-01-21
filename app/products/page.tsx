@@ -1,21 +1,50 @@
 "use client";
 
-import { getAllProducts } from '@/lib/products';
-import { getAllCategories } from '@/lib/categories';
+import { useEffect, useState } from 'react';
 import { Product, Category } from '@/types';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
-export default async function ProductsPage() {
-  // Fetch all products and categories
-  const products: Product[] = await getAllProducts();
-  const categories: Category[] = await getAllCategories();
+const PRODUCTS_API = '/api/products';
+const CATEGORIES_API = '/api/categories';
+
+export default function ProductsPage() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+      try {
+        const [productsRes, categoriesRes] = await Promise.all([
+          fetch(PRODUCTS_API),
+          fetch(CATEGORIES_API),
+        ]);
+        const productsData = await productsRes.json();
+        const categoriesData = await categoriesRes.json();
+        setProducts(productsData);
+        setCategories(categoriesData);
+      } catch (err) {
+        // Optionally handle error
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
+  }, []);
 
   // Group products by category slug
   const productsByCategory: { [key: string]: Product[] } = {};
   categories.forEach(category => {
     productsByCategory[category.slug] = products.filter(p => p.category === category.slug);
   });
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-[40vh] text-xl text-gray-600">Loading products...</div>
+    );
+  }
 
   return (
     <section className="py-16 container mx-auto px-4">
