@@ -11,8 +11,9 @@ export default function Navbar() {
     const [searchResults, setSearchResults] = useState([]);
     const [searchLoading, setSearchLoading] = useState(false);
     const [showResults, setShowResults] = useState(false);
+    const [showSearchBar, setShowSearchBar] = useState(false);
 
-    // Search handler
+    // Show suggestions while typing (debounced)
     async function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
       const value = e.target.value;
       setSearch(value);
@@ -47,55 +48,83 @@ export default function Navbar() {
       className="bg-white/80 backdrop-blur-xl shadow-md sticky top-0 z-50 border-b border-gray-200/50"
     >
       <div className="container mx-auto px-4">
-        {/* Animated Search Bar */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="pt-4 pb-2 flex flex-col items-center"
-        >
-          <motion.input
-            type="text"
-            value={search}
-            onChange={handleSearch}
-            placeholder="Search products..."
-            className="w-full max-w-md px-4 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-700 text-lg shadow"
-            whileFocus={{ scale: 1.03 }}
-            whileHover={{ scale: 1.01 }}
-          />
+        {/* Search Icon and Search Bar Modal */}
+        <div className="flex justify-end items-center pt-4 pb-2 relative">
+          <button
+            aria-label="Open search"
+            className="p-2 rounded-full hover:bg-gray-200 transition-colors"
+            onClick={() => setShowSearchBar((v) => !v)}
+          >
+            {/* Search Icon (Magnifier) */}
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" fill="none" />
+              <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          </button>
           <AnimatePresence>
-            {showResults && (
+            {showSearchBar && (
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="absolute top-16 left-1/2 transform -translate-x-1/2 w-full max-w-md bg-white rounded-xl shadow-lg z-50 border border-gray-200 mt-2"
+                className="absolute top-12 right-0 w-full max-w-md bg-white rounded-xl shadow-lg z-50 border border-gray-200 p-4"
               >
-                {searchLoading ? (
-                  <div className="p-4 text-center text-gray-500">Searching...</div>
-                ) : searchResults.length > 0 ? (
-                  <ul>
-                    {searchResults.map((product: any) => (
-                      <li key={product.id}>
-                        <Link href={`/product/${product.slug}`} className="block px-4 py-3 hover:bg-gray-100 transition-all" onClick={() => setShowResults(false)}>
-                          <div className="flex items-center gap-3">
-                            <img src={product.images?.[0] || '/placeholder.png'} alt={product.name} className="w-10 h-10 object-cover rounded" />
-                            <div>
-                              <span className="font-semibold text-gray-800">{product.name}</span>
-                              <span className="block text-sm text-gray-500">${product.price}</span>
-                            </div>
-                          </div>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <div className="p-4 text-center text-gray-500">No products found.</div>
-                )}
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    value={search}
+                    onChange={handleSearch}
+                    placeholder="Search products..."
+                    className="w-full px-4 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-700 text-lg shadow"
+                    autoFocus
+                    autoComplete="off"
+                  />
+                  <button
+                    aria-label="Close search"
+                    className="p-2 rounded-full hover:bg-gray-100"
+                    onClick={() => { setShowSearchBar(false); setShowResults(false); setSearch(""); }}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+                <AnimatePresence>
+                  {showResults && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="w-full bg-white rounded-xl z-50 border border-gray-200 mt-2"
+                    >
+                      {searchLoading ? (
+                        <div className="p-4 text-center text-gray-500">Searching...</div>
+                      ) : searchResults.length > 0 ? (
+                        <ul>
+                          {searchResults.map((product: any) => (
+                            <li key={product.id}>
+                              <Link href={`/product/${product.slug}`} className="block px-4 py-3 hover:bg-gray-100 transition-all" onClick={() => { setShowResults(false); setShowSearchBar(false); setSearch(""); }}>
+                                <div className="flex items-center gap-3">
+                                  <img src={product.images?.[0] || '/placeholder.png'} alt={product.name} className="w-10 h-10 object-cover rounded" />
+                                  <div>
+                                    <span className="font-semibold text-gray-800">{product.name}</span>
+                                    <span className="block text-sm text-gray-500">{product.description?.slice(0, 60) || 'No description'}</span>
+                                  </div>
+                                </div>
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <div className="p-4 text-center text-gray-500">No products found.</div>
+                      )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
             )}
           </AnimatePresence>
-        </motion.div>
+        </div>
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="group">
