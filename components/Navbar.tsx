@@ -40,6 +40,18 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { cart } = useCart();
 
+  // Disable body scroll when menu is open
+  useState(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  });
+
   return (
     <motion.nav
       initial={{ y: -100 }}
@@ -174,25 +186,59 @@ export default function Navbar() {
         {/* Mobile Menu Drawer */}
         <AnimatePresence>
           {isOpen && (
-            <motion.div
-              initial={{ x: -300, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: -300, opacity: 0 }}
-              transition={{ type: "spring", stiffness: 200, damping: 30 }}
-              className="fixed top-0 left-0 w-64 h-full bg-white shadow-lg z-50 p-6 md:hidden"
-              style={{ background: '#fff', opacity: 1 }}
-            >
-              <button
-                aria-label="Close menu"
-                className="mb-8 p-2 rounded hover:bg-gray-100"
+            <>
+              {/* Backdrop */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 bg-black/70 backdrop-blur-sm z-40 md:hidden"
                 onClick={() => setIsOpen(false)}
+              />
+              {/* Drawer */}
+              <motion.div
+                initial={{ x: -300 }}
+                animate={{ x: 0 }}
+                exit={{ x: -300 }}
+                transition={{ type: "spring", stiffness: 200, damping: 30 }}
+                className="fixed top-0 left-0 w-64 h-full bg-white shadow-lg z-50 p-6 md:hidden"
               >
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
-              </button>
-              <nav className="flex flex-col gap-6">
+                <button
+                  aria-label="Close menu"
+                  className="mb-6 p-2 rounded hover:bg-gray-100"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
+                {/* Search Input */}
+                <div className="mb-6">
+                  <input
+                    type="text"
+                    value={search}
+                    onChange={handleSearch}
+                    placeholder="Search products..."
+                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-700 text-base"
+                    autoComplete="off"
+                  />
+                  {showResults && searchResults.length > 0 && (
+                    <div className="mt-2 bg-white rounded-lg border border-gray-200 max-h-64 overflow-y-auto">
+                      {searchResults.map((product: any) => (
+                        <Link key={product.id} href={`/product/${product.slug}`} className="block px-3 py-2 hover:bg-gray-100 transition-all" onClick={() => { setShowResults(false); setIsOpen(false); setSearch(""); }}>
+                          <div className="flex items-center gap-2">
+                            <img src={product.images?.[0] || '/placeholder.png'} alt={product.name} className="w-8 h-8 object-cover rounded" />
+                            <div className="text-sm">
+                              <span className="font-semibold text-gray-800">{product.name}</span>
+                            </div>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <nav className="flex flex-col gap-6">
                 <Link href="/" className="text-lg font-medium text-gray-900" onClick={() => setIsOpen(false)}>Home</Link>
                 <Link href="/category/tees-shirts" className="text-lg font-medium text-gray-900" onClick={() => setIsOpen(false)}>Tees & Shirts</Link>
                 <Link href="/category/hoodies-sweatshirts" className="text-lg font-medium text-gray-900" onClick={() => setIsOpen(false)}>Hoodies & Sweatshirts</Link>
@@ -200,6 +246,7 @@ export default function Navbar() {
                 <Link href="/category/cargo" className="text-lg font-medium text-gray-900" onClick={() => setIsOpen(false)}>Cargo</Link>
               </nav>
             </motion.div>
+            </>
           )}
         </AnimatePresence>
         {/* Desktop Menu (center) */}
