@@ -1,117 +1,70 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { LazyMotion, domAnimation, m } from 'framer-motion';
 
 export default function HeroSection() {
   return (
-    <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white py-20 overflow-hidden">
-      {/* Animated background elements */}
-      <motion.div
-        animate={{
-          scale: [1, 1.2, 1],
-          rotate: [0, 180, 360],
-          opacity: [0.05, 0.1, 0.05],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-        className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full blur-3xl"
-      />
-      <motion.div
-        animate={{
-          scale: [1.2, 1, 1.2],
-          rotate: [360, 180, 0],
-          opacity: [0.1, 0.05, 0.1],
-        }}
-        transition={{
-          duration: 15,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-        className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-br from-pink-500 to-orange-500 rounded-full blur-3xl"
-      />
+    <LazyMotion features={domAnimation}>
+      <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white py-20 overflow-hidden">
+        
+        {/* Soft floating background shapes (VERY cheap to animate) */}
+        <m.div
+          aria-hidden
+          animate={{ y: [0, -30, 0], x: [0, 20, 0], opacity: [0.15, 0.25, 0.15] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-10 left-10 w-72 h-72 bg-blue-500 rounded-full opacity-20 blur-2xl"
+        />
 
-      <div className="container mx-auto px-4 text-center relative z-10">
-        <motion.h1 
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ 
-            duration: 0.8,
-            type: "spring",
-            stiffness: 100
-          }}
-          className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent"
-        >
-          City High Styles
-        </motion.h1>
-        <motion.p 
-          initial={{ y: 30, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ 
-            duration: 0.8,
-            delay: 0.2,
-            type: "spring",
-            stiffness: 100
-          }}
-          className="text-xl md:text-2xl mb-8 text-gray-300"
-        >
-          Premium Men's Fashion. Quality That Speaks.
-        </motion.p>
-        <motion.div
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ 
-            duration: 0.5,
-            delay: 0.4,
-            type: "spring",
-            stiffness: 200
-          }}
-        >
-          <Link
-            href="#featured"
-            className="inline-block group"
+        <m.div
+          aria-hidden
+          animate={{ y: [0, 40, 0], x: [0, -20, 0], opacity: [0.15, 0.25, 0.15] }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-10 right-10 w-72 h-72 bg-pink-500 rounded-full opacity-20 blur-2xl"
+        />
+
+        <div className="container mx-auto px-4 text-center relative z-10">
+          
+          {/* Title */}
+          <m.h1
+            initial={{ y: 40, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent"
           >
-            <motion.div
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-white text-gray-900 px-8 py-4 rounded-xl font-semibold hover:shadow-2xl hover:shadow-white/20 transition-all relative overflow-hidden"
-            >
-              <span className="relative z-10">Shop Now</span>
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-gray-100 to-white"
-                initial={{ x: '-100%' }}
-                whileHover={{ x: 0 }}
-                transition={{ duration: 0.3 }}
-              />
-            </motion.div>
-          </Link>
-        </motion.div>
+            City High Styles
+          </m.h1>
 
-        {/* Floating particles */}
-        {[...Array(5)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-white rounded-full"
-            animate={{
-              y: [0, -100, 0],
-              opacity: [0, 1, 0],
-              scale: [0, 1, 0],
-            }}
-            transition={{
-              duration: 3 + i,
-              repeat: Infinity,
-              delay: i * 0.5,
-            }}
-            style={{
-              left: `${20 + i * 15}%`,
-              top: '50%',
-            }}
-          />
-        ))}
-      </div>
-    </section>
+          {/* Subtitle */}
+          <m.p
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
+            className="text-xl md:text-2xl mb-8 text-gray-300"
+          >
+            Premium Men's Fashion. Quality That Speaks.
+          </m.p>
+
+          {/* Button */}
+          <m.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
+          >
+            <Link href="#featured" className="inline-block">
+              <m.div
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "tween", duration: 0.15 }}
+                className="bg-white text-gray-900 px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-shadow"
+              >
+                Shop Now
+              </m.div>
+            </Link>
+          </m.div>
+
+        </div>
+      </section>
+    </LazyMotion>
   );
 }
