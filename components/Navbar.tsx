@@ -125,50 +125,50 @@ export default function Navbar() {
 
                     {/* Results */}
                     {/* Results */}
-{showResults && (
-  <div className="mt-3 border rounded-xl overflow-hidden max-h-[400px] overflow-y-auto">
+                    {showResults && (
+                      <div className="mt-3 border rounded-xl overflow-hidden max-h-[400px] overflow-y-auto">
 
-    {loading && (
-      <div className="p-6 text-center text-gray-500">Searching...</div>
-    )}
+                        {loading && (
+                          <div className="p-6 text-center text-gray-500">Searching...</div>
+                        )}
 
-    {!loading && results.length === 0 && (
-      <div className="p-6 text-center text-gray-500">
-        No products found
-      </div>
-    )}
+                        {!loading && results.length === 0 && (
+                          <div className="p-6 text-center text-gray-500">
+                            No products found
+                          </div>
+                        )}
 
-    {!loading && results.map((p) => (
-      <Link
-        key={p.id}
-        href={`/product/${p.slug}`}
-        onClick={resetSearch}
-        className="flex gap-4 p-4 items-start hover:bg-gray-50 transition border-b last:border-b-0"
-      >
-        {/* Image */}
-        <img
-          src={p.images?.[0] || '/placeholder.png'}
-          className="w-14 h-14 object-cover rounded-lg border"
-          alt={p.name}
-        />
+                        {!loading && results.map((p) => (
+                          <Link
+                            key={p.id}
+                            href={`/product/${p.slug}`}
+                            onClick={resetSearch}
+                            className="flex gap-4 p-4 items-start hover:bg-gray-50 transition border-b last:border-b-0"
+                          >
+                            {/* Image */}
+                            <img
+                              src={p.images?.[0] || '/placeholder.png'}
+                              className="w-14 h-14 object-cover rounded-lg border"
+                              alt={p.name}
+                            />
 
-        {/* Text */}
-        <div className="flex-1">
-          <div className="font-semibold text-gray-900 leading-tight">
-            {p.name}
-          </div>
+                            {/* Text */}
+                            <div className="flex-1">
+                              <div className="font-semibold text-gray-900 leading-tight">
+                                {p.name}
+                              </div>
 
-          {p.description && (
-            <div className="text-sm text-gray-500 mt-1 line-clamp-2">
-              {p.description}
-            </div>
-          )}
-        </div>
-      </Link>
-    ))}
+                              {p.description && (
+                                <div className="text-sm text-gray-500 mt-1 line-clamp-2">
+                                  {p.description}
+                                </div>
+                              )}
+                            </div>
+                          </Link>
+                        ))}
 
-  </div>
-)}
+                      </div>
+                    )}
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -176,8 +176,8 @@ export default function Navbar() {
 
             {/* Cart */}
             <Link href="/cart" className="relative">
-              🛒
-              <span className="absolute -top-2 -right-2 bg-cyan-500 text-white text-xs w-6 h-6 rounded-full flex items-center justify-center">
+              <span style={{ fontSize: '2rem', lineHeight: 1 }}>🛒</span>
+              <span className="absolute -top-2 -right-2 bg-cyan-500 text-white text-sm w-7 h-7 rounded-full flex items-center justify-center font-semibold shadow-lg">
                 {cart.itemCount}
               </span>
             </Link>
@@ -223,36 +223,36 @@ export default function Navbar() {
               />
 
               {/* Mobile Results */}
-             {/* Mobile Results */}
-{showResults && results.length > 0 && (
-  <div className="border rounded mb-4 max-h-60 overflow-auto">
-    {results.map((p) => (
-      <Link
-        key={p.id}
-        href={`/product/${p.slug}`}
-        onClick={() => {
-          setMenuOpen(false);
-          resetSearch();
-        }}
-        className="flex gap-3 p-3 items-center hover:bg-gray-50 border-b last:border-b-0"
-      >
-        <img
-          src={p.images?.[0] || '/placeholder.png'}
-          className="w-12 h-12 object-cover rounded-lg border"
-          alt={p.name}
-        />
-        <div>
-          <div className="font-medium">{p.name}</div>
-          {p.description && (
-            <div className="text-sm text-gray-500 line-clamp-1">
-              {p.description}
-            </div>
-          )}
-        </div>
-      </Link>
-    ))}
-  </div>
-)}
+              {/* Mobile Results */}
+              {showResults && results.length > 0 && (
+                <div className="border rounded mb-4 max-h-60 overflow-auto">
+                  {results.map((p) => (
+                    <Link
+                      key={p.id}
+                      href={`/product/${p.slug}`}
+                      onClick={() => {
+                        setMenuOpen(false);
+                        resetSearch();
+                      }}
+                      className="flex gap-3 p-3 items-center hover:bg-gray-50 border-b last:border-b-0"
+                    >
+                      <img
+                        src={p.images?.[0] || '/placeholder.png'}
+                        className="w-12 h-12 object-cover rounded-lg border"
+                        alt={p.name}
+                      />
+                      <div>
+                        <div className="font-medium">{p.name}</div>
+                        {p.description && (
+                          <div className="text-sm text-gray-500 line-clamp-1">
+                            {p.description}
+                          </div>
+                        )}
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              )}
 
               <nav className="flex flex-col gap-4">
                 <NavLink href="/" onClick={() => setMenuOpen(false)}>Home</NavLink>

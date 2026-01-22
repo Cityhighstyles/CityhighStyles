@@ -4,7 +4,7 @@ import './globals.css';
 import { CartProvider } from '@/contexts/CartContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-
+import FloatingCartButton from '@/components/FloatingCartButton';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -45,6 +45,7 @@ export default function RootLayout({
         <CartProvider>
           <div className="flex flex-col min-h-screen">
             <Navbar />
+            <FloatingCartButton />
             <main className="flex-grow">{children}</main>
             <Footer />
           </div>
