@@ -33,7 +33,7 @@ export default function Footer() {
       />
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="grid md:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-3 gap-8">
           {/* About */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -46,6 +46,21 @@ export default function Footer() {
             </h3>
             <p className="text-gray-400 text-sm">
               Premium men's fashion. Quality clothing at affordable prices.
+            </p>
+          </motion.div>
+
+          {/* Store Address */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.35 }}
+            className="col-span-3 md:col-span-1 flex flex-col items-center justify-center mt-8 md:mt-0"
+          >
+            <h3 className="text-lg font-semibold mb-2 text-center">VISIT OUR STORE</h3>
+            <p className="text-gray-400 text-sm text-center">
+              <span role="img" aria-label="location" className="mr-1">📍</span>
+              Chris Akinro Cl, Lekki Penninsula II, Lekki<br />106104, Lagos
             </p>
           </motion.div>
 
@@ -84,41 +99,6 @@ export default function Footer() {
             </ul>
           </motion.div>
 
-          {/* Categories */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <h3 className="text-lg font-semibold mb-4">Categories</h3>
-            <ul className="space-y-2 text-sm">
-              {[
-                { name: 'Tees', href: '/category/tees' },
-                { name: 'Hoodies', href: '/category/hoodies' },
-                { name: 'Jeans', href: '/category/jeans' },
-                { name: 'Cargo', href: '/category/cargo' }
-              ].map((link, i) => (
-                <motion.li 
-                  key={link.name}
-                  custom={i}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={linkVariants}
-                >
-                  <Link 
-                    href={link.href} 
-                    className="text-gray-400 hover:text-white transition-colors block"
-                  >
-                    <motion.span whileHover={{ x: 5 }} className="inline-block">
-                      {link.name}
-                    </motion.span>
-                  </Link>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
 
           {/* Contact */}
           <motion.div
@@ -139,9 +119,23 @@ export default function Footer() {
               <motion.div
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className="inline-block bg-gradient-to-r from-green-600 to-green-500 text-white px-4 py-2 rounded-xl text-sm hover:shadow-lg hover:shadow-green-500/50 transition-shadow"
+                className="inline-block bg-gradient-to-r from-green-600 to-green-500 text-white px-4 py-2 rounded-xl text-sm hover:shadow-lg hover:shadow-green-500/50 transition-shadow mb-2"
               >
                 Chat on WhatsApp
+              </motion.div>
+            </a>
+            <a
+              href="https://www.instagram.com/cityhighstyless?igsh=YWlsZjczb25sajZo"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block mt-2"
+            >
+              <motion.div
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-block bg-gradient-to-r from-pink-500 to-yellow-500 text-white px-4 py-2 rounded-xl text-sm hover:shadow-lg hover:shadow-pink-500/50 transition-shadow"
+              >
+                Follow us on Instagram
               </motion.div>
             </a>
           </motion.div>
