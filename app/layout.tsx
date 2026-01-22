@@ -19,6 +19,14 @@ export const metadata: Metadata = {
     siteName: 'City High Styles',
     title: 'City High Styles - Premium Men\'s Fashion',
     description: 'Discover premium clothing for men. Quality fashion at affordable prices.',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'City High Styles - Premium Men\'s Fashion',
+      }
+    ]
   },
 };
 
@@ -29,6 +37,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="manifest" href="/manifest.json" />
+      </head>
       <body className={inter.className}>
         <CartProvider>
           <div className="flex flex-col min-h-screen">
