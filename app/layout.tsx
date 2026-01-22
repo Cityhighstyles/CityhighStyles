@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'City High Styles - Premium Men\'s Fashion',
   description: 'Discover premium clothing for men. From graphic tees to hoodies, jeans, and more. Quality fashion at affordable prices.',
-  keywords: ['clothing', 'fashion', 'men\'s wear', 'hoodies', 'jeans', 'tees', 'Nigeria'],
+  keywords: ['city high styles', 'cityhighstyles', 'clothing', 'fashion', 'men\'s wear', 'hoodies', 'jeans', 'tees', 'Nigeria'],
   authors: [{ name: 'City High Styles' }],
   openGraph: {
     type: 'website',
