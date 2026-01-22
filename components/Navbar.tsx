@@ -223,31 +223,36 @@ export default function Navbar() {
               />
 
               {/* Mobile Results */}
-              {showResults && results.length > 0 && (
-                <div className="border rounded mb-4 max-h-60 overflow-auto">
-                  {results.map((p) => (
-  <Link
-    key={p.id}
-    href={`/product/${p.slug}`}
-    onClick={() => {
-      setMenuOpen(false);
-      resetSearch();
-    }}
-    className="flex gap-3 p-3 items-center hover:bg-gray-50 border-b last:border-b-0"
-  >
-    <img
-      src={p.images?.[0] || '/placeholder.png'}
-      className="w-12 h-12 object-cover rounded-lg border"
-      alt={p.name}
-    />
-    <div>
-      <div className="font-medium">{p.name}</div>
-      <div className="text-sm text-gray-500 line-clamp-1">
-        {p.description}
-      </div>
-    </div>
-  </Link>
-))}
+             {/* Mobile Results */}
+{showResults && results.length > 0 && (
+  <div className="border rounded mb-4 max-h-60 overflow-auto">
+    {results.map((p) => (
+      <Link
+        key={p.id}
+        href={`/product/${p.slug}`}
+        onClick={() => {
+          setMenuOpen(false);
+          resetSearch();
+        }}
+        className="flex gap-3 p-3 items-center hover:bg-gray-50 border-b last:border-b-0"
+      >
+        <img
+          src={p.images?.[0] || '/placeholder.png'}
+          className="w-12 h-12 object-cover rounded-lg border"
+          alt={p.name}
+        />
+        <div>
+          <div className="font-medium">{p.name}</div>
+          {p.description && (
+            <div className="text-sm text-gray-500 line-clamp-1">
+              {p.description}
+            </div>
+          )}
+        </div>
+      </Link>
+    ))}
+  </div>
+)}
 
               <nav className="flex flex-col gap-4">
                 <NavLink href="/" onClick={() => setMenuOpen(false)}>Home</NavLink>
