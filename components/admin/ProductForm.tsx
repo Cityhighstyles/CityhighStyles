@@ -16,6 +16,7 @@ export default function ProductForm({ product, onClose }: ProductFormProps) {
   const [categories, setCategories] = useState<Category[]>([]);
   const [existingImages, setExistingImages] = useState<string[]>(product?.images || []);
   const [newImageFiles, setNewImageFiles] = useState<File[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>(product?.category || '');
 
   useEffect(() => {
     const loadCategories = async () => {
@@ -31,6 +32,11 @@ export default function ProductForm({ product, onClose }: ProductFormProps) {
     };
     loadCategories();
   }, []);
+
+  // Update selectedCategory if product changes (edit mode)
+  useEffect(() => {
+    setSelectedCategory(product?.category || '');
+  }, [product]);
 
   const handleRemoveExistingImage = (index: number) => {
     setExistingImages(prev => prev.filter((_, i) => i !== index));
@@ -202,9 +208,10 @@ export default function ProductForm({ product, onClose }: ProductFormProps) {
           {/* Category */}
           <div>
             <label className="block text-sm font-medium mb-2">Category *</label>
-            <select
+             <select
               name="category"
-              defaultValue={product?.category}
+              value={selectedCategory}
+              onChange={e => setSelectedCategory(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900"
               required
             >
@@ -215,6 +222,7 @@ export default function ProductForm({ product, onClose }: ProductFormProps) {
                 </option>
               ))}
             </select>
+            formData.append('category', selectedCategory);
           </div>
 
           {/* Fit */}
