@@ -1,8 +1,9 @@
 'use client';
 
-import { Product } from '@/types';
+import { Product, Category } from '@/types';
 import { formatPrice } from '@/lib/utils';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 interface ProductViewProps {
   product: Product;
@@ -11,6 +12,27 @@ interface ProductViewProps {
 }
 
 export default function ProductView({ product, onClose, onEdit }: ProductViewProps) {
+  const [categoryTitle, setCategoryTitle] = useState<string>(product.category);
+  const [images, setImages] = useState<string[]>(product.images);
+
+  useEffect(() => {
+    async function fetchCategory() {
+      try {
+        const response = await fetch(`/api/categories`);
+        if (response.ok) {
+          const categories: Category[] = await response.json();
+          const category = categories.find(c => c.slug === product.category);
+          if (category) {
+            setCategoryTitle(category.title);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching category:', error);
+      }
+    }
+    fetchCategory();
+  }, [product.category]);
+
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
       {/* Header */}
@@ -37,8 +59,8 @@ export default function ProductView({ product, onClose, onEdit }: ProductViewPro
         <div className="mb-8">
           <h3 className="text-lg font-semibold mb-4">Product Images ({product.images.length})</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {product.images.map((image, index) => (
-                <div key={index} className="relative aspect-square bg-gray-100 rounded-lg overflow-hidden border-2 border-gray-200">
+            {images.map((image, index) => (
+                <div key={index} className="relative aspect-square bg-gray-100 rounded-lg overflow-hidden border-2 border-gray-200 group">
                 <img
                   src={image}
                   alt={`${product.name} - Image ${index + 1}`}
@@ -80,7 +102,7 @@ export default function ProductView({ product, onClose, onEdit }: ProductViewPro
               </div>
               <div>
                 <label className="text-sm font-medium text-gray-500">Category</label>
-                <p className="text-lg capitalize mt-1">{product.category}</p>
+                <p className="text-lg mt-1">{categoryTitle}</p>
               </div>
             </div>
 

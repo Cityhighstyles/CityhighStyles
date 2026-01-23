@@ -36,6 +36,24 @@ export default function ProductForm({ product, onClose }: ProductFormProps) {
     setExistingImages(prev => prev.filter((_, i) => i !== index));
   };
 
+  const handleSetAsMain = (index: number, isExisting: boolean) => {
+    if (isExisting) {
+      setExistingImages(prev => {
+        const newImages = [...prev];
+        const [item] = newImages.splice(index, 1);
+        newImages.unshift(item);
+        return newImages;
+      });
+    } else {
+      setNewImageFiles(prev => {
+        const newFiles = [...prev];
+        const [file] = newFiles.splice(index, 1);
+        newFiles.unshift(file);
+        return newFiles;
+      });
+    }
+  };
+
   const handleNewImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
     const totalSize = files.reduce((acc, file) => acc + file.size, 0) / (1024 * 1024); // Convert to MB
@@ -314,6 +332,16 @@ export default function ProductForm({ product, onClose }: ProductFormProps) {
                     >
                       ✕
                     </button>
+                    {index !== 0 && (
+                      <button
+                        type="button"
+                        onClick={() => handleSetAsMain(index, true)}
+                        className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white text-xs px-2 py-1 rounded hover:bg-blue-700 shadow-lg whitespace-nowrap"
+                        title="Set as main image"
+                      >
+                        Set as Main
+                      </button>
+                    )}
                   </div>
                 ))}
               </div>
@@ -336,7 +364,7 @@ export default function ProductForm({ product, onClose }: ProductFormProps) {
                         sizes="(max-width: 768px) 50vw, (max-width: 1024px) 25vw, 16vw"
                       />
                       <div className="absolute top-2 left-2 bg-green-600 text-white text-xs px-2 py-1 rounded">
-                        New
+                        New {existingImages.length === 0 && index === 0 ? '(Main)' : ''}
                       </div>
                     </div>
                     <button
@@ -347,6 +375,16 @@ export default function ProductForm({ product, onClose }: ProductFormProps) {
                     >
                       ✕
                     </button>
+                    {(existingImages.length === 0 && index !== 0) && (
+                      <button
+                        type="button"
+                        onClick={() => handleSetAsMain(index, false)}
+                        className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white text-xs px-2 py-1 rounded hover:bg-blue-700 shadow-lg whitespace-nowrap"
+                        title="Set as main image"
+                      >
+                        Set as Main
+                      </button>
+                    )}
                   </div>
                 ))}
               </div>
