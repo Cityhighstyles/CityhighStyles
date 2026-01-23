@@ -1,7 +1,7 @@
-import type { NextConfig } from "next";
 import withPWA from "next-pwa";
 
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig: any = {
   experimental: {
     serverActions: {
       bodySizeLimit: "3mb",
@@ -16,13 +16,11 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  /* config options here */
 };
 
 export default withPWA({
-  ...nextConfig,
   dest: "public",
   register: true,
   skipWaiting: true,
-  disable: process.env.NODE_ENV === "development"
-});
+  disable: process.env.NODE_ENV === "development",
+})(nextConfig);
