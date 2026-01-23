@@ -40,6 +40,15 @@ export default function ProductsPage() {
     productsByCategory[category.slug] = products.filter(p => p.category === category.slug);
   });
 
+const formatPrice = (price: number) => {
+  return new Intl.NumberFormat("en-NG", {
+    style: "currency",
+    currency: "NGN",
+    minimumFractionDigits: 0,
+  }).format(price);
+};
+
+
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-[40vh] text-xl text-gray-600">Loading products...</div>
@@ -85,7 +94,9 @@ export default function ProductsPage() {
                       <div className="p-4">
                         <h3 className="font-bold text-lg mb-2">{product.name}</h3>
                         <p className="text-gray-600 mb-2">{product.description}</p>
-                        <span className="text-gray-900 font-semibold">${product.price}</span>
+                        <span className="text-gray-900 font-semibold">
+  {formatPrice(product.price)}
+</span>
                       </div>
                     </Link>
                   </motion.div>
