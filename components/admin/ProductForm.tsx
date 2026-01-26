@@ -222,7 +222,7 @@ export default function ProductForm({ product, onClose }: ProductFormProps) {
                 </option>
               ))}
             </select>
-            formData.append('category', selectedCategory);
+            
           </div>
 
           {/* Fit */}
