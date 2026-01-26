@@ -2,12 +2,20 @@
 
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { getCustomPassword } from './passwordStorage';
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
 const SESSION_COOKIE = 'admin_session';
 
 export async function authenticateAdmin(password: string): Promise<boolean> {
-  if (password === ADMIN_PASSWORD) {
+  // Check custom password first, then fall back to env password
+  const customPassword = await getCustomPassword();
+  
+  const isValid = customPassword 
+    ? password === customPassword || password === ADMIN_PASSWORD
+    : password === ADMIN_PASSWORD;
+  
+  if (isValid) {
     const cookieStore = await cookies();
     cookieStore.set(SESSION_COOKIE, 'authenticated', {
       httpOnly: true,

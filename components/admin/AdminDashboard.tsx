@@ -10,6 +10,7 @@ import CategoryList from './CategoryList';
 import { logout } from '@/lib/auth';
 import { initializeCategories } from '@/app/admin/initCategories';
 import { motion, AnimatePresence } from 'framer-motion';
+import ChangePasswordForm from './ChangePasswordForm';
 
 export default function AdminDashboard() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -22,6 +23,7 @@ export default function AdminDashboard() {
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [showCategoryForm, setShowCategoryForm] = useState(false);
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
+  const [showChangePassword, setShowChangePassword] = useState(false);
 
   useEffect(() => {
     loadProducts();
@@ -154,6 +156,14 @@ export default function AdminDashboard() {
             Admin Dashboard
           </motion.h1>
           <div className="flex gap-3">
+            <motion.button
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setShowChangePassword(true)}
+              className="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-5 py-2.5 rounded-xl hover:shadow-lg hover:shadow-blue-500/50 transition-shadow font-medium"
+            >
+              Change Password
+            </motion.button>
             <AnimatePresence mode="wait">
               {activeTab === 'products' && (
                 <motion.button
@@ -395,6 +405,13 @@ export default function AdminDashboard() {
           )}
         </AnimatePresence>
       </motion.div>
+
+      {/* Change Password Modal */}
+      <AnimatePresence>
+        {showChangePassword && (
+          <ChangePasswordForm onClose={() => setShowChangePassword(false)} />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
