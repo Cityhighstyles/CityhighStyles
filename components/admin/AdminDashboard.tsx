@@ -144,7 +144,7 @@ export default function AdminDashboard() {
       <motion.div 
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="bg-white/80 backdrop-blur-xl shadow-lg border-b border-gray-200/50 sticky top-0 z-50"
+        className="bg-white/80 backdrop-blur-xl shadow-lg border-b border-gray-200/50 sticky top-0 z-30"
       >
         <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
           {/* Header */}
