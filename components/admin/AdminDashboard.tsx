@@ -141,70 +141,114 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200">
-      <motion.div 
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        className="bg-white/80 backdrop-blur-xl shadow-lg border-b border-gray-200/50 sticky top-0 z-2"
+      <motion.div
+  initial={{ y: -100, opacity: 0 }}
+  animate={{ y: 0, opacity: 1 }}
+  className="bg-white/80 backdrop-blur-xl shadow-lg border-b border-gray-200/50 sticky top-0 z-20"
+>
+  <div className="container mx-auto px-4 py-3">
+    {/* Header Top */}
+    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      {/* Title */}
+      <motion.h1
+        initial={{ x: -20, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ delay: 0.1 }}
+        className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 bg-clip-text text-transparent"
       >
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <motion.h1 
-            initial={{ x: -20, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.1 }}
-            className="text-2xl font-bold bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 bg-clip-text text-transparent"
-          >
-            Admin Dashboard
-          </motion.h1>
-          <div className="flex gap-3">
+        Admin Dashboard
+      </motion.h1>
+
+      {/* Actions */}
+      <div className="grid grid-cols-2 sm:flex gap-2 sm:gap-3">
+        {/* Change Password */}
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => setShowChangePassword(true)}
+          className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-blue-500 text-white px-3 py-2 text-sm sm:px-5 sm:py-2.5 sm:text-base rounded-xl font-medium"
+        >
+          Change Password
+        </motion.button>
+
+        {/* New Product / Category */}
+        <AnimatePresence mode="wait">
+          {activeTab === "products" && (
             <motion.button
-              whileHover={{ scale: 1.05, y: -2 }}
+              key="new-product"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0 }}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => setShowChangePassword(true)}
-              className="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-5 py-2.5 rounded-xl hover:shadow-lg hover:shadow-blue-500/50 transition-shadow font-medium"
+              onClick={handleCreateNew}
+              className="w-full sm:w-auto bg-gradient-to-r from-green-600 to-green-500 text-white px-3 py-2 text-sm sm:px-5 sm:py-2.5 sm:text-base rounded-xl font-medium"
             >
-              Change Password
+              + New Product
             </motion.button>
-            <AnimatePresence mode="wait">
-              {activeTab === 'products' && (
-                <motion.button
-                  key="new-product"
-                  initial={{ scale: 0, rotate: -180 }}
-                  animate={{ scale: 1, rotate: 0 }}
-                  exit={{ scale: 0, rotate: 180 }}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={handleCreateNew}
-                  className="bg-gradient-to-r from-green-600 to-green-500 text-white px-5 py-2.5 rounded-xl hover:shadow-lg hover:shadow-green-500/50 transition-shadow font-medium"
-                >
-                  + New Product
-                </motion.button>
-              )}
-              {activeTab === 'categories' && (
-                <motion.button
-                  key="new-category"
-                  initial={{ scale: 0, rotate: -180 }}
-                  animate={{ scale: 1, rotate: 0 }}
-                  exit={{ scale: 0, rotate: 180 }}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => {
-                    setEditingCategory(null);
-                    setShowCategoryForm(true);
-                  }}
-                  className="bg-gradient-to-r from-green-600 to-green-500 text-white px-5 py-2.5 rounded-xl hover:shadow-lg hover:shadow-green-500/50 transition-shadow font-medium"
-                >
-                  + New Category
-                </motion.button>
-              )}
-            </AnimatePresence>
+          )}
+
+          {activeTab === "categories" && (
             <motion.button
-              whileHover={{ scale: 1.05, y: -2 }}
+              key="new-category"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0 }}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={handleLogout}
-              className="bg-gradient-to-r from-red-600 to-red-500 text-white px-5 py-2.5 rounded-xl hover:shadow-lg hover:shadow-red-500/50 transition-shadow font-medium"
+              onClick={() => {
+                setEditingCategory(null);
+                setShowCategoryForm(true);
+              }}
+              className="w-full sm:w-auto bg-gradient-to-r from-green-600 to-green-500 text-white px-3 py-2 text-sm sm:px-5 sm:py-2.5 sm:text-base rounded-xl font-medium"
             >
-              Logout
+              + New Category
             </motion.button>
+          )}
+        </AnimatePresence>
+
+        {/* Logout */}
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={handleLogout}
+          className="w-full sm:w-auto bg-gradient-to-r from-red-600 to-red-500 text-white px-3 py-2 text-sm sm:px-5 sm:py-2.5 sm:text-base rounded-xl font-medium"
+        >
+          Logout
+        </motion.button>
+      </div>
+    </div>
+
+    {/* Tabs */}
+    <div className="mt-3 flex border-b border-gray-200/50 overflow-x-auto">
+      <button
+        onClick={() => {
+          setActiveTab("products");
+          setShowForm(false);
+          setShowCategoryForm(false);
+        }}
+        className={`px-4 py-2 font-semibold whitespace-nowrap ${
+          activeTab === "products" ? "text-gray-900" : "text-gray-500"
+        }`}
+      >
+        Products
+      </button>
+
+      <button
+        onClick={() => {
+          setActiveTab("categories");
+          setShowForm(false);
+          setShowCategoryForm(false);
+        }}
+        className={`px-4 py-2 font-semibold whitespace-nowrap ${
+          activeTab === "categories" ? "text-gray-900" : "text-gray-500"
+        }`}
+      >
+        Categories
+      </button>
+    </div>
+  </div>
+</motion.div>
           </div>
         </div>
         
