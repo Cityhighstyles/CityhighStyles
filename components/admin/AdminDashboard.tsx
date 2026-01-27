@@ -111,7 +111,7 @@ export default function AdminDashboard() {
     try {
       const { deleteCategory } = await import('@/app/admin/categoryActions');
       const result = await deleteCategory(slug);
-      
+
       if (result.success) {
         alert('Category deleted successfully!');
         await loadCategories();
@@ -141,127 +141,89 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200">
-      <motion.div
-  initial={{ y: -100, opacity: 0 }}
-  animate={{ y: 0, opacity: 1 }}
-  className="bg-white/80 backdrop-blur-xl shadow-lg border-b border-gray-200/50 sticky top-0 z-20"
->
-  <div className="container mx-auto px-4 py-3">
-    {/* Header Top */}
-    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-      {/* Title */}
-      <motion.h1
-        initial={{ x: -20, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ delay: 0.1 }}
-        className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 bg-clip-text text-transparent"
+      <motion.div 
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        className="bg-white/80 backdrop-blur-xl shadow-lg border-b border-gray-200/50 sticky top-0 z-50"
       >
-        Admin Dashboard
-      </motion.h1>
-
-      {/* Actions */}
-      <div className="grid grid-cols-2 sm:flex gap-2 sm:gap-3">
-        {/* Change Password */}
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => setShowChangePassword(true)}
-          className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-blue-500 text-white px-3 py-2 text-sm sm:px-5 sm:py-2.5 sm:text-base rounded-xl font-medium"
-        >
-          Change Password
-        </motion.button>
-
-        {/* New Product / Category */}
-        <AnimatePresence mode="wait">
-          {activeTab === "products" && (
-            <motion.button
-              key="new-product"
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={handleCreateNew}
-              className="w-full sm:w-auto bg-gradient-to-r from-green-600 to-green-500 text-white px-3 py-2 text-sm sm:px-5 sm:py-2.5 sm:text-base rounded-xl font-medium"
+        <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
+          {/* Header */}
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-3 sm:mb-0">
+            <motion.h1 
+              initial={{ x: -20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.1 }}
+              className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 bg-clip-text text-transparent"
             >
-              + New Product
-            </motion.button>
-          )}
-
-          {activeTab === "categories" && (
-            <motion.button
-              key="new-category"
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => {
-                setEditingCategory(null);
-                setShowCategoryForm(true);
-              }}
-              className="w-full sm:w-auto bg-gradient-to-r from-green-600 to-green-500 text-white px-3 py-2 text-sm sm:px-5 sm:py-2.5 sm:text-base rounded-xl font-medium"
-            >
-              + New Category
-            </motion.button>
-          )}
-        </AnimatePresence>
-
-        {/* Logout */}
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={handleLogout}
-          className="w-full sm:w-auto bg-gradient-to-r from-red-600 to-red-500 text-white px-3 py-2 text-sm sm:px-5 sm:py-2.5 sm:text-base rounded-xl font-medium"
-        >
-          Logout
-        </motion.button>
-      </div>
-    </div>
-
-    {/* Tabs */}
-    <div className="mt-3 flex border-b border-gray-200/50 overflow-x-auto">
-      <button
-        onClick={() => {
-          setActiveTab("products");
-          setShowForm(false);
-          setShowCategoryForm(false);
-        }}
-        className={`px-4 py-2 font-semibold whitespace-nowrap ${
-          activeTab === "products" ? "text-gray-900" : "text-gray-500"
-        }`}
-      >
-        Products
-      </button>
-
-      <button
-        onClick={() => {
-          setActiveTab("categories");
-          setShowForm(false);
-          setShowCategoryForm(false);
-        }}
-        className={`px-4 py-2 font-semibold whitespace-nowrap ${
-          activeTab === "categories" ? "text-gray-900" : "text-gray-500"
-        }`}
-      >
-        Categories
-      </button>
-    </div>
-  </div>
-</motion.div>
+              Admin Dashboard
+            </motion.h1>
+            
+            {/* Action Buttons */}
+            <div className="flex flex-wrap gap-2 w-full sm:w-auto">
+              <motion.button
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setShowChangePassword(true)}
+                className="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl hover:shadow-lg hover:shadow-blue-500/50 transition-shadow font-medium text-sm"
+              >
+                <span className="hidden sm:inline">Change Password</span>
+                <span className="sm:hidden">Password</span>
+              </motion.button>
+              <AnimatePresence mode="wait">
+                {activeTab === 'products' && (
+                  <motion.button
+                    key="new-product"
+                    initial={{ scale: 0, rotate: -180 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    exit={{ scale: 0, rotate: 180 }}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={handleCreateNew}
+                    className="bg-gradient-to-r from-green-600 to-green-500 text-white px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl hover:shadow-lg hover:shadow-green-500/50 transition-shadow font-medium text-sm"
+                  >
+                    + New Product
+                  </motion.button>
+                )}
+                {activeTab === 'categories' && (
+                  <motion.button
+                    key="new-category"
+                    initial={{ scale: 0, rotate: -180 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    exit={{ scale: 0, rotate: 180 }}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => {
+                      setEditingCategory(null);
+                      setShowCategoryForm(true);
+                    }}
+                    className="bg-gradient-to-r from-green-600 to-green-500 text-white px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl hover:shadow-lg hover:shadow-green-500/50 transition-shadow font-medium text-sm"
+                  >
+                    + New Category
+                  </motion.button>
+                )}
+              </AnimatePresence>
+              <motion.button
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleLogout}
+                className="bg-gradient-to-r from-red-600 to-red-500 text-white px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl hover:shadow-lg hover:shadow-red-500/50 transition-shadow font-medium text-sm"
+              >
+                Logout
+              </motion.button>
+            </div>
           </div>
         </div>
-        
+
         {/* Tabs */}
-        <div className="container mx-auto px-4">
-          <div className="flex border-b border-gray-200/50 relative">
+        <div className="container mx-auto px-3 sm:px-4">
+          <div className="flex border-b border-gray-200/50 relative -mx-3 sm:-mx-0 px-3 sm:px-0">
             <motion.button
               onClick={() => {
                 setActiveTab('products');
                 setShowForm(false);
                 setShowCategoryForm(false);
               }}
-              className={`px-6 py-3 font-semibold transition-colors relative ${
+              className={`flex-1 sm:flex-none px-4 sm:px-6 py-3 font-semibold transition-colors relative text-sm sm:text-base ${
                 activeTab === 'products'
                   ? 'text-gray-900'
                   : 'text-gray-500 hover:text-gray-700'
@@ -283,7 +245,7 @@ export default function AdminDashboard() {
                 setShowForm(false);
                 setShowCategoryForm(false);
               }}
-              className={`px-6 py-3 font-semibold transition-colors relative ${
+              className={`flex-1 sm:flex-none px-4 sm:px-6 py-3 font-semibold transition-colors relative text-sm sm:text-base ${
                 activeTab === 'categories'
                   ? 'text-gray-900'
                   : 'text-gray-500 hover:text-gray-700'
@@ -307,7 +269,7 @@ export default function AdminDashboard() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="container mx-auto px-4 py-8"
+        className="container mx-auto px-3 sm:px-4 py-4 sm:py-8"
       >
         <AnimatePresence mode="wait">
           {activeTab === 'products' ? (
@@ -358,7 +320,7 @@ export default function AdminDashboard() {
                           transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                           className="w-12 h-12 border-4 border-gray-300 border-t-gray-900 rounded-full mx-auto mb-4"
                         />
-                        <p className="text-gray-600">Loading products...</p>
+                        <p className="text-gray-600 text-sm sm:text-base">Loading products...</p>
                       </motion.div>
                     ) : (
                       <ProductList
@@ -406,17 +368,17 @@ export default function AdminDashboard() {
                       transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                       className="w-12 h-12 border-4 border-gray-300 border-t-gray-900 rounded-full mx-auto mb-4"
                     />
-                    <p className="text-gray-600">Loading categories...</p>
+                    <p className="text-gray-600 text-sm sm:text-base">Loading categories...</p>
                   </motion.div>
                 ) : categories.length === 0 ? (
                   <motion.div 
                     key="no-categories"
-                    className="text-center py-12"
+                    className="text-center py-12 px-4"
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                   >
                     <motion.p 
-                      className="text-gray-600 mb-4"
+                      className="text-gray-600 mb-4 text-sm sm:text-base"
                       animate={{ y: [0, -5, 0] }}
                       transition={{ duration: 2, repeat: Infinity }}
                     >
@@ -426,7 +388,7 @@ export default function AdminDashboard() {
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={handleInitializeCategories}
-                      className="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg hover:shadow-blue-500/50 transition-shadow"
+                      className="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold hover:shadow-lg hover:shadow-blue-500/50 transition-shadow text-sm sm:text-base"
                     >
                       Initialize Categories
                     </motion.button>
