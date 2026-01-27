@@ -15,7 +15,7 @@ export default function Footer() {
           {/* About */}
           <div className="flex-1 animate-fade-in-up">
             <h3 className="text-2xl md:text-3xl font-bold mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-              City High Styles
+              CityHighStyles
             </h3>
             <p className="text-gray-400 text-base md:text-lg">
               Premium men's fashion. Quality clothing at affordable prices.
@@ -81,7 +81,7 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="border-t border-gray-800 mt-12 pt-6 text-center text-base md:text-lg text-gray-400 animate-fade-in-up delay-500">
-          <p>&copy; {currentYear} City High Styles. All rights reserved.</p>
+          <p>&copy; {currentYear} CityHighStyles. All rights reserved.</p>
         </div>
       </div>
     </footer>
