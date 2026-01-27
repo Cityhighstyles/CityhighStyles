@@ -32,7 +32,7 @@ export default function HeroSection() {
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent"
           >
-            City High Styles
+            CityHighStyles
           </m.h1>
 
           {/* Subtitle */}
