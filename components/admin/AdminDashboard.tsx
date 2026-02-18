@@ -36,9 +36,10 @@ export default function AdminDashboard() {
       const response = await fetch('/api/products');
       if (response.ok) {
         const allProducts = await response.json();
+        console.log('Products loaded:', allProducts); // Add this
         setProducts(allProducts);
       } else {
-        console.error('Failed to fetch products');
+        console.error('Failed to fetch products', response.status); // Add status
         setProducts([]);
       }
     } catch (error) {
