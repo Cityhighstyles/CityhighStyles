@@ -90,7 +90,7 @@ export default function Navbar() {
           <div className="absolute left-0 right-0 flex justify-center pointer-events-none">
             <Link href="/" className="pointer-events-auto">
               <motion.span whileHover={{ scale: 1.05 }} className="text-xl md:text-2xl font-bold">
-                City High Styles
+                CityHighStyles
               </motion.span>
             </Link>
           </div>
