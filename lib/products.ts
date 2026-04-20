@@ -1,9 +1,16 @@
 import { Product } from '@/types';
 import { getFileContent, listFiles, createOrUpdateFile, deleteFile } from './github';
+import { cacheManager } from './cache';
 
 const PRODUCTS_DIR = 'data/products';
 
 export async function getAllProducts(): Promise<Product[]> {
+  // Check cache first
+  const cached = cacheManager.getProducts('all');
+  if (cached) {
+    return cached;
+  }
+
   try {
     const files = await listFiles(PRODUCTS_DIR);
     const jsonFiles = files.filter((f) => f.endsWith('.json'));
@@ -18,7 +25,12 @@ export async function getAllProducts(): Promise<Product[]> {
       })
     );
 
-    return products.filter((p): p is Product => p !== null);
+    const validProducts = products.filter((p): p is Product => p !== null);
+    
+    // Cache the results
+    cacheManager.setProducts(validProducts, 'all');
+    
+    return validProducts;
   } catch (error) {
     console.error('Error loading products:', error);
     return [];
@@ -26,10 +38,19 @@ export async function getAllProducts(): Promise<Product[]> {
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
+  // Check cache first
+  const cached = cacheManager.getProduct(slug);
+  if (cached) {
+    return cached;
+  }
+
   try {
     const content = await getFileContent(`${PRODUCTS_DIR}/${slug}.json`);
     if (content) {
-      return JSON.parse(content) as Product;
+      const product = JSON.parse(content) as Product;
+      // Cache the individual product
+      cacheManager.setProduct(slug, product);
+      return product;
     }
     return null;
   } catch (error) {
@@ -65,6 +86,9 @@ export async function saveProduct(product: Product): Promise<void> {
   const message = `Update product: ${product.name}`;
 
   await createOrUpdateFile(path, content, message);
+  
+  // Invalidate cache for this product
+  cacheManager.invalidateProduct(product.slug);
 }
 
 export async function deleteProduct(slug: string): Promise<void> {
@@ -72,4 +96,7 @@ export async function deleteProduct(slug: string): Promise<void> {
   const message = `Delete product: ${slug}`;
 
   await deleteFile(path, message);
+  
+  // Invalidate cache for this product
+  cacheManager.invalidateProduct(slug);
 }

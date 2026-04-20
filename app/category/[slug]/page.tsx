@@ -10,6 +10,9 @@ interface CategoryPageProps {
   }>;
 }
 
+// ISR: Revalidate this page every 1 hour (3600 seconds)
+export const revalidate = 3600;
+
 export async function generateStaticParams() {
   const categories = await getAllCategories();
   return categories.map((category) => ({

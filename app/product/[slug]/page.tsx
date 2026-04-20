@@ -9,6 +9,9 @@ interface ProductPageProps {
   }>;
 }
 
+// ISR: Revalidate this page every 1 hour (3600 seconds)
+export const revalidate = 3600;
+
 export async function generateStaticParams() {
   const products = await getAllProducts();
   return products.map((product) => ({
