@@ -92,16 +92,16 @@ export default function HeroSection() {
           </div>
         </m.nav>
 
-        <div className="min-h-screen flex items-center justify-center container mx-auto px-4 relative z-10">
-          <div className="grid md:grid-cols-2 gap-12 items-center w-full">
+        <div className="min-h-screen flex items-center justify-center container mx-auto px-4 pt-20 relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center w-full">
             
             {/* Left: Background Text Layer (z-10) */}
             <m.div
               animate={{ x: mousePosition.x * 2, y: mousePosition.y * 2 }}
               transition={{ type: "spring", stiffness: 100, damping: 30 }}
-              className="flex items-center justify-center md:justify-end"
+              className="flex items-center justify-center order-2 md:order-1"
             >
-              <h1 className="text-7xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-br from-blue-200 to-cyan-200 select-none pointer-events-none">
+              <h1 className="text-6xl md:text-7xl lg:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-br from-blue-600 via-cyan-600 to-blue-500 select-none pointer-events-none drop-shadow-lg">
                 SKINCARE
               </h1>
             </m.div>
@@ -117,14 +117,14 @@ export default function HeroSection() {
                 y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
                 x: { type: "spring", stiffness: 100, damping: 30 }
               }}
-              className="flex items-center justify-center relative"
+              className="flex items-center justify-center relative order-1 md:order-2"
             >
               <m.div
                 whileHover={{ scale: 1.05 }}
-                className="relative w-full max-w-md"
+                className="relative w-full max-w-xs md:max-w-md"
               >
                 <Image
-                  src="/assets/bottle.jpg"
+                  src="/bottle.jpg"
                   alt="Premium Skincare Serum"
                   width={400}
                   height={600}
@@ -141,7 +141,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
+            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
           >
             <Link href="/products" className="inline-block">
               <m.button
