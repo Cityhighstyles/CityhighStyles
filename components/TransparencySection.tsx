@@ -13,7 +13,7 @@ const TransparencySection = () => {
           transition={{ duration: 0.8, ease: 'easeOut' }}
         >
           <Image
-            src="https://placehold.co/400x600/FFFFFF/333333?text=Product+2"
+            src="/transparent-section-image.png"
             alt="Our Product"
             width={400}
             height={600}

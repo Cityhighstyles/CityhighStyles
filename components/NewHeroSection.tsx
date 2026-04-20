@@ -45,7 +45,7 @@ const NewHeroSection = () => {
           transition={{ duration: 1, ease: 'easeOut' }}
         >
           <Image
-            src="https://placehold.co/300x500/FFFFFF/333333?text=Product"
+            src="/hero-section-product.png"
             alt="Product Image"
             width={300}
             height={500}
