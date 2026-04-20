@@ -4,87 +4,92 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const NewHeroSection = () => {
-  const bubbles = [
-    { size: '100px', x: '10%', y: '20%', duration: 8 },
-    { size: '50px', x: '80%', y: '30%', duration: 12 },
-    { size: '80px', x: '90%', y: '70%', duration: 10 },
-    { size: '40px', x: '20%', y: '80%', duration: 15 },
-    { size: '120px', x: '5%', y: '60%', duration: 9 },
-  ];
-
   return (
-    <section className="relative w-full h-screen overflow-hidden bg-gradient-to-br from-pink-100 via-purple-100 to-white">
-      {bubbles.map((bubble, i) => (
-        <motion.div
-          key={i}
-          className="absolute rounded-full bg-white/30 backdrop-blur-sm"
-          style={{
-            width: bubble.size,
-            height: bubble.size,
-            top: bubble.y,
-            left: bubble.x,
-          }}
-          animate={{
-            y: [0, -20, 0],
-            x: [0, 10, 0],
-          }}
-          transition={{
-            duration: bubble.duration,
-            repeat: Infinity,
-            repeatType: 'reverse',
-            ease: 'easeInOut',
-          }}
-        />
-      ))}
+    <section 
+      className="relative w-full h-screen overflow-hidden flex items-center justify-center"
+      style={{
+        backgroundImage: 'url(/hero-background.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      {/* Dark overlay for text readability */}
+      <div className="absolute inset-0 bg-black/20" />
 
-      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
-        <motion.div 
-          className="absolute"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, ease: 'easeOut' }}
-        >
-          <Image
-            src="/hero-section-product.png"
-            alt="Product Image"
-            width={300}
-            height={500}
-            className="object-contain drop-shadow-2xl"
-          />
-        </motion.div>
-
-        <div className="relative w-full flex items-center justify-center">
-          <motion.h1
-            className="text-6xl md:text-9xl font-extrabold text-gray-800 mix-blend-overlay"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
+      <div className="relative z-10 w-full h-full flex items-center justify-center">
+        <div className="relative w-full max-w-4xl h-full flex items-center justify-center px-4">
+          {/* Product Image - Center */}
+          <motion.div 
+            className="absolute z-20"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, ease: 'easeOut' }}
           >
-            <span className="block">POWERFUL.</span>
-            <span className="block mt-[-2rem] md:mt-[-4rem]">PURE.</span>
-          </motion.h1>
-        </div>
-        
-        <motion.h2
-            className="text-5xl md:text-8xl font-serif text-gray-700 italic mt-[-1rem] md:mt-[-2rem]"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.4 }}
-        >
-            Gentle
-        </motion.h2>
+            <Image
+              src="/hero-section-product.png"
+              alt="Product Image"
+              width={280}
+              height={450}
+              className="object-contain drop-shadow-2xl"
+              priority
+            />
+          </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.8 }}
-        >
-          <Link href="/products">
-            <button className="mt-8 px-8 py-3 bg-white/50 backdrop-blur-md border border-white/60 rounded-full text-lg font-semibold text-gray-800 hover:bg-white/80 transition-colors duration-300">
-              Shop Now
-            </button>
-          </Link>
-        </motion.div>
+          {/* Text Overlay - Left and Right */}
+          <div className="absolute inset-0 flex items-center justify-center px-8">
+            {/* Left side text */}
+            <div className="w-1/3 text-right pr-4">
+              <motion.h1
+                className="text-5xl md:text-7xl font-extrabold text-white drop-shadow-lg"
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
+              >
+                POWERFUL.
+              </motion.h1>
+            </div>
+
+            {/* Center - Product */}
+            <div className="w-1/3 flex justify-center">
+              {/* Empty space for product */}
+            </div>
+
+            {/* Right side text */}
+            <div className="w-1/3 text-left pl-4">
+              <motion.h1
+                className="text-5xl md:text-7xl font-extrabold text-white drop-shadow-lg"
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, ease: 'easeOut', delay: 0.3 }}
+              >
+                PURE.
+              </motion.h1>
+              
+              <motion.h2
+                className="text-4xl md:text-6xl font-serif text-white italic drop-shadow-lg mt-2"
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, ease: 'easeOut', delay: 0.4 }}
+              >
+                Gentle
+              </motion.h2>
+            </div>
+          </div>
+
+          {/* CTA Button - Bottom */}
+          <motion.div
+            className="absolute bottom-12 z-30"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.8 }}
+          >
+            <Link href="/products">
+              <button className="px-8 py-3 bg-white/70 backdrop-blur-md border border-white rounded-full text-lg font-semibold text-gray-900 hover:bg-white/90 transition-colors duration-300 drop-shadow-lg">
+                Shop Now
+              </button>
+            </Link>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
