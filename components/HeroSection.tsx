@@ -12,144 +12,176 @@ export default function HeroSection() {
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!sectionRef.current) return;
-      
+
       const rect = sectionRef.current.getBoundingClientRect();
-      const x = (e.clientX - rect.left - rect.width / 2) / 20;
-      const y = (e.clientY - rect.top - rect.height / 2) / 20;
-      
+      const x = (e.clientX - rect.left - rect.width / 2) / 25;
+      const y = (e.clientY - rect.top - rect.height / 2) / 25;
+
       setMousePosition({ x, y });
     };
 
     const section = sectionRef.current;
     section?.addEventListener('mousemove', handleMouseMove);
-    
+
     return () => section?.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // Bubble configuration
+  // Bubble configuration - more refined
   const bubbles = [
-    { size: 'w-20 h-20', top: '10%', left: '8%', delay: 0, duration: 6 },
-    { size: 'w-32 h-32', top: '15%', right: '12%', delay: 1, duration: 8 },
-    { size: 'w-24 h-24', bottom: '20%', left: '5%', delay: 0.5, duration: 7 },
-    { size: 'w-28 h-28', bottom: '15%', right: '8%', delay: 1.5, duration: 9 },
-    { size: 'w-16 h-16', top: '50%', left: '10%', delay: 0.3, duration: 5.5 },
-    { size: 'w-20 h-20', top: '40%', right: '10%', delay: 1.2, duration: 6.5 },
+    { size: 'w-24 h-24', top: '8%', left: '5%', delay: 0, duration: 6, opacity: 0.6 },
+    { size: 'w-40 h-40', top: '12%', right: '8%', delay: 1, duration: 8, opacity: 0.5 },
+    { size: 'w-32 h-32', bottom: '15%', left: '8%', delay: 0.5, duration: 7, opacity: 0.55 },
+    { size: 'w-36 h-36', bottom: '12%', right: '6%', delay: 1.5, duration: 9, opacity: 0.5 },
+    { size: 'w-20 h-20', top: '45%', left: '12%', delay: 0.3, duration: 5.5, opacity: 0.7 },
+    { size: 'w-28 h-28', top: '35%', right: '12%', delay: 1.2, duration: 6.5, opacity: 0.6 },
   ];
 
   return (
     <LazyMotion features={domAnimation}>
-      <section 
+      <section
         ref={sectionRef}
-        className="relative min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100 text-gray-900 overflow-hidden"
+        className="relative min-h-screen overflow-hidden flex items-center justify-center"
       >
-        
-        {/* Floating bubbles background layer */}
+        {/* Gradient Background - Sunset/Dreamy */}
+        <div className="absolute inset-0 bg-gradient-to-b from-purple-600 via-pink-500 to-orange-400 opacity-90" />
+
+        {/* Additional overlay for depth */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+
+        {/* Floating bubbles background layer - refined glow effect */}
         {bubbles.map((bubble, idx) => (
           <m.div
             key={idx}
             aria-hidden
-            animate={{ 
-              y: [0, -50, 0], 
-              x: [0, 30, 0], 
-              opacity: [0.4, 0.7, 0.4] 
+            animate={{
+              y: [0, -60, 0],
+              x: [0, 40, 0],
+              opacity: [bubble.opacity * 0.5, bubble.opacity, bubble.opacity * 0.5]
             }}
-            transition={{ 
-              duration: bubble.duration, 
-              repeat: Infinity, 
+            transition={{
+              duration: bubble.duration,
+              repeat: Infinity,
               ease: "easeInOut",
-              delay: bubble.delay 
+              delay: bubble.delay
             }}
-            className={`absolute ${bubble.size} bg-white rounded-full opacity-50 blur-2xl ${bubble.top ? `top-[${bubble.top}]` : ''} ${bubble.bottom ? `bottom-[${bubble.bottom}]` : ''} ${bubble.left ? `left-[${bubble.left}]` : ''} ${bubble.right ? `right-[${bubble.right}]` : ''}`}
+            className={`absolute ${bubble.size} bg-white/20 rounded-full backdrop-blur-sm ${bubble.top ? 'top-[var(--top)]' : ''} ${bubble.bottom ? 'bottom-[var(--bottom)]' : ''} ${bubble.left ? 'left-[var(--left)]' : ''} ${bubble.right ? 'right-[var(--right)]' : ''}`}
             style={{
-              ...(bubble.top && { top: bubble.top }),
-              ...(bubble.bottom && { bottom: bubble.bottom }),
-              ...(bubble.left && { left: bubble.left }),
-              ...(bubble.right && { right: bubble.right }),
+              ...(bubble.top && { '--top': bubble.top } as React.CSSProperties),
+              ...(bubble.bottom && { '--bottom': bubble.bottom } as React.CSSProperties),
+              ...(bubble.left && { '--left': bubble.left } as React.CSSProperties),
+              ...(bubble.right && { '--right': bubble.right } as React.CSSProperties),
+              boxShadow: '0 8px 32px rgba(255, 255, 255, 0.1), inset 0 2px 8px rgba(255, 255, 255, 0.3)',
             }}
           />
         ))}
 
-        {/* Glassmorphic Navbar */}
+        {/* Glassmorphic Navbar - improved */}
         <m.nav
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
-          className="fixed top-0 w-full z-50 backdrop-blur-md bg-white/10 border-b border-white/20"
+          className="fixed top-0 w-full z-50 backdrop-blur-xl bg-white/5 border-b border-white/10"
         >
           <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <Image 
-              src="/logo.png" 
-              alt="Logo" 
-              width={40} 
+            <Image
+              src="/logo.png"
+              alt="Logo"
+              width={40}
               height={40}
-              className="h-10 w-auto"
+              className="h-10 w-auto filter brightness-150"
             />
-            <div className="hidden md:flex gap-8 text-sm font-medium text-gray-700">
-              <Link href="#" className="hover:text-gray-900 transition">Shop</Link>
-              <Link href="#" className="hover:text-gray-900 transition">About</Link>
-              <Link href="#" className="hover:text-gray-900 transition">Contact</Link>
+            <div className="hidden md:flex gap-8 text-sm font-medium text-white/90 hover:text-white transition">
+              <Link href="#" className="hover:text-white transition">Shop</Link>
+              <Link href="#" className="hover:text-white transition">About</Link>
+              <Link href="#" className="hover:text-white transition">Contact</Link>
             </div>
           </div>
         </m.nav>
 
-        <div className="min-h-screen flex items-center justify-center container mx-auto px-4 pt-20 relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center w-full">
-            
-            {/* Left: Background Text Layer (z-10) */}
-            <m.div
-              animate={{ x: mousePosition.x * 2, y: mousePosition.y * 2 }}
-              transition={{ type: "spring", stiffness: 100, damping: 30 }}
-              className="flex items-center justify-center order-2 md:order-1"
-            >
-              <h1 className="text-6xl md:text-7xl lg:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-br from-blue-600 via-cyan-600 to-blue-500 select-none pointer-events-none drop-shadow-lg">
-                SKINCARE
-              </h1>
-            </m.div>
+        {/* Main Content Container */}
+        <div className="relative z-10 container mx-auto px-4 text-center">
 
-            {/* Right: Product Image Layer (z-30) */}
-            <m.div
-              animate={{ 
-                y: [0, -20, 0],
-                x: -mousePosition.x * 2,
-                z: 30
-              }}
-              transition={{ 
-                y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
-                x: { type: "spring", stiffness: 100, damping: 30 }
-              }}
-              className="flex items-center justify-center relative order-1 md:order-2"
-            >
-              <m.div
-                whileHover={{ scale: 1.05 }}
-                className="relative w-full max-w-xs md:max-w-md"
+          {/* Typography Section */}
+          <m.div
+            initial={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.8 }}
+            animate={{ y: mousePosition.y * 1.5, opacity: 1 }}
+            className="mb-8 max-w-2xl mx-auto"
+          >
+            <div className="space-y-2">
+              <m.p
+                className="text-5xl md:text-6xl font-black text-white drop-shadow-lg tracking-wider"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <Image
-                  src="/bottle.jpg"
-                  alt="Premium Skincare Serum"
-                  width={400}
-                  height={600}
-                  priority
-                  className="w-full h-auto drop-shadow-2xl"
-                />
-              </m.div>
-            </m.div>
+                POWERFUL...
+              </m.p>
+              <m.p
+                className="text-6xl md:text-7xl font-black text-white drop-shadow-lg"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+              >
+                PURE, Gentle
+              </m.p>
+              <m.p
+                className="text-lg md:text-xl text-white/80 font-light mt-4 tracking-wide"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+              >
+                Advanced Skincare Science
+              </m.p>
+            </div>
+          </m.div>
 
-          </div>
+          {/* Product Image - Centered with floating animation */}
+          <m.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{
+              scale: 1,
+              opacity: 1,
+              y: [0, -30, 0],
+              x: -mousePosition.x * 2,
+            }}
+            transition={{
+              y: { duration: 3.5, repeat: Infinity, ease: "easeInOut" },
+              x: { type: "spring", stiffness: 100, damping: 30 }
+            }}
+            className="relative flex justify-center my-8 z-20"
+          >
+            <m.div
+              whileHover={{ scale: 1.08 }}
+              className="relative drop-shadow-2xl"
+              style={{
+                filter: 'drop-shadow(0 25px 50px rgba(0, 0, 0, 0.3))',
+              }}
+            >
+              <Image
+                src="/bottle.jpg"
+                alt="Premium Skincare Serum"
+                width={350}
+                height={550}
+                priority
+                className="w-80 h-auto object-contain filter brightness-110"
+              />
+            </m.div>
+          </m.div>
 
           {/* CTA Button */}
           <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
+            transition={{ duration: 0.8, delay: 0.8 }}
           >
             <Link href="/products" className="inline-block">
               <m.button
-                whileHover={{ scale: 1.08, y: -3 }}
+                whileHover={{ scale: 1.08, boxShadow: "0 20px 40px rgba(255, 255, 255, 0.3)" }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold rounded-full shadow-lg hover:shadow-2xl transition-shadow"
+                className="px-10 py-4 bg-white/20 backdrop-blur-md text-white font-bold rounded-full border border-white/30 shadow-xl hover:shadow-2xl transition-all text-lg"
               >
-                Discover Our Collection
+                Discover Collection
               </m.button>
             </Link>
           </m.div>

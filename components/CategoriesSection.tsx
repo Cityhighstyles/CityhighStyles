@@ -33,17 +33,26 @@ export default function CategoriesSection({ categories }: CategoriesSectionProps
   };
 
   return (
-    <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
+    <section className="py-24 bg-gradient-to-b from-white via-blue-50/50 to-white">
       <div className="container mx-auto px-4">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent"
+          className="text-5xl font-black text-center mb-4 bg-gradient-to-r from-gray-900 via-purple-900 to-gray-900 bg-clip-text text-transparent"
         >
-          Shop by Category
+          Skincare Categories
         </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-center text-gray-600 mb-16 text-lg"
+        >
+          Discover our curated collection of premium skincare solutions
+        </motion.p>
         <motion.div 
           variants={containerVariants}
           initial="hidden"
@@ -61,10 +70,10 @@ export default function CategoriesSection({ categories }: CategoriesSectionProps
                 className="block group"
               >
                 <motion.div
-                  whileHover={{ y: -8, scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="relative bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all border border-gray-100 flex flex-col items-center justify-end min-h-[220px] overflow-hidden p-0"
-                  style={{ minHeight: '220px' }}
+                  whileHover={{ y: -12, scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="relative bg-white/80 backdrop-blur-sm rounded-3xl shadow-lg hover:shadow-2xl transition-all border border-white/60 flex flex-col items-center justify-end min-h-[240px] overflow-hidden p-0"
+                  style={{ minHeight: '240px' }}
                 >
                   {/* Background image */}
                   {category.image && (

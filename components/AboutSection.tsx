@@ -5,36 +5,47 @@ import { motion } from 'framer-motion';
 export default function AboutSection() {
   const features = [
     {
-      icon: '🏆',
-      title: 'Premium Quality',
-      description: 'Carefully selected materials for comfort and durability'
+      icon: '🧪',
+      title: 'Advanced Science',
+      description: 'Clinically tested formulations with premium ingredients'
     },
     {
-      icon: '💰',
-      title: 'Best Prices',
-      description: 'Affordable luxury without compromising on quality'
+      icon: '✨',
+      title: 'Visible Results',
+      description: 'Transformative skincare that works within 30 days'
     },
     {
-      icon: '🚀',
-      title: 'Fast Delivery',
-      description: 'Quick and reliable shipping to your doorstep'
+      icon: '🌿',
+      title: '100% Natural',
+      description: 'Cruelty-free and dermatologist-approved formulas'
     }
   ];
 
   return (
-    <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
-      <div className="container mx-auto px-4 max-w-4xl text-center">
-        <motion.h2 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-4xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent"
-        >
-          Why Choose Us?
-        </motion.h2>
+    <section className="py-24 bg-gradient-to-b from-blue-50/50 via-white to-white">
+      <div className="container mx-auto px-4 max-w-5xl">
+        <motion.div className="text-center mb-16">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-5xl font-black bg-gradient-to-r from-gray-900 via-purple-900 to-gray-900 bg-clip-text text-transparent"
+          >
+            Why Choose Aetheria?
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-gray-600 mt-3 text-lg"
+          >
+            Luxury skincare designed for your most radiant skin
+          </motion.p>
+        </motion.div>
         
-        <div className="grid md:grid-cols-3 gap-8 mt-12">
+        <div className="grid md:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
@@ -42,14 +53,14 @@ export default function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -10, scale: 1.05 }}
+              whileHover={{ y: -12, scale: 1.04 }}
               className="group"
             >
               <motion.div
-                className="bg-white p-8 rounded-2xl shadow-md hover:shadow-2xl transition-all border border-gray-100"
+                className="bg-white/80 backdrop-blur-sm p-10 rounded-3xl shadow-lg hover:shadow-2xl transition-all border border-white/60 h-full"
               >
                 <motion.div 
-                  className="text-5xl mb-4"
+                  className="text-6xl mb-6"
                   animate={{ 
                     rotate: [0, 10, -10, 0],
                   }}
@@ -61,8 +72,8 @@ export default function AboutSection() {
                 >
                   {feature.icon}
                 </motion.div>
-                <h3 className="font-semibold text-lg mb-2 text-gray-900">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <h3 className="font-bold text-xl mb-3 text-gray-900">{feature.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
               </motion.div>
             </motion.div>
           ))}
