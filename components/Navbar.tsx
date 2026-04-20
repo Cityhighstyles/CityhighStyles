@@ -74,22 +74,22 @@ export default function Navbar() {
   }
 
   return (
-    <header className="w-full sticky top-0 z-50 backdrop-blur-md bg-white/10 border-b border-white/20">
+    <header className="w-full sticky top-0 z-40 backdrop-blur-sm bg-white/20 border-b border-white/30">
       <div className="container mx-auto px-4">
 
         {/* Top Bar */}
         <div className="flex items-center h-20 relative">
 
           {/* Mobile Hamburger */}
-          <div className="flex-1 md:hidden">
-            <button onClick={() => setMenuOpen(true)} className="p-2 hover:bg-white/20 rounded-lg transition">
-              <span className="text-2xl">☰</span>
+          <div className="flex-1 md:flex-none">
+            <button onClick={() => setMenuOpen(true)} className="md:hidden p-2 hover:bg-white/30 rounded-lg transition">
+              <span className="text-2xl text-gray-900">☰</span>
             </button>
           </div>
 
           {/* Logo - Left */}
           <div className="flex-1 md:flex-none flex items-center gap-3 pointer-events-auto">
-            <Link href="/" className="pointer-events-auto">
+            <Link href="/" className="pointer-events-auto relative z-50">
               <motion.div 
                 whileHover={{ scale: 1.08 }} 
                 className="flex items-center gap-2"
@@ -99,7 +99,7 @@ export default function Navbar() {
                   alt="Skincare Brand" 
                   width={40} 
                   height={40}
-                  className="h-10 w-auto"
+                  className="h-10 w-auto relative z-50"
                 />
                 <span className="hidden sm:block text-lg font-bold text-gray-900">Aetheria</span>
               </motion.div>
@@ -222,7 +222,7 @@ export default function Navbar() {
         {menuOpen && (
           <>
             <motion.div
-              className="fixed inset-0 bg-black/50 z-40"
+              className="fixed inset-0 bg-black/50 z-30"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -230,7 +230,7 @@ export default function Navbar() {
             />
 
             <motion.div
-              className="fixed top-0 left-0 w-64 h-full bg-white/95 backdrop-blur-md z-50 p-6 border-r border-white/30"
+              className="fixed top-0 left-0 w-64 h-full bg-white/98 backdrop-blur-sm z-40 p-6 border-r border-gray-200"
               initial={{ x: -300 }}
               animate={{ x: 0 }}
               exit={{ x: -300 }}

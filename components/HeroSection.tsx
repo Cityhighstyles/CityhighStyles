@@ -75,30 +75,7 @@ export default function HeroSection() {
           />
         ))}
 
-        {/* Glassmorphic Navbar - improved */}
-        <m.nav
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          className="fixed top-0 w-full z-50 backdrop-blur-xl bg-white/5 border-b border-white/10"
-        >
-          <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <Image
-              src="/logo.png"
-              alt="Logo"
-              width={40}
-              height={40}
-              className="h-10 w-auto filter brightness-150"
-            />
-            <div className="hidden md:flex gap-8 text-sm font-medium text-white/90 hover:text-white transition">
-              <Link href="#" className="hover:text-white transition">Shop</Link>
-              <Link href="#" className="hover:text-white transition">About</Link>
-              <Link href="#" className="hover:text-white transition">Contact</Link>
-            </div>
-          </div>
-        </m.nav>
-
-        {/* Main Content Container */}
+        {/* Main Content Container - Added pt-20 for navbar spacing */}
         <div className="relative z-10 container mx-auto px-4 text-center">
 
           {/* Typography Section */}
