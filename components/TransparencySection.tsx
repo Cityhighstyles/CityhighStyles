@@ -11,6 +11,7 @@ const TransparencySection = () => {
   });
 
   const bottleY = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const headingY = useTransform(scrollYProgress, [0, 1], [0, -55]);
   const rightCardOneY = useTransform(scrollYProgress, [0, 1], [18, -26]);
   const rightCardTwoY = useTransform(scrollYProgress, [0, 1], [30, -18]);
 
@@ -23,8 +24,8 @@ const TransparencySection = () => {
       <div className="container mx-auto px-4 relative">
         <motion.h2
           className="font-display text-[clamp(2rem,5.5vw,4.4rem)] leading-[0.95] tracking-[0.03em] max-w-4xl"
-          style={{ color: 'var(--theme-text)' }}
-          initial={{ opacity: 0, y: 24 }}
+          style={{ color: 'var(--theme-text)', y: headingY }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.7 }}
@@ -37,12 +38,16 @@ const TransparencySection = () => {
           <motion.div
             className="relative flex justify-center lg:justify-start"
             style={{ y: bottleY }}
-            initial={{ opacity: 0, x: -30, rotate: -3 }}
+            initial={{ opacity: 0, x: -30, y: 30, rotate: -3 }}
             whileInView={{ opacity: 1, x: 0, rotate: -10 }}
             viewport={{ once: true, amount: 0.35 }}
-            transition={{ duration: 0.85 }}
+            transition={{ duration: 0.85, delay: 0.12 }}
           >
-            <div className="relative theme-card rounded-[2.2rem] p-5 sm:p-7">
+            <motion.div
+              className="relative theme-card rounded-[2.2rem] p-5 sm:p-7"
+              animate={{ y: [-10, 10, -10], rotate: [-2, 2, -2] }}
+              transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut' }}
+            >
               <Image
                 src="/transparent-section-image.png"
                 alt="Aurya bottle on transparent card"
@@ -50,17 +55,17 @@ const TransparencySection = () => {
                 height={560}
                 className="object-contain w-[220px] sm:w-[300px] lg:w-[335px] drop-shadow-[0_28px_36px_rgba(45,10,49,0.3)]"
               />
-            </div>
+            </motion.div>
           </motion.div>
 
           <div className="grid sm:grid-cols-2 gap-5 items-start">
             <motion.article
               className="theme-card rounded-3xl p-3"
               style={{ y: rightCardOneY }}
-              initial={{ opacity: 0, y: 18 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 0.65, delay: 0.1 }}
+              transition={{ duration: 0.65, delay: 0.22 }}
             >
               <Image
                 src="/hero-background.jpg"
@@ -74,10 +79,10 @@ const TransparencySection = () => {
             <motion.article
               className="theme-card rounded-3xl p-3 sm:mt-10"
               style={{ y: rightCardTwoY }}
-              initial={{ opacity: 0, y: 18 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 0.65, delay: 0.2 }}
+              transition={{ duration: 0.65, delay: 0.35 }}
             >
               <Image
                 src="/hero-section-product.png"
@@ -91,10 +96,10 @@ const TransparencySection = () => {
             <motion.p
               className="sm:col-span-2 text-base sm:text-lg max-w-2xl pt-2"
               style={{ color: 'var(--theme-text-soft)' }}
-              initial={{ opacity: 0, y: 18 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 0.65, delay: 0.25 }}
+              transition={{ duration: 0.65, delay: 0.5 }}
             >
               Every ingredient, concentration, and source is visible by design. No hidden blends, no mystery labels, and no cosmetic smoke screens.
             </motion.p>
