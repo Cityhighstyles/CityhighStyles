@@ -13,7 +13,9 @@ const NewHeroSection = () => {
 
   const backgroundY = useTransform(scrollYProgress, [0, 1], [0, -36]);
   const textY = useTransform(scrollYProgress, [0, 1], [0, -95]);
-  const productParallaxY = useTransform(scrollYProgress, [0, 1], [0, -150]);
+  const productPathY = useTransform(scrollYProgress, [0, 0.45, 0.75, 1], [0, 170, 320, 360]);
+  const productPathX = useTransform(scrollYProgress, [0, 0.62, 1], [0, 0, -130]);
+  const productOpacity = useTransform(scrollYProgress, [0, 0.65, 1], [1, 0.92, 0.22]);
 
   return (
     <section
@@ -82,9 +84,9 @@ const NewHeroSection = () => {
 
             <motion.div
               className="relative z-20"
-              style={{ y: productParallaxY }}
-              initial={{ opacity: 0, y: 18, scale: 0.92 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
+              style={{ x: productPathX, y: productPathY, opacity: productOpacity }}
+              initial={{ opacity: 0, scale: 0.92 }}
+              animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.9, ease: 'easeOut' }}
             >
               <motion.div

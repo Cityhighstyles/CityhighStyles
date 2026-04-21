@@ -11,6 +11,7 @@ const TransparencySection = () => {
   });
 
   const bottleY = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const bottleX = useTransform(scrollYProgress, [0, 1], [22, -82]);
   const headingY = useTransform(scrollYProgress, [0, 1], [0, -55]);
   const rightCardOneY = useTransform(scrollYProgress, [0, 1], [18, -26]);
   const rightCardTwoY = useTransform(scrollYProgress, [0, 1], [30, -18]);
@@ -37,9 +38,9 @@ const TransparencySection = () => {
         <div className="mt-12 grid lg:grid-cols-[1.1fr_1fr] gap-8 lg:gap-14 items-center">
           <motion.div
             className="relative flex justify-center lg:justify-start"
-            style={{ y: bottleY }}
-            initial={{ opacity: 0, x: -30, y: 30, rotate: -3 }}
-            whileInView={{ opacity: 1, x: 0, rotate: -10 }}
+            style={{ x: bottleX, y: bottleY }}
+            initial={{ opacity: 0, rotate: -3 }}
+            whileInView={{ opacity: 1, rotate: -10 }}
             viewport={{ once: true, amount: 0.35 }}
             transition={{ duration: 0.85, delay: 0.12 }}
           >
