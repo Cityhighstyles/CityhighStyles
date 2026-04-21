@@ -1,11 +1,22 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Montserrat, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import { CartProvider } from '@/contexts/CartContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import FloatingCartButton from '@/components/FloatingCartButton';
-const inter = Inter({ subsets: ['latin'] });
+
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  variable: '--font-body',
+  display: 'swap',
+});
+
+const playfairDisplay = Playfair_Display({
+  subsets: ['latin'],
+  variable: '--font-display',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'City High Styles - Premium Men\'s Fashion',
@@ -41,7 +52,7 @@ export default function RootLayout({
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />
       </head>
-      <body className={inter.className}>
+      <body className={`${montserrat.variable} ${playfairDisplay.variable}`}>
         <CartProvider>
           <div className="flex flex-col min-h-screen">
             <Navbar />

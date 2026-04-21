@@ -74,7 +74,7 @@ export default function Navbar() {
   }
 
   return (
-    <header className="w-full sticky top-0 z-40 backdrop-blur-sm bg-white/20 border-b border-white/30">
+    <header className="w-full sticky top-0 z-40 backdrop-blur-md bg-white/15 border-b border-white/20">
       <div className="container mx-auto px-4">
 
         {/* Top Bar */}
@@ -82,8 +82,8 @@ export default function Navbar() {
 
           {/* Mobile Hamburger */}
           <div className="flex-1 md:flex-none">
-            <button onClick={() => setMenuOpen(true)} className="md:hidden p-2 hover:bg-white/30 rounded-lg transition">
-              <span className="text-2xl text-gray-900">☰</span>
+            <button onClick={() => setMenuOpen(true)} className="md:hidden p-2 hover:bg-white/35 rounded-lg transition">
+              <span className="text-2xl" style={{ color: 'var(--theme-text)' }}>☰</span>
             </button>
           </div>
 
@@ -101,26 +101,28 @@ export default function Navbar() {
                   height={40}
                   className="h-10 w-auto relative z-50"
                 />
-                <span className="hidden sm:block text-lg font-bold text-gray-900">Aetheria</span>
+                <span className="hidden sm:block text-lg font-semibold tracking-wide" style={{ color: 'var(--theme-text)' }}>
+                  AURYA
+                </span>
               </motion.div>
             </Link>
           </div>
 
           {/* Desktop Menu - Center */}
-          <nav className="hidden lg:flex justify-center flex-1 gap-8">
+          <nav className="hidden lg:flex justify-center flex-1 gap-10">
             <NavLink href="/products">Shop</NavLink>
             <NavLink href="/about">About</NavLink>
             <NavLink href="/contact">Contact</NavLink>
           </nav>
 
           {/* Right Icons */}
-          <div className="flex-1 flex justify-end items-center gap-4">
+          <div className="flex-1 flex justify-end items-center gap-2 sm:gap-3">
 
             {/* Desktop Search */}
             <div className="hidden md:block relative">
               <button 
                 onClick={() => setSearchOpen(v => !v)} 
-                className="p-2 hover:bg-white/20 rounded-lg transition"
+                className="p-2 hover:bg-white/25 rounded-lg transition"
               >
                 🔍
               </button>
@@ -203,7 +205,7 @@ export default function Navbar() {
             <Link href="/cart" className="relative">
               <motion.div
                 whileHover={{ scale: 1.1 }}
-                className="p-2 hover:bg-white/20 rounded-lg transition"
+                className="p-2 hover:bg-white/25 rounded-lg transition"
               >
                 <span className="text-2xl">💎</span>
               </motion.div>
@@ -212,6 +214,18 @@ export default function Navbar() {
                   {cart.itemCount}
                 </span>
               )}
+            </Link>
+
+            <Link
+              href="/products"
+              className="hidden md:inline-flex rounded-full px-5 py-2.5 text-sm font-semibold tracking-wide transition hover:opacity-90"
+              style={{
+                background: 'var(--theme-text)',
+                color: 'var(--cloud-white)',
+                boxShadow: '0 14px 24px rgba(45, 10, 49, 0.22)',
+              }}
+            >
+              Buy Now
             </Link>
           </div>
         </div>
@@ -299,7 +313,8 @@ function NavLink({ href, children, onClick }: any) {
     <Link
       href={href}
       onClick={onClick}
-      className="text-gray-700 hover:text-cyan-600 font-medium transition"
+      className="font-medium tracking-wide transition hover:opacity-70"
+      style={{ color: 'var(--theme-text-soft)' }}
     >
       {children}
     </Link>

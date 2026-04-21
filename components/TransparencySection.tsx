@@ -1,106 +1,103 @@
 "use client";
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
+import { useRef } from 'react';
 
 const TransparencySection = () => {
-  return (
-    <section className="relative -mt-16 pt-24 pb-24 overflow-hidden bg-gradient-to-b from-pink-50 via-purple-50 to-white rounded-t-[48px]">
-      {/* subtle top highlight to blend with hero fade */}
-      <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-pink-50/0 to-pink-50" />
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
 
-      {/* soft background bubbles */}
-      <div className="absolute -left-10 top-24 h-40 w-40 rounded-full bg-white/30 blur-2xl" />
-      <div className="absolute right-10 top-10 h-56 w-56 rounded-full bg-white/20 blur-3xl" />
+  const bottleY = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const rightCardOneY = useTransform(scrollYProgress, [0, 1], [18, -26]);
+  const rightCardTwoY = useTransform(scrollYProgress, [0, 1], [30, -18]);
+
+  return (
+    <section ref={sectionRef} className="relative -mt-10 pt-24 pb-24 overflow-hidden rounded-t-[52px]" style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.72) 0%, rgba(255,255,255,0.95) 55%, rgba(255,255,255,1) 100%)' }}>
+      <div className="absolute inset-x-0 top-0 h-20" style={{ background: 'linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.72))' }} />
+      <div className="absolute -left-16 top-28 h-48 w-48 rounded-full blur-3xl" style={{ background: 'rgba(230, 230, 250, 0.55)' }} />
+      <div className="absolute right-0 top-10 h-64 w-64 rounded-full blur-3xl" style={{ background: 'rgba(220, 174, 150, 0.32)' }} />
 
       <div className="container mx-auto px-4 relative">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left: product bottle */}
+        <motion.h2
+          className="font-display text-[clamp(2rem,5.5vw,4.4rem)] leading-[0.95] tracking-[0.03em] max-w-4xl"
+          style={{ color: 'var(--theme-text)' }}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.7 }}
+        >
+          RADICAL TRANSPARENCY.
+          <span className="block">HIDE NOTHING.</span>
+        </motion.h2>
+
+        <div className="mt-12 grid lg:grid-cols-[1.1fr_1fr] gap-8 lg:gap-14 items-center">
           <motion.div
-            initial={{ opacity: 0, x: -40, rotate: -2 }}
-            whileInView={{ opacity: 1, x: 0, rotate: -8 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
             className="relative flex justify-center lg:justify-start"
+            style={{ y: bottleY }}
+            initial={{ opacity: 0, x: -30, rotate: -3 }}
+            whileInView={{ opacity: 1, x: 0, rotate: -10 }}
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{ duration: 0.85 }}
           >
-            <div className="relative">
+            <div className="relative theme-card rounded-[2.2rem] p-5 sm:p-7">
               <Image
                 src="/transparent-section-image.png"
-                alt="Our Product"
+                alt="Aurya bottle on transparent card"
                 width={380}
                 height={560}
-                className="object-contain drop-shadow-2xl w-[220px] sm:w-[260px] md:w-[300px] lg:w-[320px]"
+                className="object-contain w-[220px] sm:w-[300px] lg:w-[335px] drop-shadow-[0_28px_36px_rgba(45,10,49,0.3)]"
               />
-              <div className="absolute -left-4 top-24 hidden sm:flex items-center justify-center h-10 w-10 rounded-full bg-white/70 backdrop-blur border border-white/60 shadow" />
             </div>
           </motion.div>
 
-          {/* Right: headline + content */}
-          <div className="relative">
-            <motion.div
+          <div className="grid sm:grid-cols-2 gap-5 items-start">
+            <motion.article
+              className="theme-card rounded-3xl p-3"
+              style={{ y: rightCardOneY }}
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: 'easeOut' }}
-              className="flex items-start justify-between gap-6"
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.65, delay: 0.1 }}
             >
-              <div>
-                <div className="text-xs font-semibold tracking-widest text-gray-700/70">
-                  OUR PROMISE
-                </div>
-                <h2 className="mt-3 text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[0.92] tracking-tight text-gray-900">
-                  RADICAL
-                  <span className="block">TRANSPARENCY.</span>
-                </h2>
-                <div className="mt-4 text-4xl sm:text-5xl lg:text-6xl leading-[0.95]">
-                  <span className="font-serif italic text-gray-700">Hide</span>
-                  <span className="ml-3 font-extrabold text-gray-900">NOTHING.</span>
-                </div>
-              </div>
+              <Image
+                src="/hero-background.jpg"
+                alt="Skincare lifestyle application"
+                width={360}
+                height={360}
+                className="rounded-2xl object-cover aspect-square w-full"
+              />
+            </motion.article>
 
-              {/* small portrait card (optional asset) */}
-              <div className="hidden sm:block shrink-0">
-                <div className="bg-white/70 backdrop-blur border border-white/60 rounded-2xl p-2 shadow">
-                  <Image
-                    src="/transparency-avatar.png"
-                    alt="Customer"
-                    width={96}
-                    height={96}
-                    className="rounded-xl object-cover"
-                  />
-                </div>
-              </div>
-            </motion.div>
+            <motion.article
+              className="theme-card rounded-3xl p-3 sm:mt-10"
+              style={{ y: rightCardTwoY }}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.65, delay: 0.2 }}
+            >
+              <Image
+                src="/hero-section-product.png"
+                alt="Product texture and dropper detail"
+                width={360}
+                height={360}
+                className="rounded-2xl object-cover aspect-square w-full"
+              />
+            </motion.article>
 
             <motion.p
-              className="mt-8 text-lg text-gray-700 max-w-xl"
-              initial={{ opacity: 0, y: 14 }}
+              className="sm:col-span-2 text-base sm:text-lg max-w-2xl pt-2"
+              style={{ color: 'var(--theme-text-soft)' }}
+              initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: 'easeOut', delay: 0.15 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.65, delay: 0.25 }}
             >
-              Clear ingredients. Clear sourcing. Clear results. We keep labels simple so you always know what you’re putting on your skin.
+              Every ingredient, concentration, and source is visible by design. No hidden blends, no mystery labels, and no cosmetic smoke screens.
             </motion.p>
-
-            <motion.div
-              className="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-4"
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: 'easeOut', delay: 0.25 }}
-            >
-              <div className="bg-white/60 backdrop-blur border border-white/60 rounded-2xl p-4">
-                <div className="text-sm font-semibold text-gray-900">No hidden blends</div>
-                <div className="text-sm text-gray-700 mt-1">Fully disclosed formulas</div>
-              </div>
-              <div className="bg-white/60 backdrop-blur border border-white/60 rounded-2xl p-4">
-                <div className="text-sm font-semibold text-gray-900">Honest sourcing</div>
-                <div className="text-sm text-gray-700 mt-1">Quality-first ingredients</div>
-              </div>
-              <div className="bg-white/60 backdrop-blur border border-white/60 rounded-2xl p-4 sm:col-span-1 col-span-2">
-                <div className="text-sm font-semibold text-gray-900">Real results</div>
-                <div className="text-sm text-gray-700 mt-1">Built for daily use</div>
-              </div>
-            </motion.div>
           </div>
         </div>
       </div>

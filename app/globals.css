@@ -6,25 +6,74 @@
 @source "./data/**/*.{json}";
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 255, 255, 255;
-  --background-end-rgb: 255, 255, 255;
+  --lavender: #e6e6fa;
+  --dusty-rose: #dcae96;
+  --cloud-white: #ffffff;
+  --deep-plum: #2d0a31;
+
+  --theme-bg: linear-gradient(140deg, var(--lavender) 0%, #f4ebf6 45%, var(--cloud-white) 100%);
+  --theme-hero: radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.7), transparent 45%),
+    radial-gradient(circle at 85% 25%, rgba(220, 174, 150, 0.38), transparent 50%),
+    linear-gradient(120deg, #efe8fb 0%, #f7f0f6 48%, #ffffff 100%);
+
+  --theme-text: var(--deep-plum);
+  --theme-text-soft: #5a3e64;
+  --theme-card: rgba(255, 255, 255, 0.72);
+  --theme-shadow: 0 24px 50px rgba(45, 10, 49, 0.14);
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: var(--theme-text);
+  background: var(--theme-bg);
+  font-family: var(--font-body), sans-serif;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-display {
+  font-family: var(--font-display), serif;
+}
+
+[data-theme='midnight'] {
+  --lavender: #001f3f;
+  --dusty-rose: #163253;
+  --cloud-white: #06152a;
+  --deep-plum: #f7e7ce;
+
+  --theme-bg: linear-gradient(140deg, #001b37 0%, #082644 45%, #06152a 100%);
+  --theme-hero: radial-gradient(circle at 15% 20%, rgba(247, 231, 206, 0.15), transparent 45%),
+    radial-gradient(circle at 85% 25%, rgba(40, 88, 132, 0.55), transparent 52%),
+    linear-gradient(130deg, #001f3f 0%, #092b4c 48%, #051426 100%);
+
+  --theme-text: #f7e7ce;
+  --theme-text-soft: #d8c8ae;
+  --theme-card: rgba(9, 29, 52, 0.68);
+  --theme-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.theme-sparkle {
+  position: absolute;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.08));
+  filter: blur(0.2px);
+  animation: floatOrb 10s ease-in-out infinite;
+}
+
+.theme-card {
+  background: var(--theme-card);
+  box-shadow: var(--theme-shadow);
+  backdrop-filter: blur(10px);
 }
 
 @keyframes fadeIn {
@@ -40,4 +89,16 @@ body {
 
 .animate-fade-in {
   animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes floatOrb {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
 }
