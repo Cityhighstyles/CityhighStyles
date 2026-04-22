@@ -99,7 +99,7 @@ export default function FeaturedSection({ products }: FeaturedSectionProps) {
                       viewBox="0 0 120 120"
                       className="h-16 w-16"
                       animate={{ y: [-8, 8, -8], rotate: [-2, 2, -2] }}
-                      transition={{ duration: 3.8, repeat: Infinity, ease: 'easeInOut' }}
+                      transition={{ duration: 3.8, repeat: Infinity }}
                     >
                       <path
                         d="M58 10 C 40 35, 22 53, 22 73 C 22 94, 39 110, 60 110 C 81 110, 98 94, 98 73 C 98 53, 79 35, 62 10 Z"
