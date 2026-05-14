@@ -83,9 +83,9 @@ const NewHeroSection = () => {
 
           <article className="relative overflow-hidden rounded-[2rem] border border-[#2a3150] bg-gradient-to-br from-[#091438] via-[#071232] to-[#090f29] p-7 shadow-[0_28px_60px_rgba(5,10,30,0.6)] md:p-9">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_100%_20%,rgba(210,105,255,0.18),transparent_45%)]" />
-            <p className="relative inline-flex rounded-full bg-cyan-500/20 px-4 py-1 text-xs font-semibold tracking-wide text-cyan-300">
+            <span className="relative inline-flex rounded-full bg-cyan-500/20 px-4 py-1 text-xs font-semibold tracking-wide text-cyan-300">
               {featuredProduct.badge}
-            </p>
+            </span>
             <h2 className="relative mt-5 font-display text-5xl leading-none text-[#f8dbe7] md:text-6xl">
               {featuredProduct.name}
             </h2>
