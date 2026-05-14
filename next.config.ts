@@ -7,6 +7,7 @@ const nextConfig: any = {
       bodySizeLimit: "3mb",
     },
   },
+  turbopack: {},
   images: {
     remotePatterns: [
       {
@@ -16,7 +17,6 @@ const nextConfig: any = {
       },
     ],
   },
-  turbopack: {},
 };
 
 export default withPWA({
