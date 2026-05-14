@@ -1,11 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from 'next/navigation';
 import { useCart } from "@/contexts/CartContext";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function FloatingCartButton() {
   const { cart } = useCart();
+  const pathname = usePathname();
+
+  if (pathname === '/') {
+    return null;
+  }
 
   return (
     <AnimatePresence>
