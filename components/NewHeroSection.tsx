@@ -128,14 +128,23 @@ const NewHeroSection = () => {
           </div>
           <div className="mt-6 grid gap-4 sm:grid-cols-3">
             {[
-              '/products/premium-hoodie/image-1768902282025-2.jpg',
-              '/products/classic-polo-shirt/image-1.jpg',
-              '/products/essential-graphic-tee/image-1768847038726-1.jpg',
-            ].map((image, index) => (
-              <div key={image} className="overflow-hidden rounded-2xl border border-white/35">
+              {
+                image: '/products/premium-hoodie/image-1768902282025-2.jpg',
+                alt: 'Premium hoodie from CityHighStyles signature picks',
+              },
+              {
+                image: '/products/classic-polo-shirt/image-1.jpg',
+                alt: 'Classic polo shirt from CityHighStyles signature picks',
+              },
+              {
+                image: '/products/essential-graphic-tee/image-1768847038726-1.jpg',
+                alt: 'Essential graphic tee from CityHighStyles signature picks',
+              },
+            ].map((item) => (
+              <div key={item.image} className="overflow-hidden rounded-2xl border border-white/35">
                 <Image
-                  src={image}
-                  alt={`Signature product ${index + 1}`}
+                  src={item.image}
+                  alt={item.alt}
                   width={600}
                   height={700}
                   className="h-56 w-full object-cover transition duration-500 hover:scale-105"
