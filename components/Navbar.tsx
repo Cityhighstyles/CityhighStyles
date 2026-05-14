@@ -79,7 +79,7 @@ export default function Navbar() {
     return (
       <header className="w-full sticky top-0 z-40 border-b border-white/10 bg-[#060f2d]/90 backdrop-blur-xl">
         <div className="mx-auto flex h-20 w-full max-w-md items-center justify-between px-5">
-          <button type="button" aria-label="Open menu" className="p-2 text-white/75 transition hover:text-white">
+          <span aria-hidden className="p-2 text-white/75">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
               <circle cx="6" cy="6" r="1.2" fill="currentColor" />
               <circle cx="12" cy="6" r="1.2" fill="currentColor" />
@@ -91,7 +91,7 @@ export default function Navbar() {
               <circle cx="12" cy="18" r="1.2" fill="currentColor" />
               <circle cx="18" cy="18" r="1.2" fill="currentColor" />
             </svg>
-          </button>
+          </span>
 
           <Link href="/" className="font-display text-4xl tracking-wide text-[#f7dce9]">
             LUMINA

@@ -7,6 +7,7 @@ import { useCart } from '@/contexts/CartContext';
 
 const NewHeroSection = () => {
   const [size, setSize] = useState<'50ml' | '100ml'>('50ml');
+  const [sparkleMode, setSparkleMode] = useState(false);
   const { addToCart } = useCart();
 
   const selectedPrice = size === '50ml' ? 145 : 210;
@@ -25,7 +26,11 @@ const NewHeroSection = () => {
 
   return (
     <section className="relative min-h-[calc(100svh-5rem)] overflow-hidden bg-[#040b1f] text-[#f2d8e6]">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_5%,rgba(89,125,255,0.18),transparent_32%),radial-gradient(circle_at_30%_60%,rgba(255,124,212,0.2),transparent_42%),radial-gradient(circle_at_80%_80%,rgba(38,88,244,0.14),transparent_40%),linear-gradient(180deg,#050d25_0%,#060f2d_58%,#030818_100%)]" />
+      <div
+        className={`absolute inset-0 bg-[radial-gradient(circle_at_50%_5%,rgba(89,125,255,0.18),transparent_32%),radial-gradient(circle_at_30%_60%,rgba(255,124,212,0.2),transparent_42%),radial-gradient(circle_at_80%_80%,rgba(38,88,244,0.14),transparent_40%),linear-gradient(180deg,#050d25_0%,#060f2d_58%,#030818_100%)] ${
+          sparkleMode ? 'opacity-100' : 'opacity-90'
+        }`}
+      />
 
       <div className="relative mx-auto w-full max-w-md px-5 pt-7 pb-36">
         <div className="mx-auto mt-10 w-full max-w-[320px] overflow-hidden rounded-none border border-white/10 bg-black/30 shadow-[0_0_70px_rgba(255,132,204,0.28)] sm:rounded-sm">
@@ -46,7 +51,7 @@ const NewHeroSection = () => {
 
           <h1 className="mt-4 font-display text-5xl font-semibold leading-none text-[#f8ddea]">Aura Essence</h1>
 
-          <p className="mt-4 text-[1.95rem] leading-tight text-white/88">
+          <p className="mt-4 text-xl leading-relaxed text-white/88">
             A multidimensional fragrance captured in liquid light. Notes of crushed pearls and midnight jasmine.
           </p>
 
@@ -66,6 +71,7 @@ const NewHeroSection = () => {
                     key={option}
                     type="button"
                     onClick={() => setSize(option)}
+                    aria-label={`Select ${option} size`}
                     className={`h-16 w-16 rounded-full border text-sm font-semibold transition ${
                       selected
                         ? 'border-pink-300 text-pink-100 shadow-[0_0_22px_rgba(255,120,193,0.5)]'
@@ -93,6 +99,7 @@ const NewHeroSection = () => {
 
           <Link
             href="/products"
+            aria-label="View products in the catalog"
             className="mt-4 flex w-full items-center justify-center gap-3 rounded-2xl border border-white/25 bg-white/5 px-5 py-4 text-lg font-semibold tracking-wide text-white/90 transition hover:bg-white/10"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -106,32 +113,42 @@ const NewHeroSection = () => {
 
       <div className="pointer-events-none fixed inset-x-0 bottom-0 z-30 flex justify-center px-4 pb-3">
         <div className="pointer-events-auto flex w-full max-w-md items-center justify-around rounded-[1.7rem] border border-white/10 bg-[#0a1330]/85 px-5 py-4 backdrop-blur-xl">
-          <button type="button" className="text-white/65 transition hover:text-white" aria-label="View products">
+          <Link href="/products" title="Shop" className="flex flex-col items-center gap-1 text-white/65 transition hover:text-white" aria-label="View products">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden>
               <rect x="3" y="6" width="18" height="12" rx="3" stroke="currentColor" strokeWidth="2" />
             </svg>
-          </button>
+            <span className="text-[11px] font-medium">Shop</span>
+          </Link>
 
-          <button type="button" className="text-pink-200" aria-label="Featured section">
+          <Link href="/" title="Home" className="flex flex-col items-center gap-1 text-pink-200" aria-label="Featured section">
             <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white/10 shadow-[0_0_22px_rgba(255,159,216,0.52)]">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
                 <path d="M3 12l9-9 9 9-9 9-9-9z" stroke="currentColor" strokeWidth="2" />
                 <path d="M9 12l3-3 3 3-3 3-3-3z" stroke="currentColor" strokeWidth="2" />
               </svg>
             </span>
-          </button>
+            <span className="text-[11px] font-medium">Home</span>
+          </Link>
 
-          <button type="button" className="text-white/65 transition hover:text-white" aria-label="Sparkle mode">
+          <button
+            type="button"
+            onClick={() => setSparkleMode((prev) => !prev)}
+            title="Toggle sparkle mode"
+            className="flex flex-col items-center gap-1 text-white/65 transition hover:text-white"
+            aria-label="Sparkle mode"
+          >
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden>
               <path d="M12 3l1.8 4.2L18 9l-4.2 1.8L12 15l-1.8-4.2L6 9l4.2-1.8L12 3z" stroke="currentColor" strokeWidth="2" />
             </svg>
+            <span className="text-[11px] font-medium">Glow</span>
           </button>
 
-          <Link href="/products" className="text-white/65 transition hover:text-white" aria-label="Profile">
+          <Link href="/products" title="Account" className="flex flex-col items-center gap-1 text-white/65 transition hover:text-white" aria-label="Profile">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden>
               <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="2" />
               <path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
             </svg>
+            <span className="text-[11px] font-medium">Account</span>
           </Link>
         </div>
       </div>
