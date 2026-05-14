@@ -99,14 +99,14 @@ const NewHeroSection = () => {
 
           <Link
             href="/products"
-            aria-label="View products in the catalog"
+            aria-label="View products"
             className="mt-4 flex w-full items-center justify-center gap-3 rounded-2xl border border-white/25 bg-white/5 px-5 py-4 text-lg font-semibold tracking-wide text-white/90 transition hover:bg-white/10"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
               <path d="M3 12l9-9 9 9-9 9-9-9z" stroke="currentColor" strokeWidth="2" />
               <path d="M9 12l3-3 3 3-3 3-3-3z" stroke="currentColor" strokeWidth="2" />
             </svg>
-            VIEW IN SPACE
+            VIEW PRODUCTS
           </Link>
         </div>
       </div>
@@ -120,7 +120,7 @@ const NewHeroSection = () => {
             <span className="text-[11px] font-medium">Shop</span>
           </Link>
 
-          <Link href="/" title="Home" className="flex flex-col items-center gap-1 text-pink-200" aria-label="Featured section">
+          <Link href="/" title="Home" className="flex flex-col items-center gap-1 text-pink-200" aria-label="Home">
             <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white/10 shadow-[0_0_22px_rgba(255,159,216,0.52)]">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
                 <path d="M3 12l9-9 9 9-9 9-9-9z" stroke="currentColor" strokeWidth="2" />
@@ -143,12 +143,12 @@ const NewHeroSection = () => {
             <span className="text-[11px] font-medium">Glow</span>
           </button>
 
-          <Link href="/products" title="Account" className="flex flex-col items-center gap-1 text-white/65 transition hover:text-white" aria-label="Profile">
+          <Link href="/cart" title="Cart" className="flex flex-col items-center gap-1 text-white/65 transition hover:text-white" aria-label="Cart">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden>
               <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="2" />
               <path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
             </svg>
-            <span className="text-[11px] font-medium">Account</span>
+            <span className="text-[11px] font-medium">Cart</span>
           </Link>
         </div>
       </div>
