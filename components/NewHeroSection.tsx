@@ -119,7 +119,7 @@ const NewHeroSection = () => {
               className="relative mt-8 flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#f3a7ce] to-[#f14ea3] px-6 py-4 text-sm font-bold tracking-wide text-white shadow-[0_12px_35px_rgba(241,78,163,0.45)] transition hover:brightness-105"
               aria-label={`Add Aura Essence ${size} to bag`}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-4 w-4 fill-current" aria-hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-4 w-4 fill-current" aria-hidden="true">
                 <path d="M7 8V7a5 5 0 0 1 10 0v1h2a1 1 0 0 1 1 1v10a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V9a1 1 0 0 1 1-1h2Zm2 0h6V7a3 3 0 1 0-6 0v1Zm3 5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z" />
               </svg>
               ADD TO BAG
