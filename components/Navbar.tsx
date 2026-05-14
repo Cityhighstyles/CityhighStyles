@@ -79,8 +79,8 @@ export default function Navbar() {
     return (
       <header className="w-full sticky top-0 z-40 border-b border-white/10 bg-[#060f2d]/90 backdrop-blur-xl">
         <div className="mx-auto flex h-20 w-full max-w-md items-center justify-between px-5">
-          <span aria-hidden className="p-2 text-white/75">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
+          <span aria-hidden="true" className="p-2 text-white/75">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <circle cx="6" cy="6" r="1.2" fill="currentColor" />
               <circle cx="12" cy="6" r="1.2" fill="currentColor" />
               <circle cx="18" cy="6" r="1.2" fill="currentColor" />
@@ -97,8 +97,8 @@ export default function Navbar() {
             LUMINA
           </Link>
 
-          <Link href="/cart" className="relative p-2 text-white/75 transition hover:text-white" aria-label="Bag">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
+          <Link href="/cart" className="relative p-2 text-white/75 transition hover:text-white" aria-label="Cart">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M8 8V7a4 4 0 118 0v1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
               <path d="M6 9h12l-1 10H7L6 9z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
             </svg>
