@@ -93,6 +93,7 @@ const NewHeroSection = () => {
                     key={option}
                     type="button"
                     onClick={() => setSize(option)}
+                    aria-label={`Select ${option} size`}
                     className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
                       selected ? 'border-white/70 bg-white/45 text-[var(--theme-text)]' : 'border-white/35 bg-white/20 text-[var(--theme-text-soft)]'
                     }`}
