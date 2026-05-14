@@ -50,7 +50,7 @@ const NewHeroSection = () => {
                 className="rounded-2xl border border-white/40 px-6 py-3 text-sm font-semibold tracking-wide text-[var(--theme-bg)] transition hover:opacity-90"
                 style={{ background: 'var(--theme-text)' }}
               >
-                Add Aura Essence ${selectedPrice}
+                Add Aura Essence to bag for ${selectedPrice.toFixed(2)}
               </button>
               <Link
                 href="/products"
@@ -77,7 +77,7 @@ const NewHeroSection = () => {
           <article className="theme-card rounded-[2rem] border border-white/35 p-6 md:p-8">
             <div className="relative overflow-hidden rounded-[1.6rem] border border-white/35">
               <Image
-                src="/hero-section-product.png"
+                src="/products/premium-hoodie/image-1768902281483-1.jpg"
                 alt="CityHighStyles featured product"
                 width={900}
                 height={1100}
@@ -112,7 +112,12 @@ const NewHeroSection = () => {
             { title: 'Street Denim', link: '/products', text: 'Tailored comfort with city attitude.' },
             { title: 'Layered Essentials', link: '/products', text: 'Clean silhouettes for every season.' },
           ].map((item) => (
-            <Link key={item.title} href={item.link} className="theme-card rounded-3xl border border-white/35 p-6 transition hover:-translate-y-1">
+            <Link
+              key={item.title}
+              href={item.link}
+              aria-label={`Browse ${item.title} collection`}
+              className="theme-card rounded-3xl border border-white/35 p-6 transition hover:-translate-y-1"
+            >
               <p className="font-display text-3xl text-[var(--theme-text)]">{item.title}</p>
               <p className="mt-2 text-sm leading-relaxed text-[var(--theme-text-soft)]">{item.text}</p>
             </Link>
@@ -131,17 +136,20 @@ const NewHeroSection = () => {
               {
                 image: '/products/premium-hoodie/image-1768902282025-2.jpg',
                 alt: 'Premium hoodie from CityHighStyles signature picks',
+                href: '/product/premium-hoodie',
               },
               {
                 image: '/products/classic-polo-shirt/image-1.jpg',
                 alt: 'Classic polo shirt from CityHighStyles signature picks',
+                href: '/product/classic-polo-shirt',
               },
               {
                 image: '/products/essential-graphic-tee/image-1768847038726-1.jpg',
                 alt: 'Essential graphic tee from CityHighStyles signature picks',
+                href: '/product/essential-graphic-tee',
               },
             ].map((item) => (
-              <div key={item.image} className="overflow-hidden rounded-2xl border border-white/35">
+              <Link key={item.image} href={item.href} className="overflow-hidden rounded-2xl border border-white/35">
                 <Image
                   src={item.image}
                   alt={item.alt}
@@ -149,7 +157,7 @@ const NewHeroSection = () => {
                   height={700}
                   className="h-56 w-full object-cover transition duration-500 hover:scale-105"
                 />
-              </div>
+              </Link>
             ))}
           </div>
         </div>
