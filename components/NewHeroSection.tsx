@@ -135,7 +135,7 @@ const NewHeroSection = () => {
             onClick={() => setSparkleMode((prev) => !prev)}
             title="Toggle sparkle mode"
             className="flex flex-col items-center gap-1 text-white/65 transition hover:text-white"
-            aria-label="Sparkle mode"
+            aria-label="Toggle glow mode"
           >
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden>
               <path d="M12 3l1.8 4.2L18 9l-4.2 1.8L12 15l-1.8-4.2L6 9l4.2-1.8L12 3z" stroke="currentColor" strokeWidth="2" />
@@ -145,8 +145,8 @@ const NewHeroSection = () => {
 
           <Link href="/cart" title="Cart" className="flex flex-col items-center gap-1 text-white/65 transition hover:text-white" aria-label="Cart">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden>
-              <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="2" />
-              <path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              <path d="M8 8V7a4 4 0 118 0v1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              <path d="M6 9h12l-1 10H7L6 9z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
             </svg>
             <span className="text-[11px] font-medium">Cart</span>
           </Link>
