@@ -8,14 +8,21 @@ import { useCart } from '@/contexts/CartContext';
 const NewHeroSection = () => {
   const [size, setSize] = useState<'50ml' | '100ml'>('50ml');
   const { addToCart } = useCart();
+  const featuredProduct = {
+    productId: 'aura-essence-signature-collection',
+    slug: 'aura-essence-signature-collection',
+    name: 'Aura Essence',
+    badge: 'Signature Collection',
+    description: 'A multidimensional fragrance captured in liquid light. Notes of crushed pearls and midnight jasmine.',
+  };
 
   const selectedPrice = size === '50ml' ? 145 : 210;
 
   const handleAddToBag = () => {
     addToCart({
-      productId: 'aura-essence-signature-collection',
-      name: 'Aura Essence',
-      slug: 'aura-essence-signature-collection',
+      productId: featuredProduct.productId,
+      name: featuredProduct.name,
+      slug: featuredProduct.slug,
       price: selectedPrice,
       image: '/bottle.jpg',
       size,
@@ -74,35 +81,56 @@ const NewHeroSection = () => {
             </div>
           </article>
 
-          <article className="theme-card rounded-[2rem] border border-white/35 p-6 md:p-8">
-            <div className="relative overflow-hidden rounded-[1.6rem] border border-white/35">
-              <Image
-                src="/products/premium-hoodie/image-1768902281483-1.jpg"
-                alt="CityHighStyles featured product"
-                width={900}
-                height={1100}
-                priority
-                className="h-[420px] w-full object-cover md:h-[500px]"
-              />
+          <article className="relative overflow-hidden rounded-[2rem] border border-[#2a3150] bg-gradient-to-br from-[#091438] via-[#071232] to-[#090f29] p-7 shadow-[0_28px_60px_rgba(5,10,30,0.6)] md:p-9">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_100%_20%,rgba(210,105,255,0.18),transparent_45%)]" />
+            <span className="relative inline-flex rounded-full bg-cyan-500/20 px-4 py-1 text-xs font-semibold tracking-wide text-cyan-300">
+              {featuredProduct.badge}
+            </span>
+            <h2 className="relative mt-5 font-display text-5xl leading-none text-[#f8dbe7] md:text-6xl">
+              {featuredProduct.name}
+            </h2>
+            <p className="relative mt-5 max-w-md text-xl leading-relaxed text-[#c9bfd8]">
+              {featuredProduct.description}
+            </p>
+
+            <div className="relative mt-7 border-t border-white/12 pt-6">
+              <p className="text-sm font-semibold tracking-wide text-[#8f96b4]">PRICE</p>
+              <div className="mt-2 flex flex-wrap items-end justify-between gap-5">
+                <p className="font-display text-6xl leading-none text-[#dce3ff]">${selectedPrice}</p>
+                <div className="flex gap-2">
+                  {(['50ml', '100ml'] as const).map((option) => {
+                    const selected = size === option;
+                    return (
+                      <button
+                        key={option}
+                        type="button"
+                        onClick={() => setSize(option)}
+                        aria-label={`Select ${option} size`}
+                        className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
+                          selected
+                            ? 'border-[#f5b6da] bg-[#f5b6da]/15 text-[#f3bfdc]'
+                            : 'border-white/18 bg-transparent text-[#8c93b0] hover:border-white/35 hover:text-[#c9bfd8]'
+                        }`}
+                      >
+                        {option}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {(['50ml', '100ml'] as const).map((option) => {
-                const selected = size === option;
-                return (
-                  <button
-                    key={option}
-                    type="button"
-                    onClick={() => setSize(option)}
-                    aria-label={`Select ${option} size`}
-                    className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
-                      selected ? 'border-white/70 bg-white/45 text-[var(--theme-text)]' : 'border-white/35 bg-white/20 text-[var(--theme-text-soft)]'
-                    }`}
-                  >
-                    {option}
-                  </button>
-                );
-              })}
-            </div>
+
+            <button
+              type="button"
+              onClick={handleAddToBag}
+              className="relative mt-8 flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#f3a7ce] to-[#f14ea3] px-6 py-4 text-sm font-bold tracking-wide text-white shadow-[0_12px_35px_rgba(241,78,163,0.45)] transition hover:brightness-105"
+              aria-label={`Add ${featuredProduct.name} ${size} to bag`}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-4 w-4 fill-current" aria-hidden="true">
+                <path d="M7 8V7a5 5 0 0 1 10 0v1h2a1 1 0 0 1 1 1v10a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V9a1 1 0 0 1 1-1h2Zm2 0h6V7a3 3 0 1 0-6 0v1Zm3 5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z" />
+              </svg>
+              ADD TO BAG
+            </button>
           </article>
         </div>
 
