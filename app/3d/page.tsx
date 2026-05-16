@@ -42,7 +42,7 @@ export default function ProductHero() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }, // Smooth custom cubic bezier curve
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const }, // Smooth custom cubic bezier curve
     },
   };
 
@@ -51,7 +51,7 @@ export default function ProductHero() {
     visible: {
       width: 96, // width of 24 (96px)
       opacity: 1,
-      transition: { duration: 0.8, ease: "easeInOut" },
+      transition: { duration: 0.8, ease: "easeInOut" as const },
     },
   };
 
