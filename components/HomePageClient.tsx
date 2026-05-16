@@ -36,13 +36,19 @@ const CAT_ICONS = ['🌸', '✨', '💧', '🌿', '💎', '🧴'];
 const CAT_TAGS = ['Most Loved', 'Trending', 'New Arrivals', 'Popular', 'Exclusive', 'Essential'];
 const CAT_ICON_CLASSES = ['cat-icon-1', 'cat-icon-2', 'cat-icon-3', 'cat-icon-1', 'cat-icon-2', 'cat-icon-3'];
 const MAX_SPOTLIGHT_DESCRIPTION_LENGTH = 140;
+const SPOTLIGHT_FALLBACK_GRADIENT = 'linear-gradient(135deg,#f751a1,#d0bcff 60%,#4cd7f6)';
 
 function truncateAtWord(text: string, maxLength: number) {
   if (text.length <= maxLength) return text;
   const trimmed = text.slice(0, maxLength);
-  const lastSpace = trimmed.lastIndexOf(' ');
-  const safeText = lastSpace > 0 ? trimmed.slice(0, lastSpace) : trimmed;
-  return `${safeText}…`;
+  const nextCharacter = text.charAt(maxLength);
+  if (nextCharacter && /\S/.test(nextCharacter)) {
+    const lastSpace = trimmed.lastIndexOf(' ');
+    if (lastSpace > 0) {
+      return `${trimmed.slice(0, lastSpace)}…`;
+    }
+  }
+  return `${trimmed}…`;
 }
 
 export default function HomePageClient({ products, categories, featuredProducts, heroProduct }: HomePageClientProps) {
@@ -624,7 +630,7 @@ export default function HomePageClient({ products, categories, featuredProducts,
                         />
                       ) : (
                         <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                          <div className="product-blob" style={{ background: 'linear-gradient(135deg,#f751a1,#d0bcff 60%,#4cd7f6)' }} />
+                          <div className="product-blob" style={{ background: SPOTLIGHT_FALLBACK_GRADIENT }} />
                         </div>
                       )}
                     </div>
