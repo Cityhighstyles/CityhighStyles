@@ -37,6 +37,14 @@ const CAT_TAGS = ['Most Loved', 'Trending', 'New Arrivals', 'Popular', 'Exclusiv
 const CAT_ICON_CLASSES = ['cat-icon-1', 'cat-icon-2', 'cat-icon-3', 'cat-icon-1', 'cat-icon-2', 'cat-icon-3'];
 const MAX_SPOTLIGHT_DESCRIPTION_LENGTH = 140;
 
+function truncateAtWord(text: string, maxLength: number) {
+  if (text.length <= maxLength) return text;
+  const trimmed = text.slice(0, maxLength);
+  const lastSpace = trimmed.lastIndexOf(' ');
+  const safeText = lastSpace > 0 ? trimmed.slice(0, lastSpace) : trimmed;
+  return `${safeText}…`;
+}
+
 export default function HomePageClient({ products, categories, featuredProducts, heroProduct }: HomePageClientProps) {
   const { addToCart } = useCart();
   const [heroSize, setHeroSize] = useState(heroProduct?.sizes?.[0] ?? '');
@@ -544,9 +552,7 @@ export default function HomePageClient({ products, categories, featuredProducts,
                   {spotlightProduct.name}
                 </h3>
                 <p style={{ fontSize: 15, lineHeight: 1.7, color: '#debec8', marginBottom: 22, maxWidth: 460 }}>
-                  {spotlightProduct.description.length > MAX_SPOTLIGHT_DESCRIPTION_LENGTH
-                    ? `${spotlightProduct.description.slice(0, MAX_SPOTLIGHT_DESCRIPTION_LENGTH)}…`
-                    : spotlightProduct.description}
+                  {truncateAtWord(spotlightProduct.description, MAX_SPOTLIGHT_DESCRIPTION_LENGTH)}
                 </p>
                 <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#4cd7f6', marginBottom: 10 }}>
                   {categories.find(c => c.slug === spotlightProduct.category)?.title ?? spotlightProduct.category}
