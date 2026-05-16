@@ -30,19 +30,33 @@ const CARD_BACKGROUNDS = [
 ];
 
 const GLOW_CLASSES = ['glow-rose', 'glow-violet', 'glow-cyan', 'glow-mix'];
-const BADGE_LABELS = ['Bestseller', 'New', 'Sale', 'Top Rated'];
-const BADGE_CLASSES = ['badge-best', 'badge-new', 'badge-sale', 'badge-best'];
 
 const CAT_ACCENTS = ['accent-rose', 'accent-violet', 'accent-cyan', 'accent-rose', 'accent-violet', 'accent-cyan'];
 const CAT_ICONS = ['🌸', '✨', '💧', '🌿', '💎', '🧴'];
 const CAT_TAGS = ['Most Loved', 'Trending', 'New Arrivals', 'Popular', 'Exclusive', 'Essential'];
 const CAT_ICON_CLASSES = ['cat-icon-1', 'cat-icon-2', 'cat-icon-3', 'cat-icon-1', 'cat-icon-2', 'cat-icon-3'];
+const MAX_SPOTLIGHT_DESCRIPTION_LENGTH = 140;
+const SPOTLIGHT_FALLBACK_GRADIENT = 'linear-gradient(135deg,#f751a1,#d0bcff 60%,#4cd7f6)';
+
+function truncateAtWord(text: string, maxLength: number) {
+  if (text.length <= maxLength) return text;
+  const trimmed = text.slice(0, maxLength);
+  const nextCharacter = text.charAt(maxLength);
+  if (nextCharacter && /\S/.test(nextCharacter)) {
+    const lastSpace = trimmed.lastIndexOf(' ');
+    if (lastSpace > 0) {
+      return `${trimmed.slice(0, lastSpace)}…`;
+    }
+  }
+  return `${trimmed}…`;
+}
 
 export default function HomePageClient({ products, categories, featuredProducts, heroProduct }: HomePageClientProps) {
   const { addToCart } = useCart();
   const [heroSize, setHeroSize] = useState(heroProduct?.sizes?.[0] ?? '');
   const [addedHero, setAddedHero] = useState(false);
   const [addedCards, setAddedCards] = useState<Record<string, boolean>>({});
+  const primaryProduct = featuredProducts[0] ?? heroProduct;
 
   const handleHeroAdd = () => {
     if (!heroProduct) return;
@@ -152,6 +166,25 @@ export default function HomePageClient({ products, categories, featuredProducts,
         .chip-3{top:80px;left:-40px;background:rgba(255,176,205,0.15);border:1px solid rgba(255,176,205,0.3);color:#ffb0cd;animation-delay:-1s}
         .glow-pulse{animation:eglow 3s ease-in-out infinite alternate}
         @keyframes eglow{0%{opacity:0.6;transform:scale(1)}100%{opacity:1;transform:scale(1.15)}}
+        .featured-3d-card{
+          transform-style:preserve-3d;
+          animation:f3dFloat 6s ease-in-out infinite;
+        }
+        @keyframes f3dFloat{
+          0%,100%{transform:translateY(0) rotate(-1deg)}
+          50%{transform:translateY(-12px) rotate(1deg)}
+        }
+        .featured-3d-bubble{
+          position:absolute;border-radius:9999px;
+          border:1px solid rgba(255,255,255,0.25);
+          background:rgba(255,255,255,0.1);
+          backdrop-filter:blur(8px);
+          animation:f3dBubble 5s ease-in-out infinite;
+        }
+        @keyframes f3dBubble{
+          0%,100%{transform:translateY(0);opacity:0.4}
+          50%{transform:translateY(-10px);opacity:0.85}
+        }
         .brands-track{
           display:flex;gap:60px;align-items:center;
           animation:emarquee 20s linear infinite;white-space:nowrap;
@@ -486,77 +519,124 @@ export default function HomePageClient({ products, categories, featuredProducts,
         </section>
 
         {/* FEATURED PRODUCTS */}
-        {featuredProducts.length > 0 && (
+        {primaryProduct && (
           <section style={{ padding: '0 80px 100px', position: 'relative', zIndex: 2 }}>
             <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#4cd7f6', marginBottom: 16 }}>
-              Curated For You
+              Featured Product
             </div>
             <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(32px,3.5vw,48px)', fontWeight: 600, lineHeight: 1.2, marginBottom: 60, color: '#dae2fd' }}>
-              Bestselling <em style={{ fontStyle: 'italic', color: '#ffb0cd' }}>Pieces</em>
+              Signature <em style={{ fontStyle: 'italic', color: '#ffb0cd' }}>Spotlight</em>
             </h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(240px,1fr))', gap: 20 }}>
-              {featuredProducts.map((product, i) => (
-                <motion.div
-                  key={product.id}
-                  className="feat-card egl"
-                  whileHover={{ y: -6 }}
-                >
-                  <Link href={`/product/${product.slug}`} style={{ textDecoration: 'none' }}>
-                    <div className="feat-img" style={{ background: CARD_BACKGROUNDS[i % CARD_BACKGROUNDS.length] }}>
-                      <div className={`feat-glow ${GLOW_CLASSES[i % GLOW_CLASSES.length]}`} />
-                      {product.images[0] ? (
+            <div
+              className="egl max-lg:grid-cols-1"
+              style={{
+                position: 'relative',
+                overflow: 'hidden',
+                borderRadius: 30,
+                padding: '44px 36px',
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: 36,
+                alignItems: 'center',
+              }}
+            >
+              <div style={{ position: 'absolute', top: -90, right: -70, width: 260, height: 260, borderRadius: '50%', background: 'radial-gradient(circle,rgba(247,81,161,0.25),transparent 70%)', filter: 'blur(70px)' }} />
+              <div style={{ position: 'absolute', bottom: -80, left: -60, width: 240, height: 240, borderRadius: '50%', background: 'radial-gradient(circle,rgba(87,27,193,0.22),transparent 70%)', filter: 'blur(70px)' }} />
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.7 }}
+                style={{ position: 'relative', zIndex: 1 }}
+              >
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 12px', borderRadius: 9999, background: 'rgba(247,81,161,0.15)', border: '1px solid rgba(247,81,161,0.28)', fontSize: 11, fontWeight: 600, color: '#ffb0cd', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 16 }}>
+                  <span className="badge-dot" />
+                  Spotlight Item
+                </div>
+                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px,3vw,40px)', lineHeight: 1.12, marginBottom: 14, color: '#dae2fd' }}>
+                  {primaryProduct.name}
+                </h3>
+                <p style={{ fontSize: 15, lineHeight: 1.7, color: '#debec8', marginBottom: 22, maxWidth: 460 }}>
+                  {truncateAtWord(primaryProduct.description, MAX_SPOTLIGHT_DESCRIPTION_LENGTH)}
+                </p>
+                <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#4cd7f6', marginBottom: 10 }}>
+                  {categories.find(c => c.slug === primaryProduct.category)?.title ?? primaryProduct.category}
+                </div>
+                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 34, fontWeight: 700, color: '#ffb0cd', marginBottom: 20 }}>
+                  {formatPrice(primaryProduct.price)}
+                </div>
+                <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                  <button
+                    onClick={() => handleCardAdd(primaryProduct)}
+                    disabled={!primaryProduct.inStock}
+                    style={{
+                      padding: '12px 24px',
+                      borderRadius: 12,
+                      border: 'none',
+                      cursor: primaryProduct.inStock ? 'pointer' : 'not-allowed',
+                      background: addedCards[primaryProduct.id] ? 'linear-gradient(135deg,#009eb9,#4cd7f6)' : 'linear-gradient(135deg,#f751a1,#571bc1)',
+                      color: '#fff',
+                      fontWeight: 600,
+                      fontSize: 14,
+                      opacity: primaryProduct.inStock ? 1 : 0.6,
+                    }}
+                  >
+                    {addedCards[primaryProduct.id] ? 'Added!' : primaryProduct.inStock ? 'Add to Bag' : 'Out of Stock'}
+                  </button>
+                  <Link
+                    href={`/product/${primaryProduct.slug}`}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      padding: '12px 24px',
+                      borderRadius: 12,
+                      textDecoration: 'none',
+                      border: '1px solid rgba(255,255,255,0.22)',
+                      color: '#debec8',
+                      fontWeight: 600,
+                      fontSize: 14,
+                      background: 'rgba(255,255,255,0.04)',
+                    }}
+                  >
+                    View Details
+                  </Link>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.7, delay: 0.1 }}
+                style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'center' }}
+              >
+                <div className="featured-3d-card" style={{ position: 'relative', width: 'min(380px,100%)' }}>
+                  <div style={{ position: 'absolute', inset: 0, borderRadius: 24, background: 'radial-gradient(circle at 50% 20%,rgba(247,81,161,0.18),transparent 60%)', filter: 'blur(20px)' }} />
+                  <div className="featured-3d-bubble" style={{ width: 26, height: 26, top: 8, left: 10, animationDelay: '0s' }} />
+                  <div className="featured-3d-bubble" style={{ width: 18, height: 18, top: '26%', right: -6, animationDelay: '-1.2s' }} />
+                  <div className="featured-3d-bubble" style={{ width: 32, height: 32, bottom: 12, left: -10, animationDelay: '-0.6s' }} />
+                  <div className="featured-3d-bubble" style={{ width: 14, height: 14, bottom: '35%', right: 12, animationDelay: '-1.8s' }} />
+                  <div style={{ position: 'relative', borderRadius: 24, padding: 22, background: 'linear-gradient(140deg,rgba(247,81,161,0.13),rgba(87,27,193,0.17),rgba(6,14,32,0.62))', border: '1px solid rgba(255,255,255,0.18)' }}>
+                    <div style={{ width: '100%', aspectRatio: '1', borderRadius: 16, position: 'relative', overflow: 'hidden', background: 'linear-gradient(135deg,rgba(247,81,161,0.15),rgba(87,27,193,0.2),rgba(0,158,185,0.16))' }}>
+                      {primaryProduct.images[0] ? (
                         <Image
-                          src={product.images[0]}
-                          alt={product.name}
+                          src={primaryProduct.images[0]}
+                          alt={primaryProduct.name}
                           fill
                           className="object-cover"
-                          style={{ borderRadius: 14 }}
-                          sizes="280px"
+                          sizes="(max-width: 768px) 90vw, 380px"
                         />
                       ) : (
-                        <div className="feat-blob" style={{ background: BLOB_GRADIENTS[i % BLOB_GRADIENTS.length] }} />
+                        <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <div className="product-blob" style={{ background: SPOTLIGHT_FALLBACK_GRADIENT }} />
+                        </div>
                       )}
-                      <div className={`feat-badge ${BADGE_CLASSES[i % BADGE_CLASSES.length]}`}>
-                        {BADGE_LABELS[i % BADGE_LABELS.length]}
-                      </div>
                     </div>
-                  </Link>
-
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginBottom: 12 }}>
-                    <span style={{ color: '#f751a1', fontSize: 12, letterSpacing: 1 }}>★★★★★</span>
-                    <span style={{ fontSize: 11, color: '#a68992', marginLeft: 4 }}>({product.tags.join(', ') || 'Premium'})</span>
                   </div>
-
-                  <Link href={`/product/${product.slug}`} style={{ textDecoration: 'none' }}>
-                    <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, fontWeight: 600, marginBottom: 4, color: '#dae2fd' }}>{product.name}</div>
-                    <div style={{ fontSize: 12, color: '#debec8', marginBottom: 14 }}>
-                      {categories.find(c => c.slug === product.category)?.title ?? product.category} · {product.sizes[0] ?? ''}
-                    </div>
-                  </Link>
-
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <div style={{ fontSize: 18, fontWeight: 600, color: '#dae2fd' }}>{formatPrice(product.price)}</div>
-                    <button
-                      onClick={() => handleCardAdd(product)}
-                      disabled={!product.inStock}
-                      aria-label="Add to cart"
-                      style={{
-                        width: 36, height: 36, borderRadius: 9999,
-                        background: addedCards[product.id] ? 'rgba(247,81,161,0.4)' : 'rgba(247,81,161,0.15)',
-                        border: '1px solid rgba(247,81,161,0.3)',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: product.inStock ? 'pointer' : 'not-allowed',
-                        transition: 'all 0.3s',
-                      }}
-                    >
-                      {addedCards[product.id] ? (
-                        <svg width="16" height="16" viewBox="0 0 24 24" stroke="#ffb0cd" fill="none" strokeWidth="2"><path d="M20 6 9 17l-5-5"/></svg>
-                      ) : (
-                        <svg width="16" height="16" viewBox="0 0 24 24" stroke="#f751a1" fill="none" strokeWidth="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-                      )}
-                    </button>
-                  </div>
-                </motion.div>
-              ))}
+                </div>
+              </motion.div>
             </div>
 
             <div style={{ textAlign: 'center', marginTop: 52 }}>
