@@ -35,6 +35,7 @@ const CAT_ACCENTS = ['accent-rose', 'accent-violet', 'accent-cyan', 'accent-rose
 const CAT_ICONS = ['🌸', '✨', '💧', '🌿', '💎', '🧴'];
 const CAT_TAGS = ['Most Loved', 'Trending', 'New Arrivals', 'Popular', 'Exclusive', 'Essential'];
 const CAT_ICON_CLASSES = ['cat-icon-1', 'cat-icon-2', 'cat-icon-3', 'cat-icon-1', 'cat-icon-2', 'cat-icon-3'];
+const MAX_SPOTLIGHT_DESCRIPTION_LENGTH = 140;
 
 export default function HomePageClient({ products, categories, featuredProducts, heroProduct }: HomePageClientProps) {
   const { addToCart } = useCart();
@@ -543,7 +544,9 @@ export default function HomePageClient({ products, categories, featuredProducts,
                   {spotlightProduct.name}
                 </h3>
                 <p style={{ fontSize: 15, lineHeight: 1.7, color: '#debec8', marginBottom: 22, maxWidth: 460 }}>
-                  {spotlightProduct.description.length > 140 ? `${spotlightProduct.description.slice(0, 140)}…` : spotlightProduct.description}
+                  {spotlightProduct.description.length > MAX_SPOTLIGHT_DESCRIPTION_LENGTH
+                    ? `${spotlightProduct.description.slice(0, MAX_SPOTLIGHT_DESCRIPTION_LENGTH)}…`
+                    : spotlightProduct.description}
                 </p>
                 <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#4cd7f6', marginBottom: 10 }}>
                   {categories.find(c => c.slug === spotlightProduct.category)?.title ?? spotlightProduct.category}
