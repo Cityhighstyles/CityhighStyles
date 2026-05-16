@@ -56,7 +56,7 @@ export default function HomePageClient({ products, categories, featuredProducts,
   const [heroSize, setHeroSize] = useState(heroProduct?.sizes?.[0] ?? '');
   const [addedHero, setAddedHero] = useState(false);
   const [addedCards, setAddedCards] = useState<Record<string, boolean>>({});
-  const spotlightProduct = featuredProducts[0] ?? heroProduct;
+  const primaryProduct = featuredProducts[0] ?? heroProduct;
 
   const handleHeroAdd = () => {
     if (!heroProduct) return;
@@ -519,7 +519,7 @@ export default function HomePageClient({ products, categories, featuredProducts,
         </section>
 
         {/* FEATURED PRODUCTS */}
-        {spotlightProduct && (
+        {primaryProduct && (
           <section style={{ padding: '0 80px 100px', position: 'relative', zIndex: 2 }}>
             <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#4cd7f6', marginBottom: 16 }}>
               Featured Product
@@ -555,37 +555,37 @@ export default function HomePageClient({ products, categories, featuredProducts,
                   Spotlight Item
                 </div>
                 <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(28px,3vw,40px)', lineHeight: 1.12, marginBottom: 14, color: '#dae2fd' }}>
-                  {spotlightProduct.name}
+                  {primaryProduct.name}
                 </h3>
                 <p style={{ fontSize: 15, lineHeight: 1.7, color: '#debec8', marginBottom: 22, maxWidth: 460 }}>
-                  {truncateAtWord(spotlightProduct.description, MAX_SPOTLIGHT_DESCRIPTION_LENGTH)}
+                  {truncateAtWord(primaryProduct.description, MAX_SPOTLIGHT_DESCRIPTION_LENGTH)}
                 </p>
                 <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#4cd7f6', marginBottom: 10 }}>
-                  {categories.find(c => c.slug === spotlightProduct.category)?.title ?? spotlightProduct.category}
+                  {categories.find(c => c.slug === primaryProduct.category)?.title ?? primaryProduct.category}
                 </div>
                 <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 34, fontWeight: 700, color: '#ffb0cd', marginBottom: 20 }}>
-                  {formatPrice(spotlightProduct.price)}
+                  {formatPrice(primaryProduct.price)}
                 </div>
                 <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
                   <button
-                    onClick={() => handleCardAdd(spotlightProduct)}
-                    disabled={!spotlightProduct.inStock}
+                    onClick={() => handleCardAdd(primaryProduct)}
+                    disabled={!primaryProduct.inStock}
                     style={{
                       padding: '12px 24px',
                       borderRadius: 12,
                       border: 'none',
-                      cursor: spotlightProduct.inStock ? 'pointer' : 'not-allowed',
-                      background: addedCards[spotlightProduct.id] ? 'linear-gradient(135deg,#009eb9,#4cd7f6)' : 'linear-gradient(135deg,#f751a1,#571bc1)',
+                      cursor: primaryProduct.inStock ? 'pointer' : 'not-allowed',
+                      background: addedCards[primaryProduct.id] ? 'linear-gradient(135deg,#009eb9,#4cd7f6)' : 'linear-gradient(135deg,#f751a1,#571bc1)',
                       color: '#fff',
                       fontWeight: 600,
                       fontSize: 14,
-                      opacity: spotlightProduct.inStock ? 1 : 0.6,
+                      opacity: primaryProduct.inStock ? 1 : 0.6,
                     }}
                   >
-                    {addedCards[spotlightProduct.id] ? 'Added!' : spotlightProduct.inStock ? 'Add to Bag' : 'Out of Stock'}
+                    {addedCards[primaryProduct.id] ? 'Added!' : primaryProduct.inStock ? 'Add to Bag' : 'Out of Stock'}
                   </button>
                   <Link
-                    href={`/product/${spotlightProduct.slug}`}
+                    href={`/product/${primaryProduct.slug}`}
                     style={{
                       display: 'inline-flex',
                       alignItems: 'center',
@@ -620,10 +620,10 @@ export default function HomePageClient({ products, categories, featuredProducts,
                   <div className="featured-3d-bubble" style={{ width: 14, height: 14, bottom: '35%', right: 12, animationDelay: '-1.8s' }} />
                   <div style={{ position: 'relative', borderRadius: 24, padding: 22, background: 'linear-gradient(140deg,rgba(247,81,161,0.13),rgba(87,27,193,0.17),rgba(6,14,32,0.62))', border: '1px solid rgba(255,255,255,0.18)' }}>
                     <div style={{ width: '100%', aspectRatio: '1', borderRadius: 16, position: 'relative', overflow: 'hidden', background: 'linear-gradient(135deg,rgba(247,81,161,0.15),rgba(87,27,193,0.2),rgba(0,158,185,0.16))' }}>
-                      {spotlightProduct.images[0] ? (
+                      {primaryProduct.images[0] ? (
                         <Image
-                          src={spotlightProduct.images[0]}
-                          alt={spotlightProduct.name}
+                          src={primaryProduct.images[0]}
+                          alt={primaryProduct.name}
                           fill
                           className="object-cover"
                           sizes="(max-width: 768px) 90vw, 380px"
