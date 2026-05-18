@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useCart } from '@/contexts/CartContext';
+import SiteHeader from '@/components/SiteHeader';
 
 const NewHeroSection = () => {
   const [size, setSize] = useState<'50ml' | '100ml'>('50ml');
@@ -43,12 +44,10 @@ const NewHeroSection = () => {
             <p className="inline-flex rounded-full border border-white/40 px-4 py-1 text-xs font-semibold tracking-[0.22em] text-[var(--theme-text-soft)]">
               GLOWÈ COLLECTION NEW ERA
             </p>
-            <h1 className="mt-5 font-display text-5xl leading-tight text-[var(--theme-text)] md:text-7xl">
-              Glass luxury with bold modern edge.
-            </h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-[var(--theme-text-soft)]">
-              Reimagined homepage built around our new color layout, soft depth, and premium motion-inspired glass cards.
-            </p>
+            <SiteHeader
+              title={<span className="font-display">Glass luxury with bold modern edge.</span>}
+              subtitle={<span className="mt-1 max-w-xl text-lg leading-relaxed text-[var(--theme-text-soft)]">Reimagined homepage built around our new color layout, soft depth, and premium motion-inspired glass cards.</span>}
+            />
 
             <div className="mt-8 flex flex-wrap gap-3">
               <button

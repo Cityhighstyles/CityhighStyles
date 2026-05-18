@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Product } from '@/types';
 import { formatPrice } from '@/lib/utils';
 import { useCart } from '@/contexts/CartContext';
+import SiteHeader from '@/components/SiteHeader';
 
 interface ProductDetailsProps {
   product: Product;
@@ -74,20 +75,14 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
 
         {/* Product Info Section */}
         <div>
-          <nav className="text-sm text-gray-600 mb-4">
-            <Link href="/" className="hover:text-gray-900">Home</Link>
-            {' / '}
-            <Link href={`/category/${product.category}`} className="hover:text-gray-900 capitalize">
-              {product.category}
-            </Link>
-            {' / '}
-            <span className="text-gray-900">{product.name}</span>
-          </nav>
-
-          <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
-          <p className="text-3xl font-bold text-gray-900 mb-6">
-            {formatPrice(product.price)}
-          </p>
+          <SiteHeader
+            title={product.name}
+            subtitle={formatPrice(product.price)}
+            breadcrumbs={[
+              { href: '/', label: 'Home' },
+              { href: `/category/${product.category}`, label: product.category },
+            ]}
+          />
 
           <p className="text-gray-700 mb-6">{product.description}</p>
 

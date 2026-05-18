@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Product, Category } from '@/types';
 import { useCart } from '@/contexts/CartContext';
 import { formatPrice } from '@/lib/utils';
+import SiteHeader from '@/components/SiteHeader';
 
 interface HomePageClientProps {
   products: Product[];
@@ -686,12 +687,10 @@ export default function HomePageClient({ products, categories, featuredProducts,
             <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#4cd7f6', marginBottom: 16 }}>
               How It Works
             </div>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(32px,3.5vw,48px)', fontWeight: 600, lineHeight: 1.2, marginBottom: 24, color: '#dae2fd' }}>
-              Your Shopping <em style={{ fontStyle: 'italic', color: '#ffb0cd' }}>Ritual</em>
-            </h2>
-            <p style={{ fontSize: 16, lineHeight: 1.7, color: '#debec8', marginBottom: 36 }}>
-              GLOWÈ COLLECTION is your destination for luxury fashion for bold and confident women. We bring you carefully curated pieces with quality fabrics and modern fits — delivered to your doorstep with a personal touch.
-            </p>
+            <SiteHeader
+              title={<span style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(32px,3.5vw,48px)', fontWeight: 600, lineHeight: 1.2, color: '#dae2fd' }}>Your Shopping <em style={{ fontStyle: 'italic', color: '#ffb0cd' }}>Ritual</em></span>}
+              subtitle={<span style={{ fontSize: 16, lineHeight: 1.7, color: '#debec8' }}>GLOWÈ COLLECTION is your destination for luxury fashion for bold and confident women. We bring you carefully curated pieces with quality fabrics and modern fits — delivered to your doorstep with a personal touch.</span>}
+            />
             <Link
               href="/products"
               style={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: 'linear-gradient(135deg,#f751a1,#571bc1)', color: '#fff', fontWeight: 600, fontSize: 15, padding: '14px 32px', borderRadius: 12, textDecoration: 'none', boxShadow: '0 0 40px rgba(247,81,161,0.4)' }}
