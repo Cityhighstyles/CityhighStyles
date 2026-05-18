@@ -5,9 +5,9 @@
 
 export const businessConfig = {
   // Business Identity
-  name: "City High Styles",
-  tagline: "Premium Fashion & Lifestyle",
-  description: "Your destination for high-quality clothing and fashion",
+  name: "GLOWÈ COLLECTION",
+  tagline: "Luxury fashion for bold and confident women",
+  description: "Your destination for luxury fashion for bold and confident women",
 
   // Contact Information
   contact: {
@@ -73,8 +73,8 @@ export const businessConfig = {
 
   // SEO & Meta
   seo: {
-    title: "City High Styles - Premium Fashion & Lifestyle",
-    description: "Shop high-quality clothing and fashion items at City High Styles. Discover premium products with fast shipping.",
+    title: "GLOWÈ COLLECTION - Luxury Fashion",
+    description: "Shop luxury fashion for bold and confident women at GLOWÈ COLLECTION.",
     keywords: ["fashion", "clothing", "premium", "style"],
   },
 } as const;

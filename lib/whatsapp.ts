@@ -2,7 +2,7 @@ import { Cart, CartItem } from '@/types';
 
 export function generateWhatsAppMessage(cart: Cart): string {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://cityhighstyles.github.io';
-  const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'City High Styles';
+  const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'GLOWÈ COLLECTION';
 
   let message = `🛍️ *New Order from ${siteName}*\n\n`;
   message += `📦 *Order Details:*\n`;

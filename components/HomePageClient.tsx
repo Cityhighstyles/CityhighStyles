@@ -690,7 +690,7 @@ export default function HomePageClient({ products, categories, featuredProducts,
               Your Shopping <em style={{ fontStyle: 'italic', color: '#ffb0cd' }}>Ritual</em>
             </h2>
             <p style={{ fontSize: 16, lineHeight: 1.7, color: '#debec8', marginBottom: 36 }}>
-              City High Styles is your destination for premium men&apos;s fashion. We bring you carefully curated pieces with quality fabrics and modern fits — delivered to your doorstep with a personal touch.
+              GLOWÈ COLLECTION is your destination for luxury fashion for bold and confident women. We bring you carefully curated pieces with quality fabrics and modern fits — delivered to your doorstep with a personal touch.
             </p>
             <Link
               href="/products"

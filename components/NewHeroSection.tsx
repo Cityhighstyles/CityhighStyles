@@ -41,7 +41,7 @@ const NewHeroSection = () => {
         <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
           <article className="theme-card rounded-[2rem] border border-white/35 p-7 md:p-10">
             <p className="inline-flex rounded-full border border-white/40 px-4 py-1 text-xs font-semibold tracking-[0.22em] text-[var(--theme-text-soft)]">
-              CITYHIGHSTYLES NEW ERA
+              GLOWÈ COLLECTION NEW ERA
             </p>
             <h1 className="mt-5 font-display text-5xl leading-tight text-[var(--theme-text)] md:text-7xl">
               Glass luxury with bold modern edge.
@@ -163,17 +163,17 @@ const NewHeroSection = () => {
             {[
               {
                 image: '/products/premium-hoodie/image-1768902282025-2.jpg',
-                alt: 'Premium hoodie from CityHighStyles signature picks',
+                alt: 'Premium hoodie from GLOWÈ COLLECTION signature picks',
                 href: '/product/premium-hoodie',
               },
               {
                 image: '/products/classic-polo-shirt/image-1.jpg',
-                alt: 'Classic polo shirt from CityHighStyles signature picks',
+                alt: 'Classic polo shirt from GLOWÈ COLLECTION signature picks',
                 href: '/product/classic-polo-shirt',
               },
               {
                 image: '/products/essential-graphic-tee/image-1768847038726-1.jpg',
-                alt: 'Essential graphic tee from CityHighStyles signature picks',
+                alt: 'Essential graphic tee from GLOWÈ COLLECTION signature picks',
                 href: '/product/essential-graphic-tee',
               },
             ].map((item) => (
