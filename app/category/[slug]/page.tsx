@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   }
 
   return {
-    title: `${category.title} - GLOWÈ COLLECTION`,
+    title: `${category.title} - City High Styles`,
     description: category.description,
   };
 }

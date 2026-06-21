@@ -25,36 +25,6 @@ export default function ProductHero() {
     y.set(event.clientY - centerY);
   }
 
-  // Animation variants for staggered orchestrations
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2, // Time delay between each element's appearance
-        delayChildren: 0.3,   // Initial delay before starting the cascade
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const }, // Smooth custom cubic bezier curve
-    },
-  };
-
-  const lineVariants = {
-    hidden: { width: 0, opacity: 0 },
-    visible: {
-      width: 96, // width of 24 (96px)
-      opacity: 1,
-      transition: { duration: 0.8, ease: "easeInOut" as const },
-    },
-  };
-
   return (
     <div 
       onMouseMove={handleMouseMove}
@@ -120,49 +90,20 @@ export default function ProductHero() {
           ))}
         </motion.div>
 
-        {/* Premium Staggered Text & Info Details */}
+        {/* Text Details */}
         <motion.div 
-          initial="hidden"
-          animate="visible"
-          variants={containerVariants}
-          className="mt-10 text-center max-w-md px-4 flex flex-col items-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="mt-12 text-center"
         >
-          {/* 1. Title */}
-          <motion.h2 
-            variants={itemVariants}
-            className="text-pink-100 text-4xl md:text-5xl font-extralight tracking-[0.25em] uppercase"
-          >
+          <h2 className="text-pink-100 text-5xl font-extralight tracking-[0.2em] uppercase">
             Pink Aura
-          </motion.h2>
-          
-          {/* 2. Elegant Expanding Accent Line */}
-          <motion.div 
-            variants={lineVariants}
-            className="h-[1px] bg-pink-500 mt-4 mb-4" 
-          />
-
-          {/* 3. Motion Description */}
-          <motion.p
-            variants={itemVariants}
-            className="text-pink-200/70 text-sm md:text-base font-light tracking-wide leading-relaxed mb-4 max-w-sm"
-          >
-            A celestial blend of blooming peony, warm liquid amber, and luminous white musk. Crafted with precision for the modern mystic.
-          </motion.p>
-
-          {/* 4. Price Badge */}
-          <motion.p
-            variants={itemVariants}
-            className="text-pink-300 text-xl md:text-2xl font-light tracking-widest mb-6"
-          >
-            $145.00
-          </motion.p>
-          
-          {/* 5. CTA Button */}
-          <motion.div variants={itemVariants}>
-            <button className="px-8 py-3 border border-pink-500/40 text-pink-200 bg-pink-950/10 hover:bg-pink-500/20 hover:border-pink-500 transition-all duration-300 uppercase tracking-widest text-xs backdrop-blur-sm">
-              Discover Scents
-            </button>
-          </motion.div>
+          </h2>
+          <div className="h-[1px] w-24 bg-pink-500 mx-auto mt-4 mb-4" />
+          <button className="px-8 py-3 border border-pink-500/50 text-pink-200 hover:bg-pink-500/20 transition-all duration-300 uppercase tracking-widest text-xs">
+            Discover Scents
+          </button>
         </motion.div>
       </motion.div>
     </div>

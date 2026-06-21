@@ -12,14 +12,14 @@ export async function generateMetadata(): Promise<Metadata> {
       follow: false,
     },
     openGraph: {
-      siteName: "GLOWÈ COLLECTION",
+      siteName: "CityHighStyles",
       type: "website",
       images: [
         {
           url: "/admin.png", // put this in /public
           width: 1200,
           height: 630,
-          alt: "GLOWÈ COLLECTION Admin Dashboard",
+          alt: "CityHighStyles Admin Dashboard",
         },
       ],
     },
@@ -31,36 +31,36 @@ export async function generateMetadata(): Promise<Metadata> {
 
   if (!authenticated) {
     return {
-      title: "Admin Login | GLOWÈ COLLECTION",
-      description: "Login to access the GLOWÈ COLLECTION admin dashboard",
+      title: "Admin Login | CityHighStyles",
+      description: "Login to access the CityHighStyles admin dashboard",
       ...baseMetadata,
       openGraph: {
         ...baseMetadata.openGraph,
-        title: "Admin Login | GLOWÈ COLLECTION",
-        description: "Login to access the GLOWÈ COLLECTION admin dashboard",
+        title: "Admin Login | CityHighStyles",
+        description: "Login to access the CityHighStyles admin dashboard",
         url: "/admin",
       },
       twitter: {
         ...baseMetadata.twitter,
-        title: "Admin Login | GLOWÈ COLLECTION",
-        description: "Login to access the GLOWÈ COLLECTION admin dashboard",
+        title: "Admin Login | CityHighStyles",
+        description: "Login to access the CityHighStyles admin dashboard",
       },
     };
   }
 
   return {
-    title: "Admin Dashboard | GLOWÈ COLLECTION",
+    title: "Admin Dashboard | CityHighStyles",
     description: "Manage products, prices, images, orders and store content",
     ...baseMetadata,
     openGraph: {
       ...baseMetadata.openGraph,
-      title: "Admin Dashboard | GLOWÈ COLLECTION",
+      title: "Admin Dashboard | CityHighStyles",
       description: "Manage products, prices, images, orders and store content",
       url: "/admin",
     },
     twitter: {
       ...baseMetadata.twitter,
-      title: "Admin Dashboard | GLOWÈ COLLECTION",
+      title: "Admin Dashboard | CityHighStyles",
       description: "Manage products, prices, images, orders and store content",
     },
   };

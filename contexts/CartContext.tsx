@@ -13,7 +13,7 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-const CART_STORAGE_KEY = 'glowe_collection_cart';
+const CART_STORAGE_KEY = 'cityhighstyles_cart';
 
 function calculateCart(items: CartItem[]): Cart {
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);

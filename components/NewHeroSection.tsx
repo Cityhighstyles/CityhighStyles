@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useCart } from '@/contexts/CartContext';
-import SiteHeader from '@/components/SiteHeader';
 
 const NewHeroSection = () => {
   const [size, setSize] = useState<'50ml' | '100ml'>('50ml');
@@ -42,12 +41,14 @@ const NewHeroSection = () => {
         <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
           <article className="theme-card rounded-[2rem] border border-white/35 p-7 md:p-10">
             <p className="inline-flex rounded-full border border-white/40 px-4 py-1 text-xs font-semibold tracking-[0.22em] text-[var(--theme-text-soft)]">
-              GLOWÈ COLLECTION NEW ERA
+              CITYHIGHSTYLES NEW ERA
             </p>
-            <SiteHeader
-              title={<span className="font-display">Glass luxury with bold modern edge.</span>}
-              subtitle={<span className="mt-1 max-w-xl text-lg leading-relaxed text-[var(--theme-text-soft)]">Reimagined homepage built around our new color layout, soft depth, and premium motion-inspired glass cards.</span>}
-            />
+            <h1 className="mt-5 font-display text-5xl leading-tight text-[var(--theme-text)] md:text-7xl">
+              Glass luxury with bold modern edge.
+            </h1>
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-[var(--theme-text-soft)]">
+              Reimagined homepage built around our new color layout, soft depth, and premium motion-inspired glass cards.
+            </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
               <button
@@ -162,17 +163,17 @@ const NewHeroSection = () => {
             {[
               {
                 image: '/products/premium-hoodie/image-1768902282025-2.jpg',
-                alt: 'Premium hoodie from GLOWÈ COLLECTION signature picks',
+                alt: 'Premium hoodie from CityHighStyles signature picks',
                 href: '/product/premium-hoodie',
               },
               {
                 image: '/products/classic-polo-shirt/image-1.jpg',
-                alt: 'Classic polo shirt from GLOWÈ COLLECTION signature picks',
+                alt: 'Classic polo shirt from CityHighStyles signature picks',
                 href: '/product/classic-polo-shirt',
               },
               {
                 image: '/products/essential-graphic-tee/image-1768847038726-1.jpg',
-                alt: 'Essential graphic tee from GLOWÈ COLLECTION signature picks',
+                alt: 'Essential graphic tee from CityHighStyles signature picks',
                 href: '/product/essential-graphic-tee',
               },
             ].map((item) => (
