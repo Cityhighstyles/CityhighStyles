@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { isAuthenticated } from '@/lib/auth';
-import { getCustomPassword, setCustomPassword } from '@/lib/passwordStorage';
-
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
+import { supabase } from '@/lib/supabase';
 
 export async function POST(request: NextRequest) {
   try {
@@ -15,12 +13,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { currentPassword, newPassword } = await request.json();
+    const { newPassword } = await request.json();
 
     // Validate input
-    if (!currentPassword || !newPassword) {
+    if (!newPassword) {
       return NextResponse.json(
-        { error: 'Current password and new password are required' },
+        { error: 'New password is required' },
         { status: 400 }
       );
     }
@@ -32,33 +30,22 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Verify current password
-    const customPassword = await getCustomPassword();
-    const isCurrentPasswordValid = customPassword
-      ? currentPassword === customPassword || currentPassword === ADMIN_PASSWORD
-      : currentPassword === ADMIN_PASSWORD;
+    // Update password via Supabase Auth
+    const { error } = await supabase.auth.updateUser({
+      password: newPassword
+    });
 
-    if (!isCurrentPasswordValid) {
+    if (error) {
       return NextResponse.json(
-        { error: 'Current password is incorrect' },
-        { status: 401 }
+        { error: error.message },
+        { status: 400 }
       );
     }
 
-    // Set new custom password
-    const success = await setCustomPassword(newPassword);
-
-    if (success) {
-      return NextResponse.json({
-        success: true,
-        message: 'Password changed successfully',
-      });
-    } else {
-      return NextResponse.json(
-        { error: 'Failed to update password' },
-        { status: 500 }
-      );
-    }
+    return NextResponse.json({
+      success: true,
+      message: 'Password changed successfully',
+    });
   } catch (error) {
     console.error('Error changing password:', error);
     return NextResponse.json(

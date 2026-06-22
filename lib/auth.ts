@@ -1,41 +1,62 @@
 'use server';
 
 import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
-import { getCustomPassword } from './passwordStorage';
+import { supabase } from './supabase';
 
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
 const SESSION_COOKIE = 'admin_session';
 
 export async function authenticateAdmin(password: string): Promise<boolean> {
-  // Check custom password first, then fall back to env password
-  const customPassword = await getCustomPassword();
-  
-  const isValid = customPassword 
-    ? password === customPassword || password === ADMIN_PASSWORD
-    : password === ADMIN_PASSWORD;
-  
-  if (isValid) {
-    const cookieStore = await cookies();
-    cookieStore.set(SESSION_COOKIE, 'authenticated', {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 60 * 60 * 24, // 24 hours
+  try {
+    // We assume the admin email is set in env or we use a fixed one if standard for the app
+    const adminEmail = process.env.ADMIN_EMAIL || 'admin@cityhighstyles.com';
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: adminEmail,
+      password: password,
     });
-    return true;
+
+    if (error) {
+      console.error('Supabase auth error:', error.message);
+      return false;
+    }
+
+    if (data.session) {
+      const cookieStore = await cookies();
+      cookieStore.set(SESSION_COOKIE, data.session.access_token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: data.session.expires_in,
+      });
+      return true;
+    }
+
+    return false;
+  } catch (error) {
+    console.error('Authentication error:', error);
+    return false;
   }
-  return false;
 }
 
 export async function isAuthenticated(): Promise<boolean> {
   const cookieStore = await cookies();
-  const session = cookieStore.get(SESSION_COOKIE);
-  return session?.value === 'authenticated';
+  const token = cookieStore.get(SESSION_COOKIE)?.value;
+
+  if (!token) return false;
+
+  try {
+    const { data: { user }, error } = await supabase.auth.getUser(token);
+    if (error || !user) return false;
+
+    // Additional check if needed: e.g., user.email === process.env.ADMIN_EMAIL
+    return true;
+  } catch (error) {
+    return false;
+  }
 }
 
 export async function logout() {
   const cookieStore = await cookies();
   cookieStore.delete(SESSION_COOKIE);
-  redirect('/admin');
+  await supabase.auth.signOut();
 }
