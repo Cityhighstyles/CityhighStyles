@@ -1,9 +1,9 @@
 'use server';
 
 import { Product } from '@/types';
-import { saveProduct, deleteProduct as deleteProductFile } from '@/lib/products';
+import { saveProduct, deleteProduct as deleteProductFromSupabase } from '@/lib/products';
 import { generateSlug } from '@/lib/utils';
-import { uploadImage } from '@/lib/github';
+import { uploadImage } from '@/lib/supabase';
 import { revalidatePath } from 'next/cache';
 
 export async function createProduct(formData: FormData) {
@@ -41,7 +41,7 @@ export async function createProduct(formData: FormData) {
       updatedAt: new Date().toISOString(),
     };
 
-    // Handle image uploads
+    // Handle image uploads to Supabase
     const imageFiles = formData.getAll('images') as File[];
     const uploadedImages: string[] = [];
 
@@ -50,8 +50,8 @@ export async function createProduct(formData: FormData) {
       if (file.size > 0) {
         const buffer = await file.arrayBuffer();
         const base64 = Buffer.from(buffer).toString('base64');
-        const fileName = `image-${i + 1}.jpg`;
-        const imagePath = await uploadImage(slug, fileName, base64);
+        const fileName = `image-${Date.now()}-${i + 1}.jpg`;
+        const imagePath = await uploadImage(`products/${slug}`, fileName, base64);
         uploadedImages.push(imagePath);
       }
     }
@@ -61,6 +61,7 @@ export async function createProduct(formData: FormData) {
     await saveProduct(product);
     revalidatePath('/');
     revalidatePath(`/category/${category}`);
+    revalidatePath('/products');
 
     return { success: true, slug };
   } catch (error) {
@@ -85,7 +86,7 @@ export async function updateProduct(slug: string, formData: FormData) {
     const inStock = formData.get('inStock') === 'true';
     const existingImages = JSON.parse(formData.get('existingImages') as string || '[]');
 
-    // Handle new image uploads
+    // Handle new image uploads to Supabase
     const newImageFiles = formData.getAll('newImages') as File[];
     const uploadedNewImages: string[] = [];
 
@@ -95,7 +96,7 @@ export async function updateProduct(slug: string, formData: FormData) {
         const buffer = await file.arrayBuffer();
         const base64 = Buffer.from(buffer).toString('base64');
         const fileName = `image-${Date.now()}-${i + 1}.jpg`;
-        const imagePath = await uploadImage(slug, fileName, base64);
+        const imagePath = await uploadImage(`products/${slug}`, fileName, base64);
         uploadedNewImages.push(imagePath);
       }
     }
@@ -126,6 +127,7 @@ export async function updateProduct(slug: string, formData: FormData) {
     revalidatePath('/');
     revalidatePath(`/product/${slug}`);
     revalidatePath(`/category/${category}`);
+    revalidatePath('/products');
 
     return { success: true };
   } catch (error) {
@@ -136,8 +138,9 @@ export async function updateProduct(slug: string, formData: FormData) {
 
 export async function deleteProduct(slug: string) {
   try {
-    await deleteProductFile(slug);
+    await deleteProductFromSupabase(slug);
     revalidatePath('/');
+    revalidatePath('/products');
     return { success: true };
   } catch (error) {
     console.error('Error deleting product:', error);

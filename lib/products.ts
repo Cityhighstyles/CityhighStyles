@@ -1,8 +1,6 @@
 import { Product } from '@/types';
-import { getFileContent, listFiles, createOrUpdateFile, deleteFile } from './github';
+import { supabase } from './supabase';
 import { cacheManager } from './cache';
-
-const PRODUCTS_DIR = 'data/products';
 
 export async function getAllProducts(): Promise<Product[]> {
   // Check cache first
@@ -12,27 +10,21 @@ export async function getAllProducts(): Promise<Product[]> {
   }
 
   try {
-    const files = await listFiles(PRODUCTS_DIR);
-    const jsonFiles = files.filter((f) => f.endsWith('.json'));
+    const { data, error } = await supabase
+      .from('products')
+      .select('*')
+      .order('createdAt', { ascending: false });
 
-    const products = await Promise.all(
-      jsonFiles.map(async (file) => {
-        const content = await getFileContent(`${PRODUCTS_DIR}/${file}`);
-        if (content) {
-          return JSON.parse(content) as Product;
-        }
-        return null;
-      })
-    );
+    if (error) throw error;
 
-    const validProducts = products.filter((p): p is Product => p !== null);
+    const products = data as Product[];
     
     // Cache the results
-    cacheManager.setProducts(validProducts, 'all');
+    cacheManager.setProducts(products, 'all');
     
-    return validProducts;
+    return products;
   } catch (error) {
-    console.error('Error loading products:', error);
+    console.error('Error loading products from Supabase:', error);
     return [];
   }
 }
@@ -45,58 +37,94 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
   }
 
   try {
-    const content = await getFileContent(`${PRODUCTS_DIR}/${slug}.json`);
-    if (content) {
-      const product = JSON.parse(content) as Product;
-      // Cache the individual product
-      cacheManager.setProduct(slug, product);
-      return product;
+    const { data, error } = await supabase
+      .from('products')
+      .select('*')
+      .eq('slug', slug)
+      .single();
+
+    if (error) {
+      if (error.code === 'PGRST116') return null; // Not found
+      throw error;
     }
-    return null;
+
+    const product = data as Product;
+    // Cache the individual product
+    cacheManager.setProduct(slug, product);
+    return product;
   } catch (error) {
-    console.error(`Error loading product ${slug}:`, error);
+    console.error(`Error loading product ${slug} from Supabase:`, error);
     return null;
   }
 }
 
 export async function getProductsByCategory(category: string): Promise<Product[]> {
-  const allProducts = await getAllProducts();
-  return allProducts.filter((p) => p.category === category);
+  try {
+    const { data, error } = await supabase
+      .from('products')
+      .select('*')
+      .eq('category', category)
+      .order('createdAt', { ascending: false });
+
+    if (error) throw error;
+    return data as Product[];
+  } catch (error) {
+    console.error(`Error loading products for category ${category}:`, error);
+    return [];
+  }
 }
 
 export async function getFeaturedProducts(limit = 8): Promise<Product[]> {
-  const allProducts = await getAllProducts();
-  return allProducts.filter((p) => p.featured).slice(0, limit);
+  try {
+    const { data, error } = await supabase
+      .from('products')
+      .select('*')
+      .eq('featured', true)
+      .limit(limit)
+      .order('createdAt', { ascending: false });
+
+    if (error) throw error;
+    return data as Product[];
+  } catch (error) {
+    console.error('Error loading featured products:', error);
+    return [];
+  }
 }
 
 export async function saveProduct(product: Product): Promise<void> {
-  const path = `${PRODUCTS_DIR}/${product.slug}.json`;
-  // Ensure all image URLs have the correct prefix
-  const GITHUB_PAGES_PREFIX = 'https://cityhighstyles.github.io/public';
-  const normalizeImage = (img: string) =>
-    img.startsWith('http') ? img : `${GITHUB_PAGES_PREFIX}${img.startsWith('/') ? '' : '/'}${img}`;
+  try {
+    const { error } = await supabase
+      .from('products')
+      .upsert({
+        ...product,
+        updatedAt: new Date().toISOString()
+      }, {
+        onConflict: 'slug'
+      });
 
-  const normalizedProduct = {
-    ...product,
-    images: Array.isArray(product.images)
-      ? product.images.map(normalizeImage)
-      : product.images,
-  };
-  const content = JSON.stringify(normalizedProduct, null, 2);
-  const message = `Update product: ${product.name}`;
+    if (error) throw error;
 
-  await createOrUpdateFile(path, content, message);
-  
-  // Invalidate cache for this product
-  cacheManager.invalidateProduct(product.slug);
+    // Invalidate cache for this product
+    cacheManager.invalidateProduct(product.slug);
+  } catch (error) {
+    console.error('Error saving product to Supabase:', error);
+    throw error;
+  }
 }
 
 export async function deleteProduct(slug: string): Promise<void> {
-  const path = `${PRODUCTS_DIR}/${slug}.json`;
-  const message = `Delete product: ${slug}`;
+  try {
+    const { error } = await supabase
+      .from('products')
+      .delete()
+      .eq('slug', slug);
 
-  await deleteFile(path, message);
-  
-  // Invalidate cache for this product
-  cacheManager.invalidateProduct(slug);
+    if (error) throw error;
+
+    // Invalidate cache for this product
+    cacheManager.invalidateProduct(slug);
+  } catch (error) {
+    console.error(`Error deleting product ${slug} from Supabase:`, error);
+    throw error;
+  }
 }

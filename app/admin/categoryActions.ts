@@ -1,7 +1,7 @@
 'use server';
 
 import { Category } from '@/types';
-import { uploadImage } from '@/lib/github';
+import { uploadImage } from '@/lib/supabase';
 import { revalidatePath } from 'next/cache';
 import { generateSlug } from '@/lib/utils';
 import { saveCategory, getCategoryBySlug } from '@/lib/categories';
@@ -15,7 +15,7 @@ export async function updateCategory(formData: FormData) {
     // Get existing category first
     const existingCategory = slug ? await getCategoryBySlug(slug) : null;
     
-    // Only generate a new slug if this is a new category (no slug provided or doesn't exist)
+    // Only generate a new slug if this is a new category
     const finalSlug = existingCategory ? slug : (slug && slug.trim() !== '' ? slug : generateSlug(title));
     let image = existingCategory?.image || '';
 
@@ -24,11 +24,9 @@ export async function updateCategory(formData: FormData) {
     if (imageFile && imageFile.size > 0) {
       const buffer = await imageFile.arrayBuffer();
       const base64 = Buffer.from(buffer).toString('base64');
-      const fileName = `category-${slug}-${Date.now()}.jpg`;
-      // Save to public/categories/ in GitHub
-      const imagePath = await uploadImage('category', fileName, base64);
-      // The returned path is like /categories/filename.jpg
-      image = `https://cityhighstyles.github.io/public${imagePath}`;
+      const fileName = `category-${finalSlug}-${Date.now()}.jpg`;
+      // Save to categories/ in Supabase
+      image = await uploadImage('categories', fileName, base64);
     } else if (!existingCategory) {
       return { success: false, error: 'Image file is required for new categories.' };
     }
@@ -40,11 +38,12 @@ export async function updateCategory(formData: FormData) {
       image,
     };
 
-    // Save category as JSON file in GitHub
+    // Save category to Supabase
     await saveCategory(category);
 
     revalidatePath('/');
     revalidatePath(`/category/${finalSlug}`);
+    revalidatePath('/products');
 
     return { success: true };
   } catch (error) {
@@ -55,11 +54,12 @@ export async function updateCategory(formData: FormData) {
 
 export async function deleteCategory(slug: string) {
   try {
-    const { deleteCategory: deleteCategoryFromGitHub } = await import('@/lib/categories');
-    await deleteCategoryFromGitHub(slug);
+    const { deleteCategory: deleteCategoryFromSupabase } = await import('@/lib/categories');
+    await deleteCategoryFromSupabase(slug);
     
     revalidatePath('/');
     revalidatePath(`/category/${slug}`);
+    revalidatePath('/products');
     
     return { success: true };
   } catch (error) {
